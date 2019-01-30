@@ -16,7 +16,7 @@ namespace ALEmanMS.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
 
         //Relation with other tables
         public virtual List<Category> Categories { get; set; }

@@ -16,21 +16,18 @@ namespace ALEmanMS.Models
         [StringLength(512)]
         public string Description { get; set; }
 
-        public bool IsSeen { get; set; }
+        public bool IsSeen { get; set; } = false;
 
         [Required]
+        [StringLength(50)]
         public string FromId { get; set; }
 
         [Required]
+        [StringLength(50)]
         public string ToId { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime MessageDate { get; set; }
 
         //Relation with other tables
-        [Required]
-        public virtual Person Person { get; set; }
-
-        public string PersonId { get; set; }
-
     }
 }

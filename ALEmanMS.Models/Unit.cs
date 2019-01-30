@@ -16,5 +16,10 @@ namespace ALEmanMS.Models
         [StringLength(25)]
         public string Name { get; set; }
 
+        //Relation with other tables
+        public virtual List<GroupingGroup> GroupingGroups { get; set; }
+
+        public virtual List<Category> Categories { get; set; }
+
     }
 }

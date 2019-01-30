@@ -13,10 +13,10 @@ namespace ALEmanMS.Models
         public string BillItemId { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(128)]
         public string Description { get; set; }
 
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
 
         //Relation with other tables
         [Required]

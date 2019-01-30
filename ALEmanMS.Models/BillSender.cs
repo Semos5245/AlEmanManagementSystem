@@ -13,7 +13,7 @@ namespace ALEmanMS.Models
         public string BillSenderId { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(128)]
         public string Description { get; set; }
 
         public int TotalPackages { get; set; }

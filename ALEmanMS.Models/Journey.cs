@@ -11,8 +11,7 @@ namespace ALEmanMS.Models
     {
         [Key]
         public string JourneyId { get; set; }
-
-        [Required]
+        
         [StringLength(50)]
         public string Location { get; set; }
 
@@ -21,10 +20,9 @@ namespace ALEmanMS.Models
 
         public decimal? Customs { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime JourneyDate { get; set; }
 
         //Relation with other tables
-        [Required]
         public  virtual List<Package> Packages { get; set; }
 
         public virtual List<Bill> Bills { get; set; }

@@ -13,27 +13,26 @@ namespace ALEmanMS.Models
         public string BillId { get; set; }
 
         public DateTime JourneyDate { get; set; }
-
-        [Required]
+        
         [StringLength(50)]
         public string CarNumber { get; set; }
 
         public int PackageCount { get; set; }
-
-        [Required]
+        
+        [StringLength(50)]
         public string DriverName { get; set; }
 
-        public decimal? Total { get; set; }
+        public decimal Total { get; set; }
 
-        public decimal? TotalInSR { get; set; }
+        public decimal TotalInSR { get; set; }
 
-        public bool PaidInDamas { get; set; }
+        public bool PaidInDamas { get; set; } = false;
 
         public double ShipmentPrice { get; set; }
 
-        public double? Weight { get; set; }
+        public double Weight { get; set; }
 
-        public double? PlaneWeight { get; set; }
+        public double PlaneWeight { get; set; }
 
         [StringLength(512)]
         public string Notes { get; set; }

@@ -22,16 +22,16 @@ namespace ALEmanMS.Models
         [StringLength(50)]
         public string CommercialName { get; set; }
 
-        [StringLength(10)]
+        [StringLength(15)]
         public string TaxNumber { get; set; }
 
         // Realtions ships with other tables 
+        public virtual List<Journey> Journeys { get; set; }
+
         [Required]
         public virtual City City { get; set; }
 
         public string CityId { get; set; }
-
-        public virtual List<Journey> Journeys { get; set; }
-
+        
     }
 }

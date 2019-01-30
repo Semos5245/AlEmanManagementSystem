@@ -15,8 +15,7 @@ namespace ALEmanMS.Models
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
-
-        [Required]
+        
         [StringLength(25)]
         public string Phone { get; set; }
 
@@ -30,7 +29,6 @@ namespace ALEmanMS.Models
         public string CommercialNumber { get; set; }
 
         //Relation with other tables
-        [Required]
         public virtual List<Journey> Journeys { get; set; }
 
     }
