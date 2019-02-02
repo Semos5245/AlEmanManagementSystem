@@ -1,0 +1,361 @@
+﻿@model IEnumerable<ALEmanMS.Models.Destination>
+
+@{
+    ViewBag.Title = "الوجهات";
+}
+
+@section Css {
+
+    <!-- Css libraries for this page goes here-->
+    <!-- Modals Library-->
+    <link href="~/Content/plugins/custombox/dist/custombox.min.css" rel="stylesheet">
+
+    <!-- DataTables -->
+    <link href="~/Content/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="~/Content/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="card-box">
+    <h2>الوجهات</h2>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="m-b-30">
+                <button id="btnNewDestination" data-toggle="modal" data-target="#con-close-modal" class="btn btn-success waves-effect waves-light"><i class="fa fa-plus"></i> إضافة وجهة</button>
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped" id="destinationsTable">
+        <thead>
+            <tr>
+                <th>
+                    الوجهة
+                </th>
+                <th>إجراءات</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @{
+                            string rowId = "row" + item.DestinationId;
+                        }
+                        <span id="@rowId">@item.Name</span>
+                    </td>
+                    <td class="actions">
+                        <a href="#" class="on-default edit-row editDestination" data-id="@item.DestinationId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                        <a href="#" class="on-default remove-row removeDestination" data-id="@item.DestinationId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Modals
+{
+    <!-- Insert Modal -->
+    <div id="con-close-modal" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">إضافة وجهة جديدة</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="insertForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">اسم الوجهة</label>
+                                    <input type="text" class="form-control" required parsley-trigger="change" id="txtAddDestination" placeholder="الإمارات">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                            <button type="submit" id="btnAddDestination" class="btn btn-info waves-effect waves-light">إضافة</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+    <!-- Edit  Modal -->
+    <div id="con-close-modal-edit" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">تعديل وجهة</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="editForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">اسم الوجهة</label>
+                                    <input type="text" class="form-control" required parsley-trigger="change" id="txtEditDestination" placeholder="الإمارات">
+                                    <input type="hidden" id="destinationId" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                            <button type="submit" id="btnEditDestination" class="btn btn-info waves-effect waves-light">حفظ التغيرات</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+
+    <!-- Delete  Modal -->
+    <div id="con-close-modal-delete" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">رسالة تأكيد</h4>
+                </div>
+                <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>هل أنت متأكد من أنك تريد حذف <span id="destinationName"></span>؟</p>
+                            </div>
+                            <input type="hidden" id="deleteDestinationId"/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                            <button type="submit" id="btnDeleteDestination" class="btn btn-danger waves-effect waves-light">حذف</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+}
+
+@section Scripts {
+
+    <!-- Scripts related to this page goes here -->
+    <!-- Required datatable js -->
+    <script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="~/Content/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/Content/plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/plugins/datatables/jszip.min.js"></script>
+    <script src="~/Content/plugins/datatables/pdfmake.min.js"></script>
+    <script src="~/Content/plugins/datatables/vfs_fonts.js"></script>
+    <script src="~/Content/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="~/Content/plugins/datatables/buttons.print.min.js"></script>
+
+    <!-- Notification js -->
+    <script src="~/Content/plugins/notifyjs/dist/notify.min.js"></script>
+    <script src="~/Content/plugins/notifications/notify-metro.js"></script>
+    <script src="~/Content/assets/js/notifications-asset.js"></script>
+
+    <!-- Parsleyjs -->
+    <script type="text/javascript" src="~/Content/plugins/parsleyjs/dist/parsley.min.js"></script>
+
+    <!-- Modals Effects -->
+    <!-- Modal-Effect -->
+    <script src="~/Content/plugins/custombox/dist/custombox.min.js"></script>
+    <script src="~/Content/plugins/custombox/dist/legacy.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            var table = $("#destinationsTable").dataTable();
+
+            //$("#btnAddDestination").click(function () {
+            //    insertDestination();
+            //});
+
+            $('form').parsley();
+
+            $("#insertForm").submit(function (e) {
+                // Stop the form from being accepted
+                e.preventDefault();
+
+                insertDestination();
+            });
+
+            $(".editDestination").click(function () {
+                // Get the id from the button
+                var id = $(this).data("id");
+
+                openEditModal(id);
+            });
+
+            // Click edit destination button
+            $("#editForm").submit(function (e) {
+                // Don't submit
+                e.preventDefault();
+
+                // Get the id
+                var id = $("#destinationId").val();
+                var newName = $("#txtEditDestination").val();
+
+                // Send the reqeuest
+                editDestination(id, newName);
+            });
+
+            // Click the remove destination button in the table 
+            $(".removeDestination").click(function () {
+                // Get the id 
+                var id = $(this).data("id"); 
+                // Open Modal 
+                openDeleteModal(id); 
+            });
+
+            // Click the delete button in delete modal 
+            $("#btnDeleteDestination").click(function () {
+                // Get the id 
+                var id = $('#deleteDestinationId').val(); 
+
+                // Delete
+                removeDestination(id); 
+            });
+
+
+        });
+
+         // Insert a new destination
+            function insertDestination() {
+                var table = $("#destinationsTable").DataTable();
+                var destination = $("#txtAddDestination").val();
+                var url = "@Url.Action("Create", "Destinations")";
+
+                $.ajax({
+                    type: 'POST',
+                    data: { destinationName: destination },
+                    url: url,
+                    success: function (data) {
+                        showSuccessNotification("تمت العملية بنجاح", data.message);
+                        // Close the modal
+                        $("#con-close-modal").modal('toggle');
+
+                        // Add the destination to the table
+                        table.row.add([data.name,
+                        "<a href='#' class='on-default edit-row' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit'><i class='fa fa-pencil'></i></a> <a href='#' class='on-default remove-row' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='fa fa-trash-o'></i></a>"]).draw(false);
+                        //$("#tableBody").append("<tr><td>" + data.name + "</td><td></td></tr>")
+
+                    }
+                }).fail(function (e) {
+                    //alert(e.status + " " + e.statusCode());
+                    if (e.status === 406) {
+                        showErrorNotification("لم تتم العملية بنجاح", "يرجى ادخال اسم للوجهة");
+                    }
+                    else {
+                        showErrorNotification("لم تتم العملية بنجاح", "إن هذه الوجهة موجودة مسبقاً");
+                    }
+
+                        });
+        }
+
+        // Funciton to open edit modal
+        function openEditModal(id) {
+            // Send a get request to get the data of the destination
+            var url = "@Url.Action("Details", "Destinations")/" + id;
+
+            // Send ajax request
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {
+                    // Set the text of the modal to name
+                    $("#txtEditDestination").val(data.Name);
+                    $("#destinationId").val(data.id);
+
+                    // Open the modal
+                    $("#con-close-modal-edit").modal("toggle");
+                }
+            }).fail(function (e) {
+                showErrorNotification("فشل", "يوجد هنالك خطأ ما, يرجى إعادة المحاولة لاحقاً");
+            });
+        }
+
+        // Function to edit the destination
+        function editDestination(id, newName) {
+            // Send post request to edit the destiantion
+            var url = "@Url.Action("Edit", "Destinations")";
+            var data = {
+                id: id,
+                newName: newName
+            };
+
+            // Ajax Request
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (data) {
+                    // Close the modal
+                    $("#con-close-modal-edit").modal('toggle');
+
+                    // Update the value in the table
+                    $("#row" + id).text(newName);
+
+                    // Show notification
+                    showSuccessNotification('لقد تمت العملية بنجاح', 'لقد تم تعديل اسم الوجهة');
+                }
+            }).fail(function (e) {
+                if (e.status == 409) {
+                    // Conflic
+                    showErrorNotification('فشل', 'لا يمكن تعديل اسم الوجهة إلى ' + newName + ' لأنه يوجد وجهة تحمل الاسم ذاته');
+                }
+            });
+        }
+
+        // Function to open delete modal 
+        function openDeleteModal(id) {
+            // Get the name of the destination from the table 
+            var destination = $("#row" + id).text(); 
+
+            // Show the name in the modal 
+            $("#destinationName").text(destination); 
+
+            // Set the destination in the hidden filed 
+            $("#deleteDestinationId").val(id); 
+            // Open the modal 
+            $("#con-close-modal-delete").modal('toggle'); 
+        }
+
+        // Function to remove the Destination 
+        function removeDestination(id) {
+            // Get the table to manpulaite 
+            var table = $("#destinationsTable").DataTable(); 
+
+            // Get the name of the destination 
+            var name = $("#row" + id).text(); 
+
+            // Prepare the url 
+            var url = "@Url.Action("Delete", "Destinations")/" + id; 
+
+            // Send the post request to remove 
+            $.ajax({
+                url: url,
+                type: "POST",
+                success: function (data) {
+                    // Remove from the table 
+
+                    // Close the modal 
+                    $("#con-close-modal-delete").modal('toggle'); 
+
+                    // Show notification 
+                    showSuccessNotification('تمت العملية بنجاح', 'لفد تم حذف الوجهة ' + name);
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم تتم العملية بنجاح, يرجى إعادة المحاولة لاحقاً');
+            });
+        }
+    </script>
+}
+
+

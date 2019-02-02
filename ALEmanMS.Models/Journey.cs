@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,7 @@ namespace ALEmanMS.Models
         [Required]
         public virtual Driver Driver { get; set; }
 
+        [ForeignKey("Driver")]
         public string DriverId { get; set; }
 
         [Required]
@@ -40,7 +42,12 @@ namespace ALEmanMS.Models
         [Required]
         public virtual ReceiverCompany ReceiverCompany { get; set; }
 
-        public string ReceiverId { get; set; }
+        public string ReceiverCompanyId { get; set; }
+
+        [Required] 
+        public virtual JourneyType JourneyType { get; set; }
+
+        public string JourneyTypeId { get; set; }
 
     }
 }

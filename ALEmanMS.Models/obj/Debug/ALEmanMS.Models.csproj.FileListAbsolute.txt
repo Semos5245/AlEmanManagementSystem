@@ -1,0 +1,12 @@
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\bin\Debug\ALEmanMS.Models.dll.config
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\bin\Debug\ALEmanMS.Models.dll
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\bin\Debug\ALEmanMS.Models.pdb
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\bin\Debug\EntityFramework.dll
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\bin\Debug\EntityFramework.SqlServer.dll
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\bin\Debug\EntityFramework.xml
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\bin\Debug\EntityFramework.SqlServer.xml
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.csprojAssemblyReference.cache
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.csproj.CoreCompileInputs.cache
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.csproj.CopyComplete
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.dll
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.pdb

@@ -21,7 +21,7 @@ namespace ALEmanMS.Models
         public double? VehicleLength { get; set; }
 
         // Relationships with other tables 
-        public virtual List<Journey> Journey { get; set; }
+        public virtual List<Journey> Journeys { get; set; }
 
     }
 }

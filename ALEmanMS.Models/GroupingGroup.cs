@@ -21,6 +21,8 @@ namespace ALEmanMS.Models
         //Relation with other tables
         public virtual List<Category> Categories { get; set; }
 
+        public virtual List<Category> LowCategories { get; set; }
+
         [Required]
         public virtual Unit Unit { get; set; }
 

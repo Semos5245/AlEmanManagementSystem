@@ -60,6 +60,7 @@
     <Compile Include="Group.cs" />
     <Compile Include="GroupingGroup.cs" />
     <Compile Include="Journey.cs" />
+    <Compile Include="JourneyType.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Person.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Sender.cs" />
     <Compile Include="SenderCompany.cs" />
     <Compile Include="Unit.cs" />
+    <Compile Include="UserActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

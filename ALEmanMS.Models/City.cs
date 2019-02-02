@@ -10,6 +10,8 @@ namespace ALEmanMS.Models
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
+        
+        public int CityOrder { get; set; } = 0; 
 
         // Relationships with other tables 
         [Required]
