@@ -60,7 +60,7 @@
 @section Modals
 {
     <!-- Insert Modal -->
-    <div id="con-close-modal" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div id="con-close-modal" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -87,7 +87,7 @@
         </div>
     </div><!-- /.modal -->
     <!-- Edit  Modal -->
-    <div id="con-close-modal-edit" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div id="con-close-modal-edit" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -116,7 +116,7 @@
     </div><!-- /.modal -->
 
     <!-- Delete  Modal -->
-    <div id="con-close-modal-delete" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div id="con-close-modal-delete" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -126,7 +126,7 @@
                 <div class="modal-body">
                         <div class="row">
                             <div class="col-md-8">
-                                <p>هل أنت متأكد من أنك تريد حذف <span id="destinationName"></span>؟</p>
+                                <p>هل أنت متأكد من أنك تريد حذف <strong id="destinationName"></strong>؟</p>
                             </div>
                             <input type="hidden" id="deleteDestinationId"/>
                         </div>
@@ -321,7 +321,7 @@
             // Show the name in the modal 
             $("#destinationName").text(destination); 
 
-            // Set the destination in the hidden filed 
+            // Set the destination in the hidden field
             $("#deleteDestinationId").val(id); 
             // Open the modal 
             $("#con-close-modal-delete").modal('toggle'); 
@@ -330,7 +330,7 @@
         // Function to remove the Destination 
         function removeDestination(id) {
             // Get the table to manpulaite 
-            var table = $("#destinationsTable").DataTable(); 
+            var table = $("#destinationsTable").dataTable(); 
 
             // Get the name of the destination 
             var name = $("#row" + id).text(); 
@@ -343,8 +343,8 @@
                 url: url,
                 type: "POST",
                 success: function (data) {
-                    // Remove from the table 
-
+                    //Remove from the table 
+                    $('#row' + id).remove();
                     // Close the modal 
                     $("#con-close-modal-delete").modal('toggle'); 
 

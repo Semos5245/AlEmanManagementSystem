@@ -109,15 +109,15 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
-                            <button type="submit" id="btnAddDestination" class="btn btn-info waves-effect waves-light">إضافة</button>
+                            <button type="submit" id="btnAddCity" class="btn btn-info waves-effect waves-light">إضافة</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div><!-- /.modal -->
-    <!-- Insert Modal -->
-    <div id="con-close-modal-edit" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <!-- Edit Modal -->
+    <div id="con-close-modal-edit" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -166,7 +166,7 @@
     </div><!-- /.modal -->
     
     <!-- Delete  Modal -->
-    <div id="con-close-modal-delete" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div id="con-close-modal-delete" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -176,13 +176,13 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-8">
-                            <p>هل أنت متأكد من أنك تريد حذف <span id="cityName"></span>؟</p>
+                            <p>هل أنت متأكد من أنك تريد حذف <strong id="cityName"></strong>؟</p>
                         </div>
                         <input type="hidden" id="deleteCityId" />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
-                        <button type="submit" id="btnDeleteDestination" class="btn btn-danger waves-effect waves-light">حذف</button>
+                        <button type="submit" id="btnDeleteCity" class="btn btn-danger waves-effect waves-light">حذف</button>
                     </div>
                 </div>
             </div>
@@ -243,7 +243,7 @@
                 openEditModal(id);
             });
 
-            // Click edit destination button
+            // Click edit city button
             $("#editForm").submit(function (e) {
                 // Don't submit
                 e.preventDefault();
@@ -255,11 +255,11 @@
                 var destinationId = $("#cmbEditCityDestination").val(); 
 
                 // Send the reqeuest
-                editDestination(id, newName, cityOrder, destinationId);
+                editCity(id, newName, cityOrder, destinationId);
             });
 
-            // Click the remove destination button in the table
-            $(".removeDestination").click(function () {
+            // Click the remove city button in the table
+            $(".removeCity").click(function () {
                 // Get the id
                 var id = $(this).data("id");
                 // Open Modal
@@ -267,18 +267,17 @@
             });
 
             // Click the delete button in delete modal
-            $("#btnDeleteDestination").click(function () {
+            $("#btnDeleteCity").click(function () {
                 // Get the id
-                var id = $('#deleteDestinationId').val();
+                var id = $('#deleteCityId').val();
 
                 // Delete
-                removeDestination(id);
+                removeCity(id);
             });
-
-
+            
         });
 
-         // Insert a new destination
+         // Insert a new City
             function insertCity() {
                 var table = $("#citiesTable").DataTable();
 
@@ -321,7 +320,7 @@
 
         // Funciton to open edit modal
         function openEditModal(id) {
-            // Send a get request to get the data of the destination
+            // Send a get request to get the data of the city
             var url = "@Url.Action("Details", "Cities")/" + id;
 
             // Send ajax request
@@ -343,7 +342,7 @@
         }
 
         // Function to edit the destination
-        function editDestination(id, newName, cityOrder, destinationId) {
+        function editCity(id, newName, cityOrder, destinationId) {
             // Send post request to edit the destiantion
             var url = "@Url.Action("Edit", "Cities")";
             var data = {
@@ -382,28 +381,28 @@
 
         // Function to open delete modal
         function openDeleteModal(id) {
-            // Get the name of the destination from the table
-            var destination = $("#row" + id).text();
+            // Get the name of the city name from the table
+            var city = $("#row" + id).text();
 
             // Show the name in the modal
-            $("#destinationName").text(destination);
+            $("#cityName").text(city);
 
-            // Set the destination in the hidden filed
-            $("#deleteDestinationId").val(id);
+            // Set the city in the hidden filed
+            $("#deleteCityId").val(id);
             // Open the modal
             $("#con-close-modal-delete").modal('toggle');
         }
 
         // Function to remove the Destination
-        function removeDestination(id) {
+        function removeCity(id) {
             // Get the table to manpulaite
-            var table = $("#destinationsTable").DataTable();
+            var table = $("#citiesTable").dataTable();
 
             // Get the name of the destination
             var name = $("#row" + id).text();
 
             // Prepare the url
-            var url = "@Url.Action("Delete", "Destinations")/" + id;
+            var url = "@Url.Action("Delete", "Cities")/" + id;
 
             // Send the post request to remove
             $.ajax({
@@ -411,12 +410,12 @@
                 type: "POST",
                 success: function (data) {
                     // Remove from the table
-
+                    $('#row' + id).remove();
                     // Close the modal
                     $("#con-close-modal-delete").modal('toggle');
 
                     // Show notification
-                    showSuccessNotification('تمت العملية بنجاح', 'لفد تم حذف الوجهة ' + name);
+                    showSuccessNotification('تمت العملية بنجاح', 'لفد تم حذف المدينة ' + name);
                 }
             }).fail(function (e) {
                 showErrorNotification('فشل', 'لم تتم العملية بنجاح, يرجى إعادة المحاولة لاحقاً');

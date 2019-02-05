@@ -121,6 +121,21 @@ namespace ALEmanMS.AdminWebsite.Controllers
             }, JsonRequestBehavior.AllowGet); 
        
         }
+        //DELETE: Cities/Delete/fd8oash7f8a
+        [HttpDelete]
+        public ActionResult Delete(string id)
+        {
+            var city = db.Cities.Find(id);
 
+            if (city == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+
+            db.Cities.Remove(city);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }
