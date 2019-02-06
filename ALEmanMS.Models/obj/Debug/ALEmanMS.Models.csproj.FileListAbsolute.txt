@@ -22,3 +22,5 @@ D:\Projects\OurCompany\ALEmanMS\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.csproj
 D:\Projects\OurCompany\ALEmanMS\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.csproj.CopyComplete
 D:\Projects\OurCompany\ALEmanMS\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.dll
 D:\Projects\OurCompany\ALEmanMS\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.pdb
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\bin\Debug\Newtonsoft.Json.dll
+E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\bin\Debug\Newtonsoft.Json.xml

@@ -12,17 +12,18 @@ namespace ALEmanMS.AdminWebsite.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        SelectList GetCities()
-        {
-            var citiesList = new List<SelectListItem>();
+        // TODO: To copy it into the customers page 
+        //SelectList GetCities()
+        //{
+        //    var citiesList = new List<SelectListItem>();
 
-            foreach (var item in db.Cities.ToList())
-            {
-                citiesList.Add(new SelectListItem { Text = item.Name, Value = item.CityId });
-            }
+        //    foreach (var item in db.Cities.ToList())
+        //    {
+        //        citiesList.Add(new SelectListItem { Text = item.Name, Value = item.CityId });
+        //    }
 
-            return new SelectList(citiesList, "Value", "Text");
-        }
+        //    return new SelectList(citiesList, "Value", "Text");
+        //}
 
         // GET: Senders
         public ActionResult Index()
@@ -33,48 +34,50 @@ namespace ALEmanMS.AdminWebsite.Controllers
         //GET: Senders/Create
         public ActionResult Create()
         {
-            var model = new SenderViewModel
-            {
-                Cities = GetCities()
-            };
+            //var model = new SenderViewModel
+            //{
+            //    Cities = GetCities()
+            //};
 
-            return View(model);
+            return View(new SenderViewModel());
         }
 
         //POST: Senders/Create
         [HttpPost]
         public ActionResult Create(SenderViewModel model)
         {
+            // Get the cities 
+            //model.Cities = GetCities();
+
             if (ModelState.IsValid)
             {
                 var sender = db.People.OfType<Sender>().FirstOrDefault(s => (s.FirstName == model.FirstName && s.LastName == model.LastName) || s.NationalID == model.NationalId);
 
                 if (sender != null)
                 {
-                    return new HttpStatusCodeResult(406);
+                    return View(model);
                 }
 
-                var city = db.Cities.FirstOrDefault(c => c.Name == model.CityName);
+                //var city = db.Cities.FirstOrDefault(c => c.Name == model.CityId);
 
-                if (city == null)
-                {
-                    return new HttpStatusCodeResult(404);
-                }
-                var newSender = new Sender
-                {
-                    PersonId = Guid.NewGuid().ToString(),
-                    FirstName = model.FirstName.Trim(),
-                    LastName = model.LastName.Trim(),
-                    Description = model.Description.Trim(),
-                    Company = model.Company.Trim(),
-                    MotherName = model.MotherName.Trim(),
-                    NationalID = model.NationalId.Trim(),
-                    Birthdate = model.BirthDate,
-                    Profession = model.Profession.Trim(),
-                    RegistrationNumber = model.RegisterationNumber.Trim(),
-                    State = model.State.Trim(),
-                    CityName = city.Name
-                };
+                //if (city == null)
+                //{
+                //    return HttpNotFound();
+                //}
+
+                var newSender = new Sender();
+                newSender.PersonId = Guid.NewGuid().ToString();
+                newSender.FirstName = model.FirstName.Trim();
+                newSender.LastName = model.LastName.Trim();
+                newSender.Description = model.Description != null ? model.Description.Trim() : "";
+                newSender.Company = model.Company != null ? model.Company.Trim() : "";
+                newSender.MotherName = model.MotherName != null ? model.MotherName.Trim() : "";
+                newSender.NationalID = model.NationalId != null ? model.NationalId.Trim() : "";
+                newSender.Birthdate = model.BirthDate;
+                newSender.Profession = model.Profession != null ? model.Profession.Trim() : "";
+                newSender.RegistrationNumber = model.RegisterationNumber != null ? model.RegisterationNumber.Trim() : "";
+                newSender.State = model.State != null ? model.State.Trim() : "";
+                newSender.CityName = model.CityName;
 
                 db.People.Add(newSender);
                 db.SaveChanges();
@@ -82,7 +85,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 return RedirectToAction("Index");
             }
 
-            return new HttpStatusCodeResult(404);
+            return View(model);
         }
 
         //GET: Senders/Edit/fjsiday787ysd8afhsao
@@ -92,33 +95,33 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
             if (sender == null)
             {
-                return new HttpStatusCodeResult(404);
+                return HttpNotFound(); 
             }
 
             var model = new SenderViewModel
             {
-                FirstName = sender.FirstName.Trim(),
-                LastName = sender.LastName.Trim(),
-                Description = sender.Description.Trim(),
-                Company = sender.Company.Trim(),
-                MotherName = sender.MotherName.Trim(),
-                NationalId = sender.NationalID.Trim(),
+                FirstName = sender.FirstName,
+                LastName = sender.LastName,
+                Description = sender.Description,
+                Company = sender.Company,
+                MotherName = sender.MotherName,
+                NationalId = sender.NationalID,
                 BirthDate = sender.Birthdate,
-                Profession = sender.Profession.Trim(),
-                RegisterationNumber = sender.RegistrationNumber.Trim(),
-                State = sender.State.Trim(),
+                Profession = sender.Profession,
+                RegisterationNumber = sender.RegistrationNumber,
+                State = sender.State,
                 CityName = sender.CityName,
-                Cities = GetCities(),
+                //Cities = GetCities(),
             };
 
             return View(model);
         }
 
         //PUT: Senders/Edit
-        [HttpPut]
+        [HttpPost]
         public ActionResult Edit(string id, SenderViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var oldSender = db.People.OfType<Sender>().FirstOrDefault(s => (s.FirstName == model.FirstName && s.LastName == model.LastName) || s.NationalID == model.NationalId);
 
@@ -129,6 +132,10 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
                 var newSender = db.People.Find(id) as Sender;
 
+                if (newSender == null)
+                    return HttpNotFound(); 
+
+                // TODO: Fix the problem of null excpetion 
                 newSender.FirstName = model.FirstName.Trim();
                 newSender.LastName = model.LastName.Trim();
                 newSender.MotherName = model.MotherName.Trim();
@@ -146,9 +153,10 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 return RedirectToAction("Index");
             }
 
-            return new HttpStatusCodeResult(406);
+            return View(model);
         }
-        [HttpDelete]
+
+        [HttpPost]
         //DELETE: Senders/Delete/juos7asg67iasg67isa
         public ActionResult Delete(string id)
         {

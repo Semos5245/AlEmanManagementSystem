@@ -56,11 +56,11 @@ namespace ALEmanMS.AdminWebsite.Models
         [Display(Name = "ملاحظات")]
         public string Description { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        [Display(Name = "المدينة")]
-        public string CityId { get; set; }
+        //[Required]
+        //[StringLength(50)]
+        //[Display(Name = "المدينة")]
+        //public string CityId { get; set; }
 
-        public SelectList Cities { get; set; }
+        //public SelectList Cities { get; set; }
     }
 }
