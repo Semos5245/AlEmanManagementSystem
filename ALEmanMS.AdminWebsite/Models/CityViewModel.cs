@@ -8,7 +8,6 @@ namespace ALEmanMS.AdminWebsite.Models
 {
     public class CityViewModel
     {
-
         public List<City> Cities { get; set; }
 
         public List<Destination> Destinations { get; set; }
