@@ -45,7 +45,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
             {
                 var sender = db.People.OfType<Sender>().FirstOrDefault(s => (s.FirstName == model.FirstName && s.LastName == model.LastName) || s.NationalID == model.NationalId);
 
-                if (sender == null)
+                if (sender != null)
                 {
                     return View(model);
                 }
@@ -70,30 +70,6 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 newSender.RegistrationNumber = model.RegisterationNumber != null ? model.RegisterationNumber.Trim() : "";
                 newSender.State = model.State != null ? model.State.Trim() : "";
                 newSender.CityName = model.CityName;
-                    return new HttpStatusCodeResult(406);
-                }
-
-                var city = db.Cities.FirstOrDefault(c => c.Name == model.CityName);
-
-                if (city == null)
-                {
-                    return new HttpStatusCodeResult(404);
-                }
-                var newSender = new Sender
-                {
-                    PersonId = Guid.NewGuid().ToString(),
-                    FirstName = model.FirstName.Trim(),
-                    LastName = model.LastName.Trim(),
-                    Description = model.Description.Trim(),
-                    Company = model.Company.Trim(),
-                    MotherName = model.MotherName.Trim(),
-                    NationalID = model.NationalId.Trim(),
-                    Birthdate = model.BirthDate,
-                    Profession = model.Profession.Trim(),
-                    RegistrationNumber = model.RegisterationNumber.Trim(),
-                    State = model.State.Trim(),
-                    CityName = city.Name
-                };
 
                 db.People.Add(newSender);
                 db.SaveChanges();
@@ -111,7 +87,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
             if (sender == null)
             {
-                return HttpNotFound(); 
+                return HttpNotFound();
             }
 
             var model = new SenderViewModel
@@ -128,7 +104,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 State = sender.State,
                 CityName = sender.CityName,
                 //Cities = GetCities(),
-
+            };
             return View(model);
         }
 
@@ -148,7 +124,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 var newSender = db.People.Find(id) as Sender;
 
                 if (newSender == null)
-                    return HttpNotFound(); 
+                    return HttpNotFound();
 
                 // TODO: Fix the problem of null excpetion 
 

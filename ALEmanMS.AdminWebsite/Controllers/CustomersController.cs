@@ -45,6 +45,8 @@ namespace ALEmanMS.AdminWebsite.Controllers
         [HttpPost]
         public ActionResult Create(CustomerViewModel model)
         {
+            model.Cities = GetCities();
+
             if (ModelState.IsValid)
             {
                 var customer = db.People.OfType<Customer>().FirstOrDefault(c => (c.FirstName == model.FirstName && c.LastName == model.LastName) || c.CommercialName == model.CommercialName);
@@ -52,7 +54,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 if (customer != null)
                     return View(model);
 
-                var city = db.Cities.FirstOrDefault(c => c.Name == model.CityName);
+                var city = db.Cities.Find(model.CityId);
 
                 if (city == null)
                     return View(model);
@@ -62,16 +64,16 @@ namespace ALEmanMS.AdminWebsite.Controllers
                     PersonId = Guid.NewGuid().ToString(),
                     FirstName = model.FirstName.Trim(),
                     LastName = model.LastName.Trim(),
-                    Company = model.Company.Trim(),
+                    Company = model.Company != null ? model.Company.Trim() : "",
                     CommercialName = model.CommercialName.Trim(),
                     PaidInDamas = model.PaidInDamascus == "on" ? true: false,
                     SpecialFee = model.SpecialFee,
-                    Description = model.Description.Trim(),
+                    Description = model.Description != null ? model.Description.Trim() : "",
                     Birthdate = model.BirthDate,
-                    TaxNumber = model.TaxtNumber.Trim(),
+                    TaxNumber = model.TaxtNumber != null ? model.TaxtNumber.Trim() : "",
                     City = city,
                     CityId = city.CityId,
-                    CityName = model.CityName.Trim()
+                    CityName = city.Name
                 };
 
                 db.People.Add(newCustomer);
@@ -88,45 +90,53 @@ namespace ALEmanMS.AdminWebsite.Controllers
             var customer = db.People.Find(id) as Customer;
 
             if (customer == null)
-                return new HttpStatusCodeResult(406);
+                return HttpNotFound();
 
             var model = new CustomerViewModel
             {
-                FirstName = customer.FirstName.Trim(),
-                LastName = customer.LastName.Trim(),
-                Company = customer.Company.Trim(),
-                CommercialName = customer.CommercialName.Trim(),
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Company = customer.Company,
+                CommercialName = customer.CommercialName,
                 BirthDate = customer.Birthdate,
-                TaxtNumber = customer.TaxNumber.Trim(),
-                Description = customer.Description.Trim(),
+                TaxtNumber = customer.TaxNumber,
+                Description = customer.Description,
                 Cities = GetCities(),
                 SpecialFee = customer.SpecialFee,
-                CityName = customer.CityName.Trim()
+                CityName = customer.CityName,
+                PaidInDamascus = customer.PaidInDamas == true ? "on" : "off"
             };
 
             return View(model);
         }
 
         //PUT: Customer/Edit/fjusadyf6asgfsadg6f7asfi
-        [HttpPut]
+        [HttpPost]
         public ActionResult Edit(string id, CustomerViewModel model)
         {
+            model.Cities = GetCities();
+
             if (ModelState.IsValid)
             {
-                var oldCustomer = db.People.OfType<Customer>().FirstOrDefault(c => (c.FirstName == model.FirstName && c.LastName == model.LastName) || c.CommercialName == model.CommercialName);
+                //var oldCustomer = db.People.OfType<Customer>().FirstOrDefault(c => (c.FirstName == model.FirstName && c.LastName == model.LastName) || c.CommercialName == model.CommercialName);
 
-                if (oldCustomer != null)
-                    return View(model);
+                //if (oldCustomer == null)
+                    //return View(model);
 
-                var city = db.Cities.FirstOrDefault(c => c.Name == model.CityName);
+                var city = db.Cities.Find(model.CityId);
                 var newCustomer = db.People.Find(id) as Customer;
+
+                if (city == null || newCustomer == null)
+                {
+                    return View(model);
+                }
 
                 newCustomer.FirstName = model.FirstName.Trim();
                 newCustomer.LastName = model.LastName.Trim();
                 newCustomer.PaidInDamas = model.PaidInDamascus == "on" ? true : false;
                 newCustomer.SpecialFee = model.SpecialFee;
-                newCustomer.TaxNumber = model.TaxtNumber.Trim();
-                newCustomer.Description = model.Description.Trim();
+                newCustomer.TaxNumber = model.TaxtNumber != null ? model.TaxtNumber.Trim() : "";
+                newCustomer.Description = model.Description != null ? model.Description.Trim() : "";
                 newCustomer.CommercialName = model.CommercialName.Trim();
                 newCustomer.Birthdate = model.BirthDate;
                 newCustomer.City = city;
@@ -141,7 +151,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
         }
 
         //DELETE: Customer/Delete/fjsu8adhf7safsaf67
-        [HttpDelete]
+        [HttpPost]
         public ActionResult Delete(string id)
         {
             var customer = db.People.Find(id) as Customer;

@@ -19,7 +19,7 @@ namespace ALEmanMS.AdminWebsite.Models
         [Display(Name = "الكنية")]
         public string LastName { get; set; }
 
-        [Required]
+        
         [StringLength(25)]
         [Display(Name = "المدينة")]
         public string CityName { get; set; }

@@ -20,7 +20,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
             {
                 Cities = db.Cities.ToList(),
                 Destinations = db.Destinations.ToList()
-            }; 
+            };
 
             return View(model);
         }
@@ -133,5 +133,10 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 return new HttpStatusCodeResult(404);
             }
 
+            db.Cities.Remove(city);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }
