@@ -46,11 +46,13 @@
         <tbody>
             @foreach (var item in Model.Cities)
             {
-            <tr>
+                string rowId = "row" + item.CityId;
+                string destinationId = "destination" + item.CityId;
+                string cityOrderId = "cityOrder" + item.CityId;
+                string trId = "tr" + item.CityId; 
+            <tr id="@trId">
                 @{
-                    string rowId = "row" + item.CityId;
-                    string destinationId = "destination" + item.CityId;
-                    string cityOrderId = "cityOrder" + item.CityId; 
+
                 }
                 <td id="@destinationId">@item.Destination.Name</td>
                 <td id="@cityOrderId">@item.CityOrder</td>
@@ -410,7 +412,7 @@
                 type: "POST",
                 success: function (data) {
                     // Remove from the table
-                    $('#row' + id).remove();
+                    $('#tr' + id).remove();
                     // Close the modal
                     $("#con-close-modal-delete").modal('toggle');
 

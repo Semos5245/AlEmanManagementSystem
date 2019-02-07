@@ -244,7 +244,7 @@
 
                         // Add the destination to the table
                         table.row.add([data.name,
-                        "<a href='#' class='on-default edit-row' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit'><i class='fa fa-pencil'></i></a> <a href='#' class='on-default remove-row' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='fa fa-trash-o'></i></a>"]).draw(false);
+                        "<a href='#' class='on-default edit-row editDestination' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit'><i cla//ss='fa fa-pencil'></i></a> <a href='#' class='on-default remove-row removeDestination' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='fa fa-trash-o'></i></a>"]).draw(false);
                         //$("#tableBody").append("<tr><td>" + data.name + "</td><td></td></tr>")
 
                     }
@@ -346,8 +346,8 @@
                 success: function (data) {
                     // Remove from the table
                     // Get the row
-                    var row = $("#trId" + id);
-                    table.row(row).delete();
+                    $("#tr" + id).remove();
+                    //table.rows(row).delete();
 
                     // Close the modal
                     $("#con-close-modal-delete").modal('toggle');

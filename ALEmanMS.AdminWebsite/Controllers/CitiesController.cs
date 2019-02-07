@@ -122,7 +122,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
        
         }
         //DELETE: Cities/Delete/fd8oash7f8a
-        [HttpDelete]
+        [HttpPost]
         public ActionResult Delete(string id)
         {
             var city = db.Cities.Find(id);
