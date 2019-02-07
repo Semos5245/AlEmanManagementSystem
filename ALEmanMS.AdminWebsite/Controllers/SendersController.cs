@@ -12,18 +12,18 @@ namespace ALEmanMS.AdminWebsite.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        // TODO: To copy it into the customers page 
-        //SelectList GetCities()
-        //{
-        //    var citiesList = new List<SelectListItem>();
 
-        //    foreach (var item in db.Cities.ToList())
-        //    {
-        //        citiesList.Add(new SelectListItem { Text = item.Name, Value = item.CityId });
-        //    }
+        SelectList GetCities()
+        {
+            var citiesList = new List<SelectListItem>();
 
-        //    return new SelectList(citiesList, "Value", "Text");
-        //}
+            foreach (var item in db.Cities.ToList())
+            {
+                citiesList.Add(new SelectListItem { Text = item.Name, Value = item.CityId });
+            }
+
+            return new SelectList(citiesList, "Value", "Text");
+        }
 
         // GET: Senders
         public ActionResult Index()
@@ -34,11 +34,6 @@ namespace ALEmanMS.AdminWebsite.Controllers
         //GET: Senders/Create
         public ActionResult Create()
         {
-            //var model = new SenderViewModel
-            //{
-            //    Cities = GetCities()
-            //};
-
             return View(new SenderViewModel());
         }
 
@@ -46,14 +41,11 @@ namespace ALEmanMS.AdminWebsite.Controllers
         [HttpPost]
         public ActionResult Create(SenderViewModel model)
         {
-            // Get the cities 
-            //model.Cities = GetCities();
-
             if (ModelState.IsValid)
             {
                 var sender = db.People.OfType<Sender>().FirstOrDefault(s => (s.FirstName == model.FirstName && s.LastName == model.LastName) || s.NationalID == model.NationalId);
 
-                if (sender != null)
+                if (sender == null)
                 {
                     return View(model);
                 }
@@ -78,6 +70,30 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 newSender.RegistrationNumber = model.RegisterationNumber != null ? model.RegisterationNumber.Trim() : "";
                 newSender.State = model.State != null ? model.State.Trim() : "";
                 newSender.CityName = model.CityName;
+                    return new HttpStatusCodeResult(406);
+                }
+
+                var city = db.Cities.FirstOrDefault(c => c.Name == model.CityName);
+
+                if (city == null)
+                {
+                    return new HttpStatusCodeResult(404);
+                }
+                var newSender = new Sender
+                {
+                    PersonId = Guid.NewGuid().ToString(),
+                    FirstName = model.FirstName.Trim(),
+                    LastName = model.LastName.Trim(),
+                    Description = model.Description.Trim(),
+                    Company = model.Company.Trim(),
+                    MotherName = model.MotherName.Trim(),
+                    NationalID = model.NationalId.Trim(),
+                    Birthdate = model.BirthDate,
+                    Profession = model.Profession.Trim(),
+                    RegistrationNumber = model.RegisterationNumber.Trim(),
+                    State = model.State.Trim(),
+                    CityName = city.Name
+                };
 
                 db.People.Add(newSender);
                 db.SaveChanges();
@@ -112,7 +128,6 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 State = sender.State,
                 CityName = sender.CityName,
                 //Cities = GetCities(),
-            };
 
             return View(model);
         }
@@ -136,6 +151,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                     return HttpNotFound(); 
 
                 // TODO: Fix the problem of null excpetion 
+
                 newSender.FirstName = model.FirstName.Trim();
                 newSender.LastName = model.LastName.Trim();
                 newSender.MotherName = model.MotherName.Trim();
@@ -152,7 +168,6 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
                 return RedirectToAction("Index");
             }
-
             return View(model);
         }
 

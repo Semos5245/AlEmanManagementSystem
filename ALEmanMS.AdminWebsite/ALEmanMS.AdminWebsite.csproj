@@ -201,7 +201,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SendersController.cs" />
+<<<<<<< HEAD
     <Compile Include="Controllers\SettingsController.cs" />
+=======
+>>>>>>> master
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -515,7 +518,10 @@
     <Content Include="Views\Senders\Index.cshtml" />
     <Content Include="Views\Senders\Create.cshtml" />
     <Content Include="Views\Senders\Edit.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Settings\Index.cshtml" />
+=======
+>>>>>>> master
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

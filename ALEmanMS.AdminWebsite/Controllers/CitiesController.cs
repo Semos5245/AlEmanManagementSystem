@@ -122,6 +122,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
        
         }
         //DELETE: Cities/Delete/fd8oash7f8a
+
         [HttpPost]
         public ActionResult Delete(string id)
         {
@@ -132,10 +133,5 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 return new HttpStatusCodeResult(404);
             }
 
-            db.Cities.Remove(city);
-            db.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
     }
 }
