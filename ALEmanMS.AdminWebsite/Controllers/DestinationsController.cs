@@ -14,6 +14,11 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
         ApplicationDbContext db = new ApplicationDbContext();
 
+        public DestinationsController()
+        {
+            ViewBag.Page = "Destinations";
+        }
+
         // GET: Destinations
         public ActionResult Index()
         {

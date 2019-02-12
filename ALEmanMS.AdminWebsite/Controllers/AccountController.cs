@@ -61,6 +61,33 @@ namespace ALEmanMS.AdminWebsite.Controllers
             return View();
         }
 
+        // Users 
+        [AllowAnonymous]
+        public ActionResult Users()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            return View(db.Users.ToList()); 
+        }
+
+        [HttpPost]
+        public ActionResult DeleteUser(string id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            if (string.IsNullOrEmpty(id))
+                return new HttpStatusCodeResult(406);
+
+            var user = db.Users.Find(id);
+
+            if (user == null)
+                return HttpNotFound();
+
+            db.Users.Remove(user);
+            db.SaveChanges();
+
+            return new HttpStatusCodeResult(200); 
+        }
+
         //
         // POST: /Account/Login
         [HttpPost]

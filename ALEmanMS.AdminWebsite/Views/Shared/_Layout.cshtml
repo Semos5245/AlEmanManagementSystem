@@ -87,14 +87,24 @@
                     <ul>
                         <li class="menu-title">Main</li>
                         <li>
-                            <a href="index.html" class="waves-effect waves-primary">
-                                <i class="ti-home"></i><span> اللوحة الرئيسية </span>
-                            </a>
+                            @if (ViewBag.Page == "Dashboard")
+                            {
+                                <a href="@Url.Action("Index", "Home")" class="waves-effect waves-primary active">
+                                    <i class="ti-home"></i><span> اللوحة الرئيسية </span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Index", "Home")" class="waves-effect waves-primary">
+                                    <i class="ti-home"></i><span> اللوحة الرئيسية </span>
+                                </a>
+                            }
+
                         </li>
 
                         <li>
                             <a href="index.html" class="waves-effect waves-primary">
-                                <i class="ti-home"></i><span> الرحلات </span>
+                                <i class="ti-truck"></i><span> الرحلات </span>
                             </a>
                         </li>
 
@@ -104,19 +114,92 @@
                                 <span> الأشخاص </span> <span class="menu-arrow"></span>
                             </a>
                             <ul class="list-unstyled">
-                                <li><a href="icons-materialdesign.html">المرسلين</a></li>
-                                <li><a href="icons-themifyicon.html">الزبائن</a></li>
-                                <li><a href="icons-ionicons.html">السائقين</a></li>
+                                @if (ViewBag.Page == "Senders")
+                                {
+                                    <li><a href="@Url.Action("Index", "Senders")" class="active">المرسلين</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Senders")">المرسلين</a></li>
+                                }
+
+                                @if (ViewBag.Page == "Customers")
+                                {
+                                    <li><a href="@Url.Action("Index", "Customers")" class="active">الزبائن</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Customers")">الزبائن</a></li>
+                                }
+
+                                @if (ViewBag.Page == "Drivers")
+                                {
+                                    <li><a href="@Url.Action("Index", "Drivers")" class="active">السائقين</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Drivers")">السائقين</a></li>
+                                }
                             </ul>
                         </li>
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-archive"></i><span> المشحونات </span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
-                                <li><a href="tables-basic.html">المجموعات</a></li>
-                                <li><a href="tables-datatable.html">مجموعات التجميع</a></li>
-                                <li><a href="tables-editable.html">الأصناف</a></li>
+                                @if (ViewBag.Page == "Groups")
+                                {
+                                    <li><a href="@Url.Action("Index", "Groups")" class="active">المجموعات</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Groups")">المجموعات</a></li>
+                                }
+
+                                @if (ViewBag.Page == "GroupingGroups")
+                                {
+                                    <li><a href="@Url.Action("Index", "GroupingGroups")" class="active">مجموعات التجميع</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "GroupingGroups")">مجموعات التجميع</a></li>
+                                }
+
+                                @if (ViewBag.Page == "Categories")
+                                {
+                                    <li><a href="@Url.Action("Index", "Categories")" class="active">الأصناف</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Categories")">الأصناف</a></li>
+                                }
                             </ul>
                         </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-building"></i><span> المناطق </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+
+                                @if (ViewBag.Page == "Destinations")
+                                {
+                                    <li><a href="@Url.Action("Index", "Destinations")" class="active">الوجهات</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Destinations")">الوجهات</a></li>
+                                }
+
+                                @if (ViewBag.Page == "Cities")
+                                {
+                                    <li><a href="@Url.Action("Index", "Cities")" class="active">المدن</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Cities")">المدن</a></li>
+                                }
+
+
+                            </ul>
+                        </li>
+
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect waves-primary">
                                 <i class="ti-stats-up"></i><span> التقارير </span> <span class="menu-arrow"></span>
@@ -132,9 +215,44 @@
                                 <i class="ti-settings"></i><span> الاعدادات </span> <span class="menu-arrow"></span>
                             </a>
                             <ul class="list-unstyled">
-                                <li><a href="components-grid.html">الشركات المرسلة</a></li>
-                                <li><a href="components-carousel.html">الشركات المستلمة</a></li>
-                                <li><a href="components-widgets.html">قيم الشحن والخيش</a></li>
+                                @if (ViewBag.Page == "SenderCompanies")
+                                {
+                                    <li><a href="@Url.Action("Index", "SenderCompanies")" class="active">الشركات المرسلة</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "SenderCompanies")">الشركات المرسلة</a></li>
+                                }
+
+                                @if (ViewBag.Page == "ReceiverCompanies")
+                                {
+                                    <li><a href="@Url.Action("Index", "ReceiverCompanies")" class="active">الشركات المستلمة</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "ReceiverCompanies")">الشركات المستلمة</a></li>
+                                }
+
+                                @if (ViewBag.Page == "Settings")
+                                {
+                                    <li><a href="@Url.Action("Index","Settings")" class="active">قيم الشحن والخيش</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index","Settings")">قيم الشحن والخيش</a></li>
+                                }
+
+                                @if (ViewBag.Page == "Users")
+                                {
+                                    <li><a href="@Url.Action("Users","Account")" class="active">المستخدمين</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Users","Account")">المستخدمين</a></li>
+                                }
+
+
+
                             </ul>
                         </li>
                     </ul>
@@ -158,7 +276,7 @@
                                 <h4 class="page-title">Starter</h4>
                                 <ol class="breadcrumb float-right" style="direction:rtl">
                                     <li class="breadcrumb-item"><a href="#">الأيمان</a></li>
-                                    <li class="breadcrumb-item"><a href="#">@ViewBag.PageName</a></li>
+                                    <li class="breadcrumb-item"><a href="#">@ViewBag.PageAr</a></li>
                                 </ol>
                                 <div class="clearfix"></div>
                             </div>

@@ -1,7 +1,7 @@
-﻿@model IEnumerable<ALEmanMS.Models.Customer>
+﻿@model IEnumerable<ALEmanMS.Models.ReceiverCompany>
 
 @{
-    ViewBag.Title = "العملاء";
+    ViewBag.Title = "الشركات المستقبلة";
 }
 
 @section Css {
@@ -18,38 +18,26 @@
 
 <div class="card-box">
 
-    <h2>العملاء</h2>
+    <h2>الشركات المستقبلة</h2>
     <p>
-        <a href="@Url.Action("Create","Customers")" class="btn btn-success waves-effect waves-light">إضافة عميل جديد<i class="mdi mdi-plus-circle-outline"></i></a>
+        <a href="@Url.Action("Create","ReceiverCompanies")" class="btn btn-success waves-effect waves-light">إضافة شركة مستقبلة جديدة<i class="mdi mdi-plus-circle-outline"></i></a>
     </p>
 
     @Html.Hidden("item-to-delete", "", new { @id = "item-to-delete" })
-    <table class="table table-bordered table-hover" id="customersTable">
+    <table class="table table-bordered table-hover" id="receiverCompaniesTable">
         <thead>
             <tr>
                 <th>
-                    اسم العميل
+                    اسم الشركة
                 </th>
                 <th>
                     المدينة
                 </th>
                 <th>
-                    الشركة
+                    الرقم التجاري
                 </th>
                 <th>
-                    التولد
-                </th>
-                <th>
-                    الاسم التجاري
-                </th>
-                <th>
-                    الرقم الضريبي
-                </th>
-                <th>
-                    الدفع في دمشق
-                </th>
-                <th>
-                    سعر الكيلو
+                    الوصف
                 </th>
                 <th>
                     إجراءات
@@ -60,42 +48,23 @@
         <tbody>
             @foreach (var item in Model)
             {
-                string rowId = "customer" + item.PersonId;
+                string rowId = "receiverCompany" + item.ReceiverCompanyId;
                 <tr id="@rowId">
                     <td>
-                        @item.FullName
+                        @item.Name
                     </td>
                     <td>
-                        @item.CityName
+                        @item.Country
                     </td>
                     <td>
-                        @item.Company
+                        @item.CommercialNumber
                     </td>
                     <td>
-                        @item.Birthdate
+                        @item.Description
                     </td>
                     <td>
-                        @item.CommercialName
-                    </td>
-                    <td>
-                        @item.TaxNumber
-                    </td>
-                    <td>
-                        @if (item.PaidInDamas)
-                        {
-                            <span class="badge badge-success" style="width:50%">نعم</span>
-                        }
-                        else
-                        {
-                            <span class="badge badge-danger" style="width:50%">لا</span>
-                        }
-                    </td>
-                    <td>
-                        @item.SpecialFee &nbsp;R.S
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Edit","Customers",new { @id = item.PersonId})"><i class="fa fa-edit"></i></a>
-                        <a href="#" class="on-default remove-row deleteButton" data-toggle="modal" data-placement="top" title="" data-id="@item.PersonId" data-target="#deleteModal" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                        <a href="@Url.Action("Edit","ReceiverCompanies",new { @id = item.ReceiverCompanyId})"><i class="fa fa-edit"></i></a>
+                        <a href="#" class="on-default remove-row deleteButton" data-toggle="modal" data-placement="top" title="" data-id="@item.ReceiverCompanyId" data-target="#deleteModal" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                     </td>
                 </tr>
             }
@@ -111,7 +80,7 @@
                     <h4 class="modal-title" id="CenterModalLabel">تأكيد الحذف</h4>
                 </div>
                 <div class="modal-body">
-                    <p>هل أنت متأكد من حذف هذا العميل؟</p>
+                    <p>هل أنت متأكد من حذف هذه الشركة المستقبلة؟</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
@@ -138,7 +107,7 @@
 
             $("#btnDelete").click(function () {
                 var d = $('#item-to-delete').val();
-                var url = '@Url.Action("Delete","Customers")/' + d;
+                var url = '@Url.Action("Delete","ReceiverCompanies")/' + d;
 
                 // Make an ajax request to delete the discount from the server
                 $.ajax({
@@ -147,10 +116,10 @@
                 }).done(function (data) {
                     $('#deleteModal').modal('toggle');
                     // Remove the row from the table
-                    $('#customer' + d).remove();
+                    $('#receiverCompany' + d).remove();
 
                     // Show notification
-                    showSuccessNotification('تمت العملية بنجاح', 'لفد تم حذف العميل ' + name);
+                    showSuccessNotification('تمت العملية بنجاح', 'لفد تم حذف الشركة المستقبلة ' + name);
 
                     }).fail(function () {
                         $('#deleteModal').modal('toggle');
@@ -159,7 +128,7 @@
                     })
             });
 
-            $("#customersTable").DataTable();
+            $("#receiverCompaniesTable").DataTable();
         });
     </script>
 }

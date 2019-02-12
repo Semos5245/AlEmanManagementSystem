@@ -13,6 +13,11 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
         ApplicationDbContext db = new ApplicationDbContext();
 
+        public CategoriesController()
+        {
+            ViewBag.Page = "Categories";
+        }
+
         // GET: Categories
         public ActionResult Index()
         {

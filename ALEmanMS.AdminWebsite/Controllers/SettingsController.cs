@@ -9,7 +9,11 @@ namespace ALEmanMS.AdminWebsite.Controllers
 {
     public class SettingsController : Controller
     {
-        
+
+        public SettingsController()
+        {
+            ViewBag.Page = "Settings"; 
+        }
 
         // GET: Settings
         public ActionResult Index()

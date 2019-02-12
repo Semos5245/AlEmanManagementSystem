@@ -8,6 +8,12 @@ namespace ALEmanMS.AdminWebsite.Controllers
 {
     public class HomeController : Controller
     {
+
+        public HomeController()
+        {
+            ViewBag.Page = "Home";
+        }
+
         public ActionResult Index()
         {
             return View();

@@ -12,7 +12,12 @@ namespace ALEmanMS.AdminWebsite.Controllers
     public class GroupsController : Controller
     {
 
-        ApplicationDbContext db = new ApplicationDbContext(); 
+        ApplicationDbContext db = new ApplicationDbContext();
+
+        public GroupsController()
+        {
+            ViewBag.Page = "Groups";
+        }
 
         // GET: Groups
         public ActionResult Index()

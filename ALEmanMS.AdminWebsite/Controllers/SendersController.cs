@@ -12,18 +12,22 @@ namespace ALEmanMS.AdminWebsite.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        // TODO: To copy it into the customers page 
-        //SelectList GetCities()
-        //{
-        //    var citiesList = new List<SelectListItem>();
+        public SendersController()
+        {
+            ViewBag.Page = "Senders"; 
+        }
 
-        //    foreach (var item in db.Cities.ToList())
-        //    {
-        //        citiesList.Add(new SelectListItem { Text = item.Name, Value = item.CityId });
-        //    }
+        SelectList GetCities()
+        {
+            var citiesList = new List<SelectListItem>();
 
-        //    return new SelectList(citiesList, "Value", "Text");
-        //}
+            foreach (var item in db.Cities.ToList())
+            {
+                citiesList.Add(new SelectListItem { Text = item.Name, Value = item.CityId });
+            }
+
+            return new SelectList(citiesList, "Value", "Text");
+        }
 
         // GET: Senders
         public ActionResult Index()
@@ -34,11 +38,6 @@ namespace ALEmanMS.AdminWebsite.Controllers
         //GET: Senders/Create
         public ActionResult Create()
         {
-            //var model = new SenderViewModel
-            //{
-            //    Cities = GetCities()
-            //};
-
             return View(new SenderViewModel());
         }
 
@@ -46,9 +45,6 @@ namespace ALEmanMS.AdminWebsite.Controllers
         [HttpPost]
         public ActionResult Create(SenderViewModel model)
         {
-            // Get the cities 
-            //model.Cities = GetCities();
-
             if (ModelState.IsValid)
             {
                 var sender = db.People.OfType<Sender>().FirstOrDefault(s => (s.FirstName == model.FirstName && s.LastName == model.LastName) || s.NationalID == model.NationalId);
@@ -95,7 +91,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
             if (sender == null)
             {
-                return HttpNotFound(); 
+                return HttpNotFound();
             }
 
             var model = new SenderViewModel
@@ -113,7 +109,6 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 CityName = sender.CityName,
                 //Cities = GetCities(),
             };
-
             return View(model);
         }
 
@@ -133,9 +128,10 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 var newSender = db.People.Find(id) as Sender;
 
                 if (newSender == null)
-                    return HttpNotFound(); 
+                    return HttpNotFound();
 
                 // TODO: Fix the problem of null excpetion 
+
                 newSender.FirstName = model.FirstName.Trim();
                 newSender.LastName = model.LastName.Trim();
                 newSender.MotherName = model.MotherName.Trim();
@@ -152,7 +148,6 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
                 return RedirectToAction("Index");
             }
-
             return View(model);
         }
 
