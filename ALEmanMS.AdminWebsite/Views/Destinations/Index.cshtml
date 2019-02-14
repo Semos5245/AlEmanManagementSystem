@@ -40,11 +40,13 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+
+                string rowId = "row" + item.DestinationId;
+                string trId = "tr" + item.DestinationId;
+
+                <tr id="@trId">
                     <td>
-                        @{
-                            string rowId = "row" + item.DestinationId;
-                        }
+
                         <span id="@rowId">@item.Name</span>
                     </td>
                     <td class="actions">
@@ -114,7 +116,6 @@
             </div>
         </div>
     </div><!-- /.modal -->
-
     <!-- Delete  Modal -->
     <div id="con-close-modal-delete" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -124,20 +125,22 @@
                     <h4 class="modal-title">رسالة تأكيد</h4>
                 </div>
                 <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <p>هل أنت متأكد من أنك تريد حذف <strong id="destinationName"></strong>؟</p>
-                            </div>
-                            <input type="hidden" id="deleteDestinationId"/>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p>هل أنت متأكد من أنك تريد حذف <span id="destinationName"></span>؟</p>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
-                            <button type="submit" id="btnDeleteDestination" class="btn btn-danger waves-effect waves-light">حذف</button>
-                        </div>
+                        <input type="hidden" id="deleteDestinationId" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                        <button type="submit" id="btnDeleteDestination" class="btn btn-danger waves-effect waves-light">حذف</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div><!-- /.modal -->
+    </div>
+    <!-- /.modal -->
 }
 
 @section Scripts {
@@ -171,7 +174,7 @@
 
     <script>
         $(document).ready(function () {
-            var table = $("#destinationsTable").dataTable();
+            var table = $("#destinationsTable").DataTable();
 
             //$("#btnAddDestination").click(function () {
             //    insertDestination();
@@ -206,21 +209,21 @@
                 editDestination(id, newName);
             });
 
-            // Click the remove destination button in the table 
+            // Click the remove destination button in the table
             $(".removeDestination").click(function () {
-                // Get the id 
-                var id = $(this).data("id"); 
-                // Open Modal 
-                openDeleteModal(id); 
+                // Get the id
+                var id = $(this).data("id");
+                // Open Modal
+                openDeleteModal(id);
             });
 
-            // Click the delete button in delete modal 
+            // Click the delete button in delete modal
             $("#btnDeleteDestination").click(function () {
-                // Get the id 
-                var id = $('#deleteDestinationId').val(); 
+                // Get the id
+                var id = $('#deleteDestinationId').val();
 
                 // Delete
-                removeDestination(id); 
+                removeDestination(id);
             });
 
 
@@ -243,7 +246,7 @@
 
                         // Add the destination to the table
                         table.row.add([data.name,
-                        "<a href='#' class='on-default edit-row' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit'><i class='fa fa-pencil'></i></a> <a href='#' class='on-default remove-row' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='fa fa-trash-o'></i></a>"]).draw(false);
+                        "<a href='#' class='on-default edit-row editDestination' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit'><i class='fa fa-pencil'></i></a> <a href='#' class='on-default remove-row removeDestination' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='fa fa-trash-o'></i></a>"]).draw(false);
                         //$("#tableBody").append("<tr><td>" + data.name + "</td><td></td></tr>")
 
                     }
@@ -313,42 +316,50 @@
             });
         }
 
-        // Function to open delete modal 
+        // Function to open delete modal
         function openDeleteModal(id) {
-            // Get the name of the destination from the table 
-            var destination = $("#row" + id).text(); 
+            // Get the name of the destination from the table
+            var destination = $("#row" + id).text();
 
-            // Show the name in the modal 
-            $("#destinationName").text(destination); 
+            // Show the name in the modal
+            $("#destinationName").text(destination);
 
-            // Set the destination in the hidden field
-            $("#deleteDestinationId").val(id); 
-            // Open the modal 
-            $("#con-close-modal-delete").modal('toggle'); 
+
+            // Set the destination in the hidden filed
+            $("#deleteDestinationId").val(id);
+            // Open the modal
+            $("#con-close-modal-delete").modal('toggle');
+
         }
 
-        // Function to remove the Destination 
+        // Function to remove the Destination
         function removeDestination(id) {
-            // Get the table to manpulaite 
-            var table = $("#destinationsTable").dataTable(); 
 
-            // Get the name of the destination 
-            var name = $("#row" + id).text(); 
+            // Get the table to manpulaite
+            var table = $("#destinationsTable").DataTable();
 
-            // Prepare the url 
-            var url = "@Url.Action("Delete", "Destinations")/" + id; 
 
-            // Send the post request to remove 
+            // Get the name of the destination
+            var name = $("#row" + id).text();
+
+            // Prepare the url
+            var url = "@Url.Action("Delete", "Destinations")/" + id;
+
+            // Send the post request to remove
             $.ajax({
                 url: url,
                 type: "POST",
                 success: function (data) {
-                    //Remove from the table 
-                    $('#row' + id).remove();
-                    // Close the modal 
-                    $("#con-close-modal-delete").modal('toggle'); 
 
-                    // Show notification 
+                    // Remove from the table
+                    // Get the row
+                    $("#tr" + id).remove();
+                    //table.rows(row).delete();
+
+                    // Close the modal
+                    $("#con-close-modal-delete").modal('toggle');
+
+                    // Show notification
                     showSuccessNotification('تمت العملية بنجاح', 'لفد تم حذف الوجهة ' + name);
                 }
             }).fail(function (e) {

@@ -45,7 +45,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AKSoftware.WebApi, Version=1.7.0.0, Culture=neutral, PublicKeyToken=54b4f4e6d05f7336, processorArchitecture=MSIL">
+      <HintPath>..\packages\AKSoftware.WebApi.1.7.0\lib\netstandard2.0\AKSoftware.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -98,9 +104,6 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -195,23 +198,46 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
+    <Compile Include="Controllers\GroupingGroupsController.cs" />
+    <Compile Include="Controllers\GroupsController.cs" />
+    <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JourneysController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PackagesController.cs" />
+    <Compile Include="Controllers\ReceiverCompaniesController.cs" />
+    <Compile Include="Controllers\SenderCompaniesController.cs" />
     <Compile Include="Controllers\SendersController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApiResponse.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\CityViewModel.cs" />
+    <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
+    <Compile Include="Models\DashboardViewModel.cs" />
+    <Compile Include="Models\GroupingGroupsViewModel.cs" />
+    <Compile Include="Models\DriverViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JourneyStatistic.cs" />
+    <Compile Include="Models\JourneyViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PackageViewModel.cs" />
+    <Compile Include="Models\ReceiverCompanyViewModel.cs" />
+    <Compile Include="Models\SenderCompanyViewModel.cs" />
     <Compile Include="Models\SenderViewModel.cs" />
+    <Compile Include="Models\StatisticViewModel.cs" />
+    <Compile Include="Models\StatsticItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CurrenyService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -228,6 +254,13 @@
     <Content Include="Content\assets\images\email\2.png" />
     <Content Include="Content\assets\images\email\3.png" />
     <Content Include="Content\assets\images\favicon.ico" />
+    <Content Include="Content\assets\images\flags\eu.png" />
+    <Content Include="Content\assets\images\flags\kuwait.png" />
+    <Content Include="Content\assets\images\flags\lebanon.png" />
+    <Content Include="Content\assets\images\flags\saudi.png" />
+    <Content Include="Content\assets\images\flags\syria.png" />
+    <Content Include="Content\assets\images\flags\uae.png" />
+    <Content Include="Content\assets\images\flags\usa.jpg" />
     <Content Include="Content\assets\images\gallery\1.jpg" />
     <Content Include="Content\assets\images\gallery\10.jpg" />
     <Content Include="Content\assets\images\gallery\11.jpg" />
@@ -514,6 +547,25 @@
     <Content Include="Views\Senders\Index.cshtml" />
     <Content Include="Views\Senders\Create.cshtml" />
     <Content Include="Views\Senders\Edit.cshtml" />
+    <Content Include="Views\Settings\Index.cshtml" />
+    <Content Include="Views\Groups\Index.cshtml" />
+    <Content Include="Views\GroupingGroups\Index.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\SenderCompanies\Index.cshtml" />
+    <Content Include="Views\SenderCompanies\Create.cshtml" />
+    <Content Include="Views\SenderCompanies\Edit.cshtml" />
+    <Content Include="Views\ReceiverCompanies\Index.cshtml" />
+    <Content Include="Views\ReceiverCompanies\Create.cshtml" />
+    <Content Include="Views\ReceiverCompanies\Edit.cshtml" />
+    <Content Include="Views\Drivers\Index.cshtml" />
+    <Content Include="Views\Drivers\Create.cshtml" />
+    <Content Include="Views\Drivers\Edit.cshtml" />
+    <Content Include="Views\Account\GetUsers.cshtml" />
+    <Content Include="Views\Journeys\Index.cshtml" />
+    <Content Include="Views\Journeys\Create.cshtml" />
+    <Content Include="Views\Shared\_JourneyLayout.cshtml" />
+    <Content Include="Views\Journeys\JourneyProfile.cshtml" />
+    <Content Include="Views\Journeys\Statistics.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -523,6 +575,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Dashboard\" />
+    <Folder Include="Views\Packages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

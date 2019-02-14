@@ -1,0 +1,193 @@
+﻿@model ALEmanMS.AdminWebsite.Models.StatisticViewModel
+
+@{
+    ViewBag.Title = "إحصائيات";
+}
+
+@section Css
+{
+    <link href="~/Content/plugins/nvd3/build/nv.d3.min.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="card-box">
+    <h2>إحصائيات الرحلة رقم 2</h2>
+
+    <div class="row">
+        <div class="col-6">
+            <h3>نسبة الأصناف</h3>
+            <div id="chart1">
+                <svg style="height:500px;width:100%"></svg>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <h3>نسبة الزبائن المستلمة</h3>
+            <div id="chart2">
+                <svg style="height:500px;width:100%"></svg>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <h3>نسبة المرسلين </h3>
+            <div id="chart3">
+                <svg style="height:500px;width:100%"></svg>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <!-- Nvd3 js -->
+    <script src="~/Content/plugins/d3/d3.min.js"></script>
+    <script src="~/Content/plugins/nvd3/build/nv.d3.min.js"></script>
+    <script src="~/Content/assets/pages/jquery.nvd3.init.js"></script>
+
+    <script>
+        // --------------------- Categories ------------------------------
+        //Regular pie chart example
+        nv.addGraph(function () {
+            var chart = nv.models.pieChart()
+                .x(function (d) { return d.label })
+                .y(function (d) { return d.value })
+                .showLabels(true);
+
+            d3.select("#chart1 svg")
+                .datum(exampleData)
+                .transition().duration(1200)
+                .call(chart);
+
+            return chart;
+        });
+
+        // Function to get the data for categories 
+        function exampleData() {
+            return [
+                @for (int i = 0; i < Model.StatsticItemsCategories.Count; i++)
+                {
+                    if(i == (Model.StatsticItemsCategories.Count - 1))
+                    {
+                        <text>
+                            {
+                                "label": "@Model.StatsticItemsCategories[i].Name",
+                                "value": @Model.StatsticItemsCategories[i].Value,
+                                "color": "@Model.StatsticItemsCategories[i].Color"
+                            }
+
+                        </text>
+                    }
+                    else
+                    {
+                         <text>
+                            {
+                                "label": "@Model.StatsticItemsCategories[i].Name",
+                                "value": @Model.StatsticItemsCategories[i].Value,
+                                "color": "@Model.StatsticItemsCategories[i].Color"
+                            },
+
+                        </text>
+                    }
+                }
+            ];
+        }
+
+
+           // --------------------- Customers ------------------------------
+        //Regular pie chart example
+        nv.addGraph(function () {
+            var chart = nv.models.pieChart()
+                .x(function (d) { return d.label })
+                .y(function (d) { return d.value })
+                .showLabels(true)     //Display pie labels
+                .labelThreshold(.05)  //Configure the minimum slice size for labels to show up
+                .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
+                .donut(true)          //Turn on Donut mode. Makes pie chart look tasty!
+                .donutRatio(0.35)     //Configure how big you want the donut hole size to be.
+
+            d3.select("#chart2 svg")
+                .datum(exampleDataCustomers)
+                .transition().duration(1200)
+                .call(chart);
+
+            return chart;
+        });
+
+        // Function to get the data for customers 
+        function exampleDataCustomers() {
+            return [
+                @for (int i = 0; i < Model.StatsticItemsCustomers.Count; i++)
+                {
+                    if(i == (Model.StatsticItemsCustomers.Count - 1))
+                    {
+                        <text>
+                            {
+                                "label": "@Model.StatsticItemsCustomers[i].Name",
+                                "value": @Model.StatsticItemsCustomers[i].Value,
+                                "color": "@Model.StatsticItemsCustomers[i].Color"
+                            }
+
+                        </text>
+                    }
+                    else
+                    {
+                         <text>
+                            {
+                                "label": "@Model.StatsticItemsCustomers[i].Name",
+                                "value": @Model.StatsticItemsCustomers[i].Value,
+                                "color": "@Model.StatsticItemsCustomers[i].Color"
+                            },
+
+                        </text>
+                    }
+                }
+            ];
+        }
+
+        // ------------------ Senders -----------------------------
+         //Regular pie chart example
+        nv.addGraph(function () {
+            var chart = nv.models.pieChart()
+                .x(function (d) { return d.label })
+                .y(function (d) { return d.value })
+                .showLabels(true);
+
+            d3.select("#chart3 svg")
+                .datum(exampleDataSenders)
+                .transition().duration(1200)
+                .call(chart);
+
+            return chart;
+        });
+
+        // Function to get the data for customers 
+        function exampleDataSenders() {
+            return [
+                @for (int i = 0; i < Model.StatsticItemsSenders.Count; i++)
+                {
+                    if(i == (Model.StatsticItemsSenders.Count - 1))
+                    {
+                        <text>
+                            {
+                                "label": "@Model.StatsticItemsSenders[i].Name",
+                                "value": @Model.StatsticItemsSenders[i].Value,
+                                "color": "@Model.StatsticItemsSenders[i].Color"
+                            }
+
+                        </text>
+                    }
+                    else
+                    {
+                         <text>
+                            {
+                                "label": "@Model.StatsticItemsSenders[i].Name",
+                                "value": @Model.StatsticItemsSenders[i].Value,
+                                "color": "@Model.StatsticItemsSenders[i].Color"
+                            },
+
+                        </text>
+                    }
+                }
+            ];
+        }
+    </script>
+}

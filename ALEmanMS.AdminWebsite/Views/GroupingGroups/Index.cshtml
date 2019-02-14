@@ -1,0 +1,427 @@
+﻿@model ALEmanMS.AdminWebsite.Models.GroupingGroupsViewModel
+
+@{
+    ViewBag.Title = "مجموعات التجميع";
+}
+
+
+
+@section Css {
+    <!-- Css libraries for this page goes here-->
+    <!-- Modals Library-->
+    <link href="~/Content/plugins/custombox/dist/custombox.min.css" rel="stylesheet">
+
+    <!-- DataTables -->
+    <link href="~/Content/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="~/Content/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="card-box">
+    <h2>مجموعات التجميع</h2>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="m-b-30">
+                <button id="btnAddNewGroupingGroup" data-toggle="modal" data-target="#con-close-modal" class="btn btn-success waves-effect waves-light"><i class="fa fa-plus"></i> إضافة مجموعة تجميع</button>
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped" id="groupingGroupsTable">
+        <thead>
+            <tr>
+                <th>
+                    الاسم
+                </th>
+                <th>
+                    الوحدة
+                </th>
+                <th>
+                    السعر بالليرة
+                </th>
+                <th>إجراءات</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.GroupingGroups)
+            {
+                string rowId = "row" + item.GroupingGroupId;
+                string unit = "unit" + item.GroupingGroupId;
+                string price = "price" + item.GroupingGroupId;
+                string trId = "tr" + item.GroupingGroupId;
+                <tr id="@trId">
+                   
+                    <td id="@rowId">@item.Name</td>
+                    <td id="@unit">@item.Unit.Name</td>
+                    <td>
+                        <span id="@price">@item.Price</span>
+                    </td>
+                    <td class="actions">
+                        <a href="#" class="on-default edit-row editGroupingGroup" data-id="@item.GroupingGroupId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                        <a href="#" class="on-default remove-row removeGroupingGroup" data-id="@item.GroupingGroupId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Modals
+{
+    <!-- Insert Modal -->
+    <div id="con-close-modal" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">إضافة مجموعة تجميع جديدة</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="insertForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">اسم المجموعة</label>
+                                    <input type="text" class="form-control" required parsley-trigger="change" id="txtAddGroupingGroupName" placeholder="ألبسة داخلية">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">السعر بالليرة</label>
+                                    <input type="number" class="form-control" required parsley-trigger="change" id="txtAddGroupingGroupPrice" placeholder="0">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">الوحدة</label>
+                                    <select id="cmbAddGroupingGroupUnit" class="form-control" required parsley-trigger="change">
+                                        <option value="">اختر الوحدة</option>
+                                        @foreach (var item in Model.Units)
+                                        {
+                                            <option value="@item.UnitId">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                            <button type="submit" id="btnAddGroupingGroup" class="btn btn-info waves-effect waves-light">إضافة</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+    <!-- Edit Modal -->
+    <div id="con-close-modal-edit" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">تعديل مجموعة تجميع</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="editForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">اسم المجموعة</label>
+                                    <input type="text" class="form-control" required parsley-trigger="change" id="txtEditGroupingGroupName" placeholder="ألبسة داخلية">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">السعر بالليرة</label>
+                                    <input type="number" class="form-control" required parsley-trigger="change" id="txtEditGroupingGroupPrice" placeholder="0">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">الوحدة</label>
+                                    <select id="cmbEditGroupingGroupUnit" class="form-control" required parsley-trigger="change">
+                                        @foreach (var item in Model.Units)
+                                        {
+                                            <option value="@item.UnitId">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" id="editGroupingGroupId" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                            <button type="submit" id="btnEditGroupingGroup" class="btn btn-info waves-effect waves-light">حفظ التغيرات</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+    <!-- Delete  Modal -->
+    <div id="con-close-modal-delete" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">رسالة تأكيد</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p>هل أنت متأكد من أنك تريد حذف <strong id="groupingGroupName"></strong>؟</p>
+                        </div>
+                        <input type="hidden" id="deleteGroupingGroupId" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                        <button type="submit" id="btnDeleteGroupingGroup" class="btn btn-danger waves-effect waves-light">حذف</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+}
+
+@section Scripts {
+
+    <!-- Scripts related to this page goes here -->
+    <!-- Required datatable js -->
+    <script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="~/Content/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/Content/plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/plugins/datatables/jszip.min.js"></script>
+    <script src="~/Content/plugins/datatables/pdfmake.min.js"></script>
+    <script src="~/Content/plugins/datatables/vfs_fonts.js"></script>
+    <script src="~/Content/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="~/Content/plugins/datatables/buttons.print.min.js"></script>
+
+    <!-- Notification js -->
+    <script src="~/Content/plugins/notifyjs/dist/notify.min.js"></script>
+    <script src="~/Content/plugins/notifications/notify-metro.js"></script>
+    <script src="~/Content/assets/js/notifications-asset.js"></script>
+
+    <!-- Parsleyjs -->
+    <script type="text/javascript" src="~/Content/plugins/parsleyjs/dist/parsley.min.js"></script>
+
+    <!-- Modals Effects -->
+    <!-- Modal-Effect -->
+    <script src="~/Content/plugins/custombox/dist/custombox.min.js"></script>
+    <script src="~/Content/plugins/custombox/dist/legacy.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            var table = $("#groupingGroupsTable").dataTable();
+
+            //$("#btnAddDestination").click(function () {
+            //    insertDestination();
+            //});
+
+            $('form').parsley();
+
+            $("#insertForm").submit(function (e) {
+                // Stop the form from being accepted
+                e.preventDefault();
+
+                insertGroupingGroup();
+            });
+
+            $(".editGroupingGroup").click(function () {
+                // Get the id from the button
+                var id = $(this).data("id");
+
+                openEditModal(id);
+            });
+
+            // Click edit city button
+            $("#editForm").submit(function (e) {
+                // Don't submit
+                e.preventDefault();
+
+                // Get the id
+                var id = $("#editGroupingGroupId").val();
+                var newName = $("#txtEditGroupingGroupName").val();
+                var price = $("#txtEditGroupingGroupPrice").val();
+                var unitId = $("#cmbEditGroupingGroupUnit").val();
+
+                // Send the reqeuest
+                editGroupingGroup(id, newName, price, unitId);
+            });
+
+            // Click the remove city button in the table
+            $(".removeGroupingGroup").click(function () {
+                // Get the id
+                var id = $(this).data("id");
+                // Open Modal
+                openDeleteModal(id);
+            });
+
+            // Click the delete button in delete modal
+            $("#btnDeleteGroupingGroup").click(function () {
+                // Get the id
+                var id = $('#deleteGroupingGroupId').val();
+
+                // Delete
+                removeGroupingGroup(id);
+            });
+
+        });
+
+         // Insert a new City
+            function insertGroupingGroup() {
+                var table = $("#groupingGroupsTable").DataTable();
+
+                // Get the data
+                var name = $("#txtAddGroupingGroupName").val();
+                var price = $("#txtAddGroupingGroupPrice").val();
+                var unitId = $("#cmbAddGroupingGroupUnit").val();
+
+                var url = "@Url.Action("Create", "GroupingGroups")";
+
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        name: name,
+                        unitId: unitId,
+                        price : price
+                    },
+                    url: url,
+                    success: function (data) {
+                        showSuccessNotification("تمت العملية بنجاح", 'لقد تم إضافة ' + name);
+                        // Close the modal
+                        $("#con-close-modal").modal('toggle');
+
+                        // Add the destination to the table
+                        table.row.add([data.name, data.unit, data.price, 
+                        "<a href='#' class='on-default edit-row editGroupingGroup' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit'><i class='fa fa-pencil'></i></a> <a href='#' class='on-default remove-row removeGroupingGroup' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='fa fa-trash-o'></i></a>"]).draw(false);
+                        //$("#tableBody").append("<tr><td>" + data.name + "</td><td></td></tr>")
+
+                    }
+                }).fail(function (e) {
+                    //alert(e.status + " " + e.statusCode());
+                    if (e.status === 406) {
+                        showErrorNotification("لم تتم العملية بنجاح", "يرجى ادخال المعلومات بشكل صحيح");
+                    }
+                    else{
+                        showErrorNotification("لم تتم العملية بنجاح", "يوجد هنالك خطأ ما, يرجى إعادة المحاولة لاحقاً");
+                        }
+                    });
+        }
+
+        // Funciton to open edit modal
+        function openEditModal(id) {
+            // Send a get request to get the data of the GroupingGroup
+            var url = "@Url.Action("Details", "GroupingGroups")/" + id;
+
+            // Send ajax request
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {
+                    // Set the text of the modal to name
+                    $("#txtEditGroupingGroupName").val(data.name);
+                    $("#editGroupingGroupId").val(data.id);
+                    $("#txtEditGroupingGroupPrice").val(data.price);
+                    $("#cmbEditGroupingGroupUnit").val(data.unitId);
+                    // Open the modal
+                    $("#con-close-modal-edit").modal("toggle");
+                }
+            }).fail(function (e) {
+                showErrorNotification("فشل", "يوجد هنالك خطأ ما, يرجى إعادة المحاولة لاحقاً");
+            });
+        }
+
+        // Function to edit the destination
+        function editGroupingGroup(id, newName, price, unitId) {
+            // Send post request to edit the destiantion
+            var url = "@Url.Action("Edit", "GroupingGroups")";
+            var data = {
+                id: id,
+                newName: newName,
+                price: price,
+                unitId : unitId
+            };
+
+            // Ajax Request
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (data) {
+                    // Close the modal
+                    $("#con-close-modal-edit").modal('toggle');
+
+                    // Update the value in the table
+                    $("#row" + id).text(newName);
+                    $("#price" + id).text(data.price);
+                    $("#unit" + id).text(data.unit);
+                    // Show notification
+                    showSuccessNotification('لقد تمت العملية بنجاح', 'لقد تم تعديل مجموعة التجميع');
+                }
+            }).fail(function (e) {
+                if (e.status == 406) {
+                    // Conflic
+                    showErrorNotification('فشل', 'يرجى إدخال معلومات صحيحة');
+                }
+                else if (e.status == 409)
+                    showErrorNotification('فشل', 'يوجد هنالك مجموعة تجميع أخرى تحمل نفس الاسم'); 
+                else {
+                    showErrorNotification('فشل', 'يوجد هنالك خطأ ما, يرجى إعادة المحاولة لاحقاً');
+                }
+            });
+        }
+
+        // Function to open delete modal
+        function openDeleteModal(id) {
+            // Get the name of the groupingGroup name from the table
+            var groupingGroup = $("#row" + id).text();
+
+            // Show the name in the modal
+            $("#groupingGroupName").text(groupingGroup);
+
+            // Set the city in the hidden filed
+            $("#deleteGroupingGroupId").val(id);
+            // Open the modal
+            $("#con-close-modal-delete").modal('toggle');
+        }
+
+        // Function to remove the Grouping Group 
+        function removeGroupingGroup(id) {
+            // Get the table to manpulaite
+            var table = $("#groupingGroupsTable").dataTable();
+
+            // Get the name of the destination
+            var name = $("#row" + id).text();
+
+            // Prepare the url
+            var url = "@Url.Action("Delete", "GroupingGroups")/" + id;
+
+            // Send the post request to remove
+            $.ajax({
+                url: url,
+                type: "POST",
+                success: function (data) {
+                    // Remove from the table
+                    $('#tr' + id).remove();
+                    // Close the modal
+                    $("#con-close-modal-delete").modal('toggle');
+
+                    // Show notification
+                    showSuccessNotification('تمت العملية بنجاح', 'لفد تم حذف مجموعة التجميع ' + name);
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم تتم العملية بنجاح, يرجى إعادة المحاولة لاحقاً');
+            });
+        }
+    </script>
+}
+

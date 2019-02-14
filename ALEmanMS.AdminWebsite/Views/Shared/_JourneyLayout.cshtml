@@ -1,0 +1,412 @@
+﻿<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from coderthemes.com/minton/dark_light/pages-blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 09 Mar 2018 20:01:11 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="نظام شركة الإيمان للشحن">
+    <meta name="author" content="AK Software">
+    <link rel="shortcut icon" href="~/Content/assets/images/favicon.ico">
+    <title>شركة الإيمان | @ViewBag.Title</title>
+
+    @RenderSection("Css", false)
+
+    <link href="~/Content/plugins/switchery/switchery.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/style.css" rel="stylesheet" type="text/css">
+
+    <script src="~/Content/assets/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="fixed-left">
+    <!-- Begin page -->
+    <div id="wrapper">
+        <!-- Top Bar Start -->
+        <div class="topbar">
+            <!-- LOGO -->
+            <div class="topbar-left">
+                <div class="text-center">
+                    <a href="index.html" class="logo"><i class="mdi mdi-radar"></i> <span>الإيمان</span></a>
+                </div>
+            </div>
+            <!-- Button mobile view to collapse sidebar menu -->
+            <nav class="navbar-custom">
+                <ul class="list-inline float-right mb-0">
+                    <li class="list-inline-item notification-list hide-phone">
+                        <a class="nav-link waves-light waves-effect" href="#" id="btn-fullscreen">
+                            <i class="mdi mdi-crop-free noti-icon"></i>
+                        </a>
+                    </li>
+
+                    <li class="list-inline-item notification-list">
+                        <a class="nav-link right-bar-toggle waves-light waves-effect" href="#">
+                            <i class="mdi mdi-dots-horizontal noti-icon"></i>
+                        </a>
+                    </li>
+
+                    <li class="list-inline-item dropdown notification-list">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <img src="~/Content/assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h5 class="text-overflow"><small>أهلا</small> </h5>
+                            </div>
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="mdi mdi-account"></i> <span>حسابي</span>
+                            </a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="mdi mdi-logout"></i> <span>تسجيل الخروج</span>
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+                <ul class="list-inline menu-left mb-0">
+                    <li class="float-left">
+                        <button class="button-menu-mobile open-left waves-light waves-effect">
+                            <i class="mdi mdi-menu"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Top Bar End -->
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="left side-menu">
+            <div class="sidebar-inner slimscrollleft">
+                <!--- Divider -->
+                <div id="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Main</li>
+                        <li>
+                            @if (ViewBag.Page == "Dashboard")
+                            {
+                                <a href="@Url.Action("Index", "Home")" class="waves-effect waves-primary active">
+                                    <i class="ti-home"></i><span> اللوحة الرئيسية </span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Index", "Home")" class="waves-effect waves-primary">
+                                    <i class="ti-home"></i><span> اللوحة الرئيسية </span>
+                                </a>
+                            }
+
+                        </li>
+
+                        <li>
+                            <a href="index.html" class="waves-effect waves-primary">
+                                <i class="ti-truck"></i><span> الرحلات </span>
+                            </a>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect waves-primary">
+                                <i class="ti-user"></i>
+                                <span> الأشخاص </span> <span class="menu-arrow"></span>
+                            </a>
+                            <ul class="list-unstyled">
+                                @if (ViewBag.Page == "Senders")
+                                {
+                                    <li><a href="@Url.Action("Index", "Senders")" class="active">المرسلين</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Senders")">المرسلين</a></li>
+                                }
+
+                                @if (ViewBag.Page == "Customers")
+                                {
+                                    <li><a href="@Url.Action("Index", "Customers")" class="active">الزبائن</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Customers")">الزبائن</a></li>
+                                }
+
+                                @if (ViewBag.Page == "Drivers")
+                                {
+                                    <li><a href="@Url.Action("Index", "Drivers")" class="active">السائقين</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Drivers")">السائقين</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-archive"></i><span> المشحونات </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                @if (ViewBag.Page == "Groups")
+                                {
+                                    <li><a href="@Url.Action("Index", "Groups")" class="active">المجموعات</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Groups")">المجموعات</a></li>
+                                }
+
+                                @if (ViewBag.Page == "GroupingGroups")
+                                {
+                                    <li><a href="@Url.Action("Index", "GroupingGroups")" class="active">مجموعات التجميع</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "GroupingGroups")">مجموعات التجميع</a></li>
+                                }
+
+                                @if (ViewBag.Page == "Categories")
+                                {
+                                    <li><a href="@Url.Action("Index", "Categories")" class="active">الأصناف</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Categories")">الأصناف</a></li>
+                                }
+                            </ul>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-building"></i><span> المناطق </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+
+                                @if (ViewBag.Page == "Destinations")
+                                {
+                                    <li><a href="@Url.Action("Index", "Destinations")" class="active">الوجهات</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Destinations")">الوجهات</a></li>
+                                }
+
+                                @if (ViewBag.Page == "Cities")
+                                {
+                                    <li><a href="@Url.Action("Index", "Cities")" class="active">المدن</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Cities")">المدن</a></li>
+                                }
+
+
+                            </ul>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect waves-primary">
+                                <i class="ti-stats-up"></i><span> التقارير </span> <span class="menu-arrow"></span>
+                            </a>
+                            <ul class="list-unstyled">
+                                <li><a href="mail-inbox.html">التقرير 1</a></li>
+                                <li><a href="mail-compose.html">التقرير 2</a></li>
+                                <li><a href="mail-read.html">التقرير 3</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect waves-primary">
+                                <i class="ti-settings"></i><span> الاعدادات </span> <span class="menu-arrow"></span>
+                            </a>
+                            <ul class="list-unstyled">
+                                @if (ViewBag.Page == "SenderCompanies")
+                                {
+                                    <li><a href="@Url.Action("Index", "SenderCompanies")" class="active">الشركات المرسلة</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "SenderCompanies")">الشركات المرسلة</a></li>
+                                }
+
+                                @if (ViewBag.Page == "ReceiverCompanies")
+                                {
+                                    <li><a href="@Url.Action("Index", "ReceiverCompanies")" class="active">الشركات المستلمة</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "ReceiverCompanies")">الشركات المستلمة</a></li>
+                                }
+
+                                @if (ViewBag.Page == "Settings")
+                                {
+                                    <li><a href="@Url.Action("Index","Settings")" class="active">قيم الشحن والخيش</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index","Settings")">قيم الشحن والخيش</a></li>
+                                }
+
+                                @if (ViewBag.Page == "Users")
+                                {
+                                    <li><a href="@Url.Action("Users","Account")" class="active">المستخدمين</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Users","Account")">المستخدمين</a></li>
+                                }
+
+
+
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container-fluid">
+                    <!-- Page-Title -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="page-title-box">
+                                <h4 class="page-title">Starter</h4>
+                                <ol class="breadcrumb float-right" style="direction:rtl">
+                                    <li class="breadcrumb-item"><a href="#">الأيمان</a></li>
+                                    <li class="breadcrumb-item"><a href="#">@ViewBag.PageAr</a></li>
+                                </ol>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @RenderBody()
+
+                </div>
+                <!-- end container -->
+            </div>
+            <!-- end content -->
+            <footer class="footer">
+                @DateTime.Now.Year © AK Software &amp; Sami
+            </footer>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <div class="side-bar right-bar">
+            <div class="">
+                <ul class="nav nav-tabs tabs-bordered nav-justified">
+                    <li class="nav-item">
+                        <a href="#home-2" class="nav-link active" data-toggle="tab" aria-expanded="false">
+                            Activity
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="home-2">
+                        <div class="timeline-2">
+                            <div class="time-item">
+                                <div class="item-info">
+                                    <small class="text-muted">5 minutes ago</small>
+                                    <p><strong><a href="#" class="text-info">John Doe</a></strong> Uploaded a photo <strong>"DSC000586.jpg"</strong></p>
+                                </div>
+                            </div>
+                            <div class="time-item">
+                                <div class="item-info">
+                                    <small class="text-muted">30 minutes ago</small>
+                                    <p><a href="#" class="text-info">Lorem</a> commented your post.</p>
+                                    <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
+                                </div>
+                            </div>
+                            <div class="time-item">
+                                <div class="item-info">
+                                    <small class="text-muted">59 minutes ago</small>
+                                    <p><a href="#" class="text-info">Jessi</a> attended a meeting with<a href="#" class="text-success">John Doe</a>.</p>
+                                    <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
+                                </div>
+                            </div>
+                            <div class="time-item">
+                                <div class="item-info">
+                                    <small class="text-muted">1 hour ago</small>
+                                    <p><strong><a href="#" class="text-info">John Doe</a></strong>Uploaded 2 new photos</p>
+                                </div>
+                            </div>
+                            <div class="time-item">
+                                <div class="item-info">
+                                    <small class="text-muted">3 hours ago</small>
+                                    <p><a href="#" class="text-info">Lorem</a> commented your post.</p>
+                                    <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
+                                </div>
+                            </div>
+                            <div class="time-item">
+                                <div class="item-info">
+                                    <small class="text-muted">5 hours ago</small>
+                                    <p><a href="#" class="text-info">Jessi</a> attended a meeting with<a href="#" class="text-success">John Doe</a>.</p>
+                                    <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- /Right-bar -->
+    </div>
+    <!-- END wrapper -->
+
+    @RenderSection("Modals", false)
+
+    <script>var resizefunc = [];</script>
+    <!-- Plugins  -->
+    <script src="~/Content/assets/js/jquery.min.js"></script>
+    <script src="~/Content/assets/js/popper.min.js"></script><!-- Popper for Bootstrap -->
+    <script src="~/Content/assets/js/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/detect.js"></script>
+    <script src="~/Content/assets/js/fastclick.js"></script>
+    <script src="~/Content/assets/js/jquery.slimscroll.js"></script>
+    <script src="~/Content/assets/js/jquery.blockUI.js"></script>
+    <script src="~/Content/assets/js/waves.js"></script>
+    <script src="~/Content/assets/js/wow.min.js"></script>
+    <script src="~/Content/assets/js/jquery.nicescroll.js"></script>
+    <script src="~/Content/assets/js/jquery.scrollTo.min.js"></script>
+    <script src="~/Content/plugins/switchery/switchery.min.js"></script>
+
+    @RenderSection("Scripts", false)
+
+    <!-- Custom main Js -->
+    <script src="~/Content/assets/js/jquery.core.js"></script>
+    <script src="~/Content/assets/js/jquery.app.js"></script>
+
+    <script>
+        $(document).ready(function () {
+             function openLeftBar () {
+                $("#wrapper").toggleClass("enlarged");
+                $("#wrapper").addClass("forced");
+
+                if ($("#wrapper").hasClass("enlarged") && $("body").hasClass("fixed-left")) {
+                    $("body").removeClass("fixed-left").addClass("fixed-left-void");
+                } else if (!$("#wrapper").hasClass("enlarged") && $("body").hasClass("fixed-left-void")) {
+                    $("body").removeClass("fixed-left-void").addClass("fixed-left");
+                }
+
+                if ($("#wrapper").hasClass("enlarged")) {
+                    $(".left ul").removeAttr("style");
+                } else {
+                    $(".subdrop").siblings("ul:first").show();
+                }
+
+                toggle_slimscroll(".slimscrollleft");
+                $("body").trigger("resize");
+            }
+
+            openLeftBar(); 
+        });
+    </script>
+</body>
+<!-- Mirrored from coderthemes.com/minton/dark_light/pages-blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 09 Mar 2018 20:01:11 GMT -->
+</html>

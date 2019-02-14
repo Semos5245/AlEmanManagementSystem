@@ -25,8 +25,9 @@ namespace ALEmanMS.Models
         [StringLength(50)]
         public string RegistrationNumber { get; set; }
 
-        // Relationships with other tables 
-        public virtual List<Journey> Journeys { get; set; }
+        public virtual List<Package> Packages { get; set; }
+
+        
 
     }
 }

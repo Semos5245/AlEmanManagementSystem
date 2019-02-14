@@ -10,9 +10,9 @@ namespace ALEmanMS.Models
 {
     public class Journey
     {
-        [Key]
-        public string JourneyId { get; set; }
-        
+        //[Key]
+        public int JourneyId { get; set; }
+
         [StringLength(50)]
         public string Location { get; set; }
 
@@ -48,6 +48,10 @@ namespace ALEmanMS.Models
         public virtual JourneyType JourneyType { get; set; }
 
         public string JourneyTypeId { get; set; }
+
+        public decimal RyialPrice { get; set; }
+
+        public decimal DollarPrice { get; set; }
 
     }
 }

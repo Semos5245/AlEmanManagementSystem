@@ -11,7 +11,12 @@ namespace ALEmanMS.AdminWebsite.Controllers
     public class CitiesController : Controller
     {
 
-        ApplicationDbContext db = new ApplicationDbContext(); 
+        ApplicationDbContext db = new ApplicationDbContext();
+
+        public CitiesController()
+        {
+            ViewBag.Page = "Cities";
+        }
 
         // GET: Cities
         public ActionResult Index()
@@ -20,7 +25,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
             {
                 Cities = db.Cities.ToList(),
                 Destinations = db.Destinations.ToList()
-            }; 
+            };
 
             return View(model);
         }
@@ -122,7 +127,8 @@ namespace ALEmanMS.AdminWebsite.Controllers
        
         }
         //DELETE: Cities/Delete/fd8oash7f8a
-        [HttpDelete]
+
+        [HttpPost]
         public ActionResult Delete(string id)
         {
             var city = db.Cities.Find(id);

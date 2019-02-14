@@ -83,15 +83,15 @@
                     <td>
                         @if (item.PaidInDamas)
                         {
-                            <span class="badge badge-success">نعم</span>
+                            <span class="badge badge-success" style="width:50%">نعم</span>
                         }
                         else
                         {
-                            <span class="badge badge-danger">لا</span>
+                            <span class="badge badge-danger" style="width:50%">لا</span>
                         }
                     </td>
                     <td>
-                        @item.SpecialFee &nbsp;S.P
+                        @item.SpecialFee &nbsp;R.S
                     </td>
                     <td>
                         <a href="@Url.Action("Edit","Customers",new { @id = item.PersonId})"><i class="fa fa-edit"></i></a>

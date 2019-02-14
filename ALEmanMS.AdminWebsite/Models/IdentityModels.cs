@@ -50,6 +50,8 @@ namespace ALEmanMS.AdminWebsite.Models
 
         public DbSet<Journey> Journeys { get; set; }
 
+        public DbSet<JourneyType> JourneyTypes { get; set; }
+
         public DbSet<Package> Pakcages { get; set; }
 
         public DbSet<ALEmanMS.Models.Message> Messages { get; set; }
