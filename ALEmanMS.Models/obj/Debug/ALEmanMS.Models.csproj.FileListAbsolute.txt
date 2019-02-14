@@ -27,3 +27,17 @@ E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\bin\Debug\Newto
 E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.Models\bin\Debug\Newtonsoft.Json.xml
 =======
 >>>>>>> master
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\bin\Debug\ALEmanMS.Models.dll.config
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\bin\Debug\ALEmanMS.Models.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\bin\Debug\ALEmanMS.Models.pdb
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\bin\Debug\EntityFramework.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\bin\Debug\Newtonsoft.Json.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\bin\Debug\EntityFramework.xml
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\bin\Debug\Newtonsoft.Json.xml
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.csprojAssemblyReference.cache
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.csproj.CoreCompileInputs.cache
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.csproj.CopyComplete
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.Models\obj\Debug\ALEmanMS.Models.pdb
