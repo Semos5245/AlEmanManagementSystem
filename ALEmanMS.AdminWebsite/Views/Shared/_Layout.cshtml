@@ -103,9 +103,19 @@
                         </li>
 
                         <li>
-                            <a href="index.html" class="waves-effect waves-primary">
+                            @if (ViewBag.Page == "Dashboard")
+                            {
+                            <a href="@Url.Action("Index", "Journeys")" class="waves-effect waves-primary active">
                                 <i class="ti-truck"></i><span> الرحلات </span>
                             </a>
+                            }
+                            else
+                            {
+                            <a href="@Url.Action("Index", "Journeys")" class="waves-effect waves-primary">
+                                <i class="ti-truck"></i><span> الرحلات </span>
+                            </a>
+                            }
+                            
                         </li>
 
                         <li class="has_sub">
@@ -244,11 +254,11 @@
 
                                 @if (ViewBag.Page == "Users")
                                 {
-                                    <li><a href="@Url.Action("Users","Account")" class="active">المستخدمين</a></li>
+                                    <li><a href="@Url.Action("GetUsers","Account")" class="active">المستخدمين</a></li>
                                 }
                                 else
                                 {
-                                    <li><a href="@Url.Action("Users","Account")">المستخدمين</a></li>
+                                    <li><a href="@Url.Action("GetUsers","Account")">المستخدمين</a></li>
                                 }
 
 
@@ -276,7 +286,7 @@
                                 <h4 class="page-title">Starter</h4>
                                 <ol class="breadcrumb float-right" style="direction:rtl">
                                     <li class="breadcrumb-item"><a href="#">الأيمان</a></li>
-                                    <li class="breadcrumb-item"><a href="#">@ViewBag.PageAr</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index", ViewBag.Page)">@ViewBag.PageAr</a></li>
                                 </ol>
                                 <div class="clearfix"></div>
                             </div>

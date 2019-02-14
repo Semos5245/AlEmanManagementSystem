@@ -1,31 +1,284 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model ALEmanMS.AdminWebsite.Models.DashboardViewModel
+
+@{
+    ViewBag.Title = "اللوحة الرئيسية";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+
+@section Css
+    {
+    <!-- Sweet Alert css -->
+    <link href="~/Content/plugins/sweet-alert/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/plugins/jquery-circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
+}
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="col-sm-6 col-lg-3">
+        <div class="widget-bg-color-icon card-box">
+            <div class="bg-icon bg-icon-danger pull-left">
+                <i class="mdi mdi-truck text-white"></i>
+            </div>
+            <div class="text-right">
+                <h3 class="text-success counter m-t-10">@Model.JouneysCount</h3>
+                <p class="text-muted text-nowrap m-b-10">رحل سنة @DateTime.Now.Year</p>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+
+    <div class="col-sm-6 col-lg-3">
+        <div class="widget-bg-color-icon card-box">
+            <div class="bg-icon bg-icon-success pull-left">
+                <i class="mdi mdi-archive text-white"></i>
+            </div>
+            <div class="text-right">
+                <h3 class="text-success counter m-t-10">@Model.Categories</h3>
+                <p class="text-muted text-nowrap m-b-10">الأصناف</p>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+    <div class="col-sm-6 col-lg-3">
+        <div class="widget-bg-color-icon card-box">
+            <div class="bg-icon bg-icon-info pull-left">
+                <i class="mdi mdi-group text-white"></i>
+            </div>
+            <div class="text-right">
+                <h3 class="text-success counter m-t-10">@Model.CustomersCount</h3>
+                <p class="text-muted text-nowrap m-b-10">الزبائن</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-3">
+        <div class="widget-bg-color-icon card-box">
+            <div class="bg-icon bg-icon-primary pull-left">
+                <i class="mdi mdi-group text-white"></i>
+            </div>
+            <div class="text-right">
+                <h3 class="text-success counter m-t-10">@Model.DriversCount</h3>
+                <p class="text-muted text-nowrap m-b-10">السائقين</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-3">
+        <div class="widget-bg-color-icon card-box">
+            <div class="bg-icon bg-icon-warning pull-left">
+                <i class="mdi mdi-group text-white"></i>
+            </div>
+            <div class="text-right">
+                <h3 class="text-success counter m-t-10">@Model.SendersCount</h3>
+                <p class="text-muted text-nowrap m-b-10">المرسلين</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-3">
+        <div class="widget-bg-color-icon card-box">
+            <div class="bg-icon bg-icon-purple pull-left">
+                <i class="fa fa-building text-white"></i>
+            </div>
+            <div class="text-right">
+                <h3 class="text-success counter m-t-10">@Model.SenderCompanies</h3>
+                <p class="text-muted text-nowrap m-b-10">الشركات المرسلة</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-3">
+        <div class="widget-bg-color-icon card-box">
+            <div class="bg-icon bg-icon-pink pull-left">
+                <i class="fa fa-building text-white"></i>
+            </div>
+            <div class="text-right">
+                <h3 class="text-success counter m-t-10">@Model.ReceiverCompanies</h3>
+                <p class="text-muted text-nowrap m-b-10">الشركات المستلمة</p>
+            </div>
+        </div>
     </div>
 </div>
+
+<div class="card-box">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>إحصائيات الرحل لعام @DateTime.Now.Year</h3>
+            <div id="website-stats" style="height: 320px;" class="flot-chart"></div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/Content/plugins/flot-chart/jquery.flot.js"></script>
+    <script src="~/Content/plugins/flot-chart/jquery.flot.time.js"></script>
+    <script src="~/Content/plugins/flot-chart/jquery.flot.tooltip.min.js"></script>
+    <script src="~/Content/plugins/flot-chart/jquery.flot.resize.js"></script>
+    <script src="~/Content/plugins/flot-chart/jquery.flot.pie.js"></script>
+    <script src="~/Content/plugins/flot-chart/jquery.flot.selection.js"></script>
+    <script src="~/Content/plugins/flot-chart/jquery.flot.stack.js"></script>
+    <script src="~/Content/plugins/flot-chart/jquery.flot.crosshair.js"></script>
+    @*<script src="~/Content/assets/pages/jquery.flot.init.js"></script>*@
+
+    <script>
+
+        /**
+ * Theme: Minton Admin Template
+ * Author: Coderthemes
+ * Module/App: Flot-Chart
+ */
+
+! function($) {
+    "use strict";
+
+    var FlotChart = function() {
+        this.$body = $("body")
+        this.$realData = []
+    };
+
+    //creates plot graph
+    FlotChart.prototype.createPlotGraph = function(selector, data1, data2, labels, colors, borderColor, bgColor) {
+        //shows tooltip
+        function showTooltip(x, y, contents) {
+            $('<div id="tooltip" class="tooltipflot">' + contents + '</div>').css({
+                position : 'absolute',
+                top : y + 5,
+                left : x + 5
+            }).appendTo("body").fadeIn(200);
+        }
+
+
+        $.plot($(selector), [{
+            data : data1,
+            label : labels[0],
+            color : colors[0]
+        }, {
+            data : data2,
+            label : labels[1],
+            color : colors[1]
+        }], {
+            series : {
+                lines : {
+                    show : true,
+                    fill : true,
+                    lineWidth : 1,
+                    fillColor : {
+                        colors : [{
+                            opacity : 0.5
+                        }, {
+                            opacity : 0.5
+                        }]
+                    }
+                },
+                points : {
+                    show : false
+                },
+                shadowSize : 0
+            },
+
+            grid : {
+                hoverable : true,
+                clickable : true,
+                borderColor : borderColor,
+                borderWidth : 0,
+                labelMargin : 10
+            },
+            legend : {
+                position : "ne",
+                margin : [0, -24],
+                noColumns : 0,
+                labelBoxBorderColor : null,
+                labelFormatter : function(label, series) {
+                    // just add some space to labes
+                    return '' + label + '&nbsp;&nbsp;';
+                },
+                width : 30,
+                height : 2
+            },
+            yaxis : {
+                tickColor : 'transparent',
+                tickLength: 0,
+                font : {
+                    color : '#bdbdbd'
+                }
+            },
+            xaxis : {
+                tickColor : '#transparent',
+                tickLength: 0,
+                font : {
+                    color : '#bdbdbd'
+                }
+            },
+            tooltip : true,
+            tooltipOpts : {
+                content : '%y',
+                shifts : {
+                    x : -60,
+                    y : 25
+                },
+                defaultTheme : false
+            }
+        });
+    },
+        
+
+        //initializing various charts and components
+        FlotChart.prototype.init = function() {
+            //plot graph data
+        var uploads = [
+
+            @for (int i = 0; i < 12; i++)
+        {
+            if (i == 11) {
+                <text>
+                    [@Model.JourneyStatistics[i].Month, @Model.JourneyStatistics[i].Value]
+                        </text>
+            }
+            else {
+                <text>
+                    [@Model.JourneyStatistics[i].Month, @Model.JourneyStatistics[i].Value],
+                        </text>
+            }
+        }
+
+        ];
+            var downloads = [];
+            var plabels = ["الرحلات"];
+            var pcolors = ['#00b19d', '#3bafda'];
+            var borderColor = 'transparent';
+            var bgColor = 'transparent';
+            this.createPlotGraph("#website-stats", uploads, downloads, plabels, pcolors, borderColor, bgColor);
+
+            //Pie graph data
+            var pielabels = ["Series 1", "Series 2", "Series 3"];
+            var datas = [20, 30, 15];
+            var colors = ["#3bafda", "#26c6da", "#80deea"];
+            this.createPieGraph("#pie-chart #pie-chart-container", pielabels, datas, colors);
+        
+
+            updatePlot();
+        
+        },
+
+        //init flotchart
+        $.FlotChart = new FlotChart, $.FlotChart.Constructor =
+        FlotChart
+
+}(window.jQuery),
+
+//initializing flotchart
+    function($) {
+        "use strict";
+        $.FlotChart.init()
+    }(window.jQuery);
+
+$(document).ready(function() {
+
+
+    
+
+        $.plot($("#ordered-bars-chart"), ds, options);
+    });
+
+
+
+    </script>
+}

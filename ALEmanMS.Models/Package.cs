@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ALEmanMS.Models
 {
@@ -22,6 +23,8 @@ namespace ALEmanMS.Models
 
         public int? PackageNumber { get; set; }
 
+        public int? PackagesCount { get; set; }
+
         public decimal? TransferPrice { get; set; }
 
         public decimal? InternalShipmentPrice { get; set; } = 0;
@@ -38,17 +41,19 @@ namespace ALEmanMS.Models
         [Required]
         public virtual Sender Sender { get; set; }
 
+        [ForeignKey("Sender")]
         public string SenderId { get; set; }
 
         [Required]
         public virtual Customer Customer { get; set; }
 
+        [ForeignKey("Customer")]
         public string CustomerId { get; set; }
 
         [Required]
         public virtual Journey Journey { get; set; }
 
-        public string JourneyId { get; set; }
+        public int JourneyId { get; set; }
 
         [Required]
         public virtual Category Category { get; set; }

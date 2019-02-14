@@ -25,8 +25,7 @@ namespace ALEmanMS.Models
         [StringLength(15)]
         public string TaxNumber { get; set; }
 
-        // Realtions ships with other tables 
-        public virtual List<Journey> Journeys { get; set; }
+        public virtual List<Package> Packages { get; set; }
 
         [Required]
         public virtual City City { get; set; }

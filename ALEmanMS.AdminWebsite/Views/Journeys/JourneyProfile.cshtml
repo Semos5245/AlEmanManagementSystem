@@ -1,0 +1,948 @@
+﻿@model ALEmanMS.AdminWebsite.Models.JourneyViewModel
+
+@{
+    ViewBag.Title = "معلمات الرحلة رقم " + Model.Journey.JourneyId;
+    Layout = "~/Views/Shared/_JourneyLayout.cshtml";
+}
+
+<div class="card-box">
+
+    <div class="col-12">
+        <div class="portlet">
+            <div class="portlet-heading bg-warning">
+                <h3 class="portlet-title">
+                    معلومات الرحلة
+                </h3>
+                <div class="portlet-widgets">
+
+                    <span class="divider"></span>
+                    <a data-toggle="collapse" data-parent="#accordion1" href="#bg-warning"><i class="ion-minus-round"></i></a>
+                    <span class="divider"></span>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div id="bg-warning" class="panel-collapse collapse show">
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="txtJourneyNumber" class="control-label">رقم الرحلة</label>
+                                <input disabled type="text" value="@Model.Journey.JourneyId" id="txtJourneyNumber" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="cmbDrivers" class="control-label">السائق</label>
+                                <select class="form-control" id="cmbDrivers">
+                                    @foreach (var item in Model.DriversList)
+                                    {
+                                        if (Model.Journey.DriverId == item.PersonId)
+                                        {
+                                            <option value="@item.PersonId" selected>@item.FullName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.PersonId">@item.FullName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="cmbSenderCompanies" class="control-label">الشركة المرسلة</label>
+                                <select class="form-control" id="cmbSenderCompanies">
+                                    @foreach (var item in Model.SenderCompaniesList)
+                                    {
+                                        if (Model.Journey.SenderCompanyId == item.SenderCompanyId)
+                                        {
+                                            <option value="@item.SenderCompanyId" selected>@item.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.SenderCompanyId">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="cmbReceiverCompanies" class="control-label">الشركة المستلمة</label>
+                                <select class="form-control" id="cmbReceiverCompanies">
+                                    @foreach (var item in Model.ReceiverCompaniesList)
+                                    {
+                                        if (Model.Journey.ReceiverCompanyId == item.ReceiverCompanyId)
+                                        {
+                                            <option value="@item.ReceiverCompanyId" selected>@item.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.ReceiverCompanyId">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="txtDate" class="control-label">تاريخ الرحلة</label>
+                                <input type="text" value="@Model.Journey.JourneyDate.ToShortDateString()" id="txtDate" placeholder="mm/dd/yyyy" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="txtRyialPrice" class="control-label">سعر الريال</label>
+                                <input type="number" value="@Model.Journey.RyialPrice" id="txtRyial" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="txtDollarPrice" class="control-label">سعر الدولار</label>
+                                <input type="number" value="@Model.Journey.DollarPrice" id="txtDollar" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="txtCustoms" class="control-label">رسوم الحديثة</label>
+                                <input type="number" value="@Model.Journey.Customs" id="txtCustoms" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="txtPolicy" class="control-label">Policy</label>
+                                <input type="text" value="@Model.Journey.Policy" id="txtPolicy" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card-box">
+    <input type="hidden" value="@Model.Journey.JourneyId" id="journeyId" />
+    <div class="portlet">
+        <div class="portlet-heading bg-danger">
+            <h3 class="portlet-title">
+                الطرود
+            </h3>
+            <div class="portlet-widgets">
+
+                <span class="divider"></span>
+                <a data-toggle="collapse" data-parent="#accordion2" href="#bg-danger"><i class="ion-minus-round"></i></a>
+                <span class="divider"></span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div id="bg-danger" class="panel-collapse collapse show">
+            <div class="portlet-body" style="overflow-x:scroll">
+                <table class="table table-striped table-bordered" id="packagesTable">
+                    <thead>
+                        <tr>
+                            <th>الصنف</th>
+                            <th>عدد</th>
+                            <th>دزينة</th>
+                            <th>كيلو</th>
+                            <th>عدد الطرود</th>
+                            <th>رقم الطرد</th>
+                            <th>القائم</th>
+                            <th>المرسل</th>
+                            <th>وزن حجمي</th>
+                            <th>أصل الطرود</th>
+                            <th>خيش</th>
+                            <th>الحوالة</th>
+                            <th>شحن داخلي</th>
+                            <th>المرسل إليه</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        @foreach (var item in Model.Packages)
+                        {
+                            string rowId = "row" + item.PackageId;
+
+                            <tr id="@rowId">
+                                <td>
+                                    <select class="form-control input-control" data-packageId="@item.PackageId" data-type="category" style="width: 150px;">
+                                        @foreach (var category in Model.Categories)
+                                        {
+                                            if (category.CategoryId == item.CategoryId)
+                                            {
+                                                <option value="@category.CategoryId" selected>@category.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@category.CategoryId">@category.Name</option>
+                                            }
+
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control input-control" value="@item.Quantity" data-packageId="@item.PackageId" data-type="count" style="width: 75px;" />
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control input-control" value="@item.Dozens" data-packageId="@item.PackageId" data-type="dozen" style="width: 75px;" />
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control input-control" value="@item.Kilograms" data-packageId="@item.PackageId" data-type="kilo" style="width: 75px;" />
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control input-control" value="@item.PackagesCount" data-packageId="@item.PackageId" data-type="packagesCount" style="width: 75px;" />
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control input-control" value="@item.PackageNumber" data-packageId="@item.PackageId" data-type="packagesNumber" style="width: 75px;" />
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control input-control" id="txtAddWeight" value="@item.Weight" data-packageId="@item.PackageId" data-type="weight" style="width: 75px;" />
+                                </td>
+                                <td>
+                                    <select class="form-control input-control" data-packageId="@item.PackageId" data-type="sender" style="width: 150px;">
+                                        @foreach (var sender in Model.Senders)
+                                        {
+                                            if (item.SenderId == sender.PersonId)
+                                            {
+                                                <option value="@sender.PersonId" selected>@sender.FullName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@sender.PersonId">@sender.FullName</option>
+                                            }
+
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control optional-field input-control" disabled value="@item.PlaneWeight" data-packageId="@item.PackageId" data-type="planeWeight" style="width: 75px;" />
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control optional-field input-control" disabled value="@item.CasedOriginalNumber" data-packageId="@item.PackageId" data-type="originalCasedNumber" style="width: 75px;" />
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control optional-field input-control" disabled value="@item.CasedNumber" data-packageId="@item.PackageId" data-type="casedNumber" style="width: 75px;" />
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control optional-field input-control" disabled value="@item.TransferPrice" data-packageId="@item.PackageId" data-type="transfer" style="width: 75px;" />
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control optional-field input-control" disabled value="@item.InternalShipmentPrice" data-packageId="@item.PackageId" data-type="internalShipping" style="width: 75px;" />
+                                </td>
+                                <td>
+                                    <select class="form-control input-control" data-packageId="@item.PackageId" data-type="customer " style="width: 150px;">
+                                        @foreach (var customer in Model.Customers)
+                                        {
+                                            if (item.CustomerId == customer.PersonId)
+                                            {
+                                                <option value="@customer.PersonId" selected>@customer.FullName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@customer.PersonId">@customer.FullName</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td><a class="link removeRow" style="color:red" data-id="@item.PackageId"><i class="fa fa-remove"></i></a></td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr id="newRow" style="background-color:rgba(42, 157, 2, 0.55)">
+                            <td>
+                                <select id="cmbAddCategories" class="form-control" style="width: 150px;">
+                                    @foreach (var item in Model.Categories)
+                                    {
+                                        <option value="@item.CategoryId">@item.Name</option>
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" id="txtAddCount" value="0" style="width: 75px;" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" id="txtAddDozen" value="0" style="width: 75px;" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" id="txtAddKilo" value="0" style="width: 75px;" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" id="txtAddPackagesCount" value="0" style="width: 75px;" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" id="txtAddPackageNumber" value="0" style="width: 75px;" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" id="txtAddWeight2" value="0" style="width: 75px;" />
+                            </td>
+                            <td>
+                                <select id="cmbAddSender" class="form-control" style="width: 150px;">
+                                    @foreach (var item in Model.Senders)
+                                    {
+                                        <option value="@item.PersonId">@item.FullName</option>
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control optional-field" disabled id="txtAddPlaneWeight" value="0" style="width: 75px;" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control optional-field" disabled id="txtAddCasedOriginalNumber" value="0" style="width: 75px;" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control optional-field" disabled id="txtAddCasedNumber" value="0" style="width: 75px;" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control optional-field" disabled id="txtAddTransfer" value="0" style="width: 75px;" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control optional-field" disabled id="txtAddInternalShipping" value="0" style="width: 75px;" />
+                            </td>
+                            <td>
+                                <select id="cmbAddCustomers" class="form-control" style="width: 150px;">
+                                    @foreach (var item in Model.Customers)
+                                    {
+                                        <option value="@item.PersonId">@item.FullName</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button id="btnAddPakcage" class="btn btn-success waves-effect btn-custom btn-block"><i class="fa fa-plus"></i> إضافة</button>
+
+                            <td>
+                                <button id="btnEnableContent" class="btn btn-danger waves-effect btn-custom btn-block"><i class="fa fa-mouse-pointer"></i> تمكين</button>
+                            </td>
+                        </tr>
+
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+    <!-- Notification js -->
+    <script src="~/Content/plugins/notifyjs/dist/notify.min.js"></script>
+    <script src="~/Content/plugins/notifications/notify-metro.js"></script>
+    <script src="~/Content/assets/js/notifications-asset.js"></script>
+
+    <!-- Scripts for the second part (packages) -->
+    <script>
+        $(document).ready(function () {
+            // Document Ready
+            $("#btnAddPakcage").click(function () {
+                addRow();
+            });
+
+            // Click the enable button
+            $("#btnEnableContent").click(function () {
+                enableContent();
+            });
+
+            // Click the delete butotn
+            $("table").on('click', '.removeRow' ,function () {
+                var id = $(this).data("id");
+                removePackage(id);
+            });
+
+            var oldValue = "";
+
+            // Check if the value is changed
+            $('table').on('focusin','.input-control', function () {
+                oldValue = $(this).val();
+            });
+
+            // Edit field
+            $('table').on('focusout', '.input-control', function () {
+                var newValue = $(this).val();
+                if (newValue != oldValue) {
+                    // Get the data
+                    var packageId = $(this).data("packageid");
+                    var type = $(this).data("type");
+                    var value = $(this).val();
+
+                    editField(packageId, type, value);
+                }
+
+            });
+
+            // Edit the driver of the journey
+
+
+        });
+
+        // Functin to edit a field
+        function editField(packageId, type, value) {
+            // Prepare the data
+            var data = {
+                packageId: packageId,
+                type: type,
+                value: value
+            };
+
+            // Url
+            var url = '@Url.Action("Edit", "Packages")';
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                success: function (data) {
+
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لا يمكن تعديل هذا السجل');
+            });
+        }
+
+        // Function to remove a row
+        function removePackage(id) {
+            // prepaart url
+            var url = '@Url.Action("Delete", "Packages")/' + id;
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                success: function (data) {
+                    // Remove the row from the
+                    $("#row" + id).remove();
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم يتم حذف هذا السجل');
+            });
+        }
+
+        // Function to enable and disable the content
+        function enableContent() {
+            var field = $(".optional-field");
+            if (field.is(":disabled")) {
+                field.prop("disabled", false);
+            }
+            else {
+                field.prop("disabled", true);
+            }
+
+        }
+
+        // Function to add new row
+        function addRow() {
+            var journeyId = $("#journeyId").val();
+            var url = '@Url.Action("AddPackage", "Packages")/' + journeyId;
+
+            // Get the data
+            var categoryId = $("#cmbAddCategories").val();
+            var count = $("#txtAddCount").val();
+            var dozen = $("#txtAddDozen").val();
+            var kilo = $("#txtAddKilo").val();
+            var packagesCount = $("#txtAddPackagesCount").val();
+            var packageNumber = $("#txtAddPackageNumber").val();
+            var weight = $("#txtAddWeight2").val(); 
+            var senderId = $("#cmbAddSender").val();
+            var planeWeight = $("#txtAddPlaneWeight").val();
+            var casedOriginalNumber = $("#txtAddCasedOriginalNumber").val();
+            var casedNumber = $("#txtAddCasedNumber").val();
+            var transfer = $("#txtAddTransfer").val();
+            var internalShipping = $("#txtAddInternalShipping").val();
+            var customerId = $("#cmbAddCustomers").val();
+
+            var data = {
+                CategoryId: categoryId,
+                Count: count,
+                Dozen: dozen,
+                Kilo: kilo,
+                PackageCounts: packagesCount,
+                PackageNumber: packageNumber,
+                Weight: weight,
+                SenderId: senderId,
+                PlaneWeight: planeWeight,
+                CasedOriginalNumber: casedOriginalNumber,
+                CasedNumber: casedNumber,
+                Transfer: transfer,
+                InternalShipping: internalShipping,
+                CustomerId: customerId,
+            }
+            alert(weight + '  ' + packagesCount);
+            // Make ajax request
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (data) {
+                    drawAddedRow(data);
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم تتم إضافة السجل');
+            });
+        }
+
+        // Function to draw the new added raw
+        function drawAddedRow(data) {
+            // Get the  row
+            var row = $("#newRow").clone();
+            row.removeAttr('id');
+            row.removeAttr('style');
+            row.attr('id', 'row' + data.packageId);
+
+            // Validate the category
+            var category = row.find("#cmbAddCategories");
+            category.removeAttr('id');
+            category.addClass("input-control");
+            category.attr("data-packageid", data.packageId);
+            category.attr("data-type", "category");
+            category.val(data.categoryId);
+
+            // Validate the count
+            var count = row.find("#txtAddCount");
+            count.removeAttr('id');
+            count.addClass('input-control');
+            count.attr('data-packageid', data.packageId);
+            count.attr('data-type', 'count');
+            //count.val(data.count);
+
+            // Dozen
+            var dozen = row.find("#txtAddDozen");
+            dozen.removeAttr('id');
+            dozen.addClass('input-control');
+            dozen.attr('data-packageid', data.packageId);
+            dozen.attr('data-type', 'dozen');
+            //dozen.val(data.dozen);
+
+            // Kilo
+            var kilo = row.find("#txtAddKilo");
+            kilo.removeAttr('id');
+            kilo.addClass('input-control');
+            kilo.attr('data-packageid', data.packageId);
+            kilo.attr('data-type', 'kilo');
+            //kilo.val(data.kilo);
+
+            // PackagesCount
+            var packagesCount = row.find("#txtAddPackagesCount");
+            packagesCount.removeAttr('id');
+            packagesCount.addClass('input-control');
+            packagesCount.attr('data-packageid', data.packageId);
+            packagesCount.attr('data-type', 'packagesCount');
+            //packagesCount.val(data.packagesCount);
+
+            // PackagesNumber
+            var packagesNumber = row.find("#txtAddPackagesNumber");
+            packagesNumber.removeAttr('id');
+            packagesNumber.addClass('input-control');
+            packagesNumber.attr('data-packageid', data.packageId);
+            packagesNumber.attr('data-type', 'packagesNumber');
+            //packagesNumber.val(data.packagesNumber);
+
+            // Weight
+            var weight = row.find("#txtAddWeight2");
+            weight.removeAttr('id');
+            weight.addClass('input-control');
+            weight.attr('data-packageid', data.packageId);
+            weight.attr('data-type', 'weight');
+            //weight.val(data.weight);
+
+            // Sender
+            var sender = row.find("#cmbAddSender");
+            sender.removeAttr('id');
+            sender.addClass('input-control');
+            sender.attr('data-packageid', data.packageId);
+            sender.attr('data-type', 'sender');
+            sender.val(data.senderId);
+
+            // PlaneWeight
+            var planeWeight = row.find("#txtAddPlaneWeight");
+            planeWeight.removeAttr('id');
+            planeWeight.addClass('input-control');
+            planeWeight.attr('data-packageid', data.packageId);
+            planeWeight.attr('data-type', 'planeWeight');
+            //planeWeight.val(data.planeWeight);
+
+            // CasedOriginalNumber
+            var casedOriginalNumber = row.find("#txtAddCasedOriginalNumber");
+            casedOriginalNumber.removeAttr('id');
+            casedOriginalNumber.addClass('input-control');
+            casedOriginalNumber.attr('data-packageid', data.packageId);
+            casedOriginalNumber.attr('data-type', 'casedOriginalNumber');
+            //casedOriginalNumber.val(data.originalCasedNumber);
+
+            // CasedNumber
+            var casedNumber = row.find("#txtAddCasedNumber");
+            casedNumber.removeAttr('id');
+            casedNumber.addClass('input-control');
+            casedNumber.attr('data-packageId', data.packageId);
+            casedNumber.attr('data-type', 'casedNumber');
+            //casedNumber.val(data.casedNumber);
+
+            // Transfer
+            var transfer = row.find("#txtAddTransfer");
+            transfer.removeAttr('id');
+            transfer.addClass('input-control');
+            transfer.attr('data-packageid', data.packageId);
+            transfer.attr('data-type', 'transfer');
+            //transfer.val(data.transfer);
+
+            // InternalShipping
+            var internalShipping = row.find("#txtAddInternalShipping");
+            internalShipping.removeAttr('id');
+            internalShipping.addClass('input-control');
+            internalShipping.attr('data-packageid', data.packageId);
+            internalShipping.attr('data-type', 'internalShipping');
+            //internalShipping.val(data.internalShipping);
+
+            // Customer
+            var customer = row.find("#cmbAddCustomers");
+            customer.removeAttr('id');
+            customer.addClass('input-control');
+            customer.attr('data-packageid', data.packageId);
+            customer.attr('data-type', 'customer');
+            //customer.val(data.customerId);
+
+            row.append('<td><a class="link removeRow" data-id="' + data.packageId + '" style="color:red"><i class="fa fa-remove"></i></a></td>');
+            $("#tableBody").append(row);
+        }
+    </script>
+    <!-- Scripts for the first part (Journey) -->
+    <script>
+        // Script to deal with the journey data
+        $(document).ready(function () {
+            // Edit the driver
+            var oldDriverId = "";
+            var oldSenderId = "";
+            var oldReceiverId = "";
+            var oldDollar = "";
+            var oldRyial = "";
+            var oldCustoms = "";
+            var oldPolicy = "";
+            var oldDate = ""; 
+
+            // ------------- Driver -----
+            // Check if the value is changed
+            $('body').on('focusin', '#cmbDrivers', function () {
+                oldDriverId = $(this).val();
+            });
+
+            // Edit field
+            $('body').on('focusout', '#cmbDrivers', function () {
+                var newValue = $(this).val();
+                if (newValue != oldDriverId) {
+                    // Get the data
+                    var journeyId = $("#journeyId").val();
+
+                    editDriver(journeyId, newValue);
+                }
+
+            });
+
+            // ------------------ Sender Comapany ---------------------------
+            // Check if the value is changed
+            $('body').on('focusin', '#cmbSenderCompanies', function () {
+                oldSenderId = $(this).val();
+            });
+
+            // Edit field
+            $('body').on('focusout', '#cmbSenderCompanies', function () {
+                var newValue = $(this).val();
+                if (newValue != oldSenderId) {
+                    // Get the data
+                    var journeyId = $("#journeyId").val();
+
+                    editSender(journeyId, newValue);
+                }
+
+            });
+
+            // ------------------ Receiver Comapany ---------------------------
+            // Check if the value is changed
+            $('body').on('focusin', '#cmbReceiverCompanies', function () {
+                oldReceiverId = $(this).val();
+            });
+
+            // Edit field
+            $('body').on('focusout', '#cmbReceiverCompanies', function () {
+                var newValue = $(this).val();
+                if (newValue != oldReceiverId) {
+                    // Get the data
+                    var journeyId = $("#journeyId").val();
+
+                    editReceiver(journeyId, newValue);
+                }
+            });
+
+            // ------------------ Dollar Price ---------------------------
+            // Check if the value is changed
+            $('body').on('focusin', '#txtDollar', function () {
+                oldDollar = $(this).val();
+            });
+
+            // Edit field
+            $('body').on('focusout', '#txtDollar', function () {
+                var newValue = $(this).val();
+                if (newValue != oldDollar) {
+                    // Get the data
+                    var journeyId = $("#journeyId").val();
+
+                    editDollar(journeyId, newValue);
+                }
+            });
+
+            // ------------------ Dollar Price ---------------------------
+            // Check if the value is changed
+            $('body').on('focusin', '#txtRyial', function () {
+                oldRyial = $(this).val();
+            });
+
+            // Edit field
+            $('body').on('focusout', '#txtRyial', function () {
+                var newValue = $(this).val();
+                if (newValue != oldRyial) {
+                    // Get the data
+                    var journeyId = $("#journeyId").val();
+
+                    editRyial(journeyId, newValue);
+                }
+            });
+
+            // ------------------ Customs Price ---------------------------
+            // Check if the value is changed
+            $('body').on('focusin', '#txtCustoms', function () {
+                oldCustoms = $(this).val();
+            });
+
+            // Edit field
+            $('body').on('focusout', '#txtCustoms', function () {
+                var newValue = $(this).val();
+                if (newValue != oldCustoms) {
+                    // Get the data
+                    var journeyId = $("#journeyId").val();
+
+                    editCustoms(journeyId, newValue);
+                }
+            });
+
+            // ------------------ Policy ---------------------------
+            // Check if the value is changed
+            $('body').on('focusin', '#txtPolicy', function () {
+                oldPolicy = $(this).val();
+            });
+
+            // Edit field
+            $('body').on('focusout', '#txtPolicy', function () {
+                var newValue = $(this).val();
+                if (newValue != oldPolicy) {
+                    // Get the data
+                    var journeyId = $("#journeyId").val();
+
+                    editPolicy(journeyId, newValue);
+                }
+            });
+
+            // ------------------ Date ---------------------------
+            // Check if the value is changed
+            $('body').on('focusin', '#txtDate', function () {
+                oldDate = $(this).val();
+            });
+
+            // Edit field
+            $('body').on('focusout', '#txtDate', function () {
+                var newValue = $(this).val();
+                if (newValue != oldDate) {
+                    // Get the data
+                    var journeyId = $("#journeyId").val();
+
+                    editDate(journeyId, newValue);
+                }
+            });
+        });
+
+        // Function to edit the driver
+        function editDriver(journeyId, value) {
+            // Prepare the url
+            var url = "@Url.Action("EditDriver", "Journeys")";
+            var data = {
+                driverId: value,
+                id: journeyId
+            };
+
+            // Send the request
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (data) {
+
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم يتم تعديل السائق');
+            });
+        }
+
+        // Function to edit the sender company
+        function editSender(journeyId, value) {
+            // Prepare the url
+            var url = "@Url.Action("EditSenderCompany", "Journeys")";
+            var data = {
+                senderCompanyId: value,
+                id: journeyId
+            };
+
+            // Send the request
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (data) {
+
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم يتم تعديل الشركة المرسلة');
+            });
+        }
+
+         // Function to edit the receiver company
+        function editReceiver(journeyId, value) {
+            // Prepare the url
+            var url = "@Url.Action("EditReceiverCompany", "Journeys")";
+            var data = {
+                receiverCompanyId: value,
+                id: journeyId
+            };
+
+            // Send the request
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (data) {
+
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم يتم تعديل الشركة المستلمة');
+            });
+        }
+
+          // Function to edit the dollar Price
+        function editDollar(journeyId, value) {
+            // Prepare the url
+            var url = "@Url.Action("EditDollarPrice", "Journeys")";
+            var data = {
+                dollarPrice: value,
+                id: journeyId
+            };
+
+            // Send the request
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (data) {
+
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم يتم تعديل سعر الدولار');
+            });
+        }
+
+          // Function to edit the dollar Price
+        function editRyial(journeyId, value) {
+            // Prepare the url
+            var url = "@Url.Action("EditRyialPrice", "Journeys")";
+            var data = {
+                ryialPrice: value,
+                id: journeyId
+            };
+
+            // Send the request
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (data) {
+
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم يتم تعديل سعر الريال');
+            });
+        }
+
+          // Function to edit the customs Price
+        function editCustoms(journeyId, value) {
+            // Prepare the url
+            var url = "@Url.Action("EditCustomsPrice", "Journeys")";
+            var data = {
+                customsPrice: value,
+                id: journeyId
+            };
+
+            // Send the request
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (data) {
+
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم يتم تعديل سعر الرسوم الحديثة');
+            });
+        }
+
+          // Function to edit the policy
+        function editPolicy(journeyId, value) {
+            // Prepare the url
+            var url = "@Url.Action("EditPolicy", "Journeys")";
+            var data = {
+                policy: value,
+                id: journeyId
+            };
+
+            // Send the request
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (data) {
+
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم يتم تعديل ال Policy');
+            });
+        }
+
+         // Function to edit the date
+        function editDate(journeyId, value) {
+            // Prepare the url
+            var url = "@Url.Action("EditDate", "Journeys")";
+            var data = {
+                newDate: value,
+                id: journeyId
+            };
+
+            // Send the request
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (data) {
+
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم يتم تعديل ال Policy');
+            });
+        }
+    </script>
+}
+

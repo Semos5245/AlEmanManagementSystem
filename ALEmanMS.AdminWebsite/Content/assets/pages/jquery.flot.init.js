@@ -335,8 +335,24 @@
         //initializing various charts and components
         FlotChart.prototype.init = function() {
             //plot graph data
-            var uploads = [[0, 9], [1, 8], [2, 5], [3, 8], [4, 5], [5, 14], [6, 10]];
-            var downloads = [[0, 5], [1, 12], [2, 4], [3, 3], [4, 12], [5, 11], [6, 14]];
+        var uploads = [
+
+            @for (int i = 0; i < 12; i++)
+        {
+            if (i == 11) {
+                <text>
+                    [@Model.JourneyStatistics[i].Month, @Model.JourneyStatistics[i].Value]
+                        </text>
+            }
+            else {
+                <text>
+                    [@Model.JourneyStatistics[i].Month, @Model.JourneyStatistics[i].Value],
+                        </text>
+            }
+        }
+
+        ];
+            var downloads = [];
             var plabels = ["Visits", "Pages/Visit"];
             var pcolors = ['#00b19d', '#3bafda'];
             var borderColor = 'transparent';

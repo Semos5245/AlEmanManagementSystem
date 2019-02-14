@@ -63,7 +63,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
         // Users 
         [AllowAnonymous]
-        public ActionResult Users()
+        public ActionResult GetUsers()
         {
             ApplicationDbContext db = new ApplicationDbContext();
             return View(db.Users.ToList()); 
