@@ -94,6 +94,7 @@
                 </td>
                 <td>
                     <a href="@Url.Action("Edit","Senders",new { @id = item.PersonId})"><i class="fa fa-edit"></i></a>
+                    <a href="@Url.Action("Index","PersonContacts",new { @id = item.PersonId })"><i class="fa fa-address-book"></i></a>
                     <a href="#" class="on-default remove-row deleteButton" data-toggle="modal" data-placement="top" title="" data-id="@item.PersonId" data-target="#deleteModal" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                 </td>
             </tr>

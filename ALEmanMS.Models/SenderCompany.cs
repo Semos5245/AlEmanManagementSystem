@@ -27,7 +27,7 @@ namespace ALEmanMS.Models
 
         [StringLength(25)]
         public string CommercialNumber { get; set; }
-
+        
         //Relation with other tables
         public virtual List<Journey> Journeys { get; set; }
 

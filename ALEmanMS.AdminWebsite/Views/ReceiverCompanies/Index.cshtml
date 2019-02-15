@@ -37,6 +37,9 @@
                     الرقم التجاري
                 </th>
                 <th>
+                    هاتف
+                </th>
+                <th>
                     الوصف
                 </th>
                 <th>
@@ -49,24 +52,27 @@
             @foreach (var item in Model)
             {
                 string rowId = "receiverCompany" + item.ReceiverCompanyId;
-                <tr id="@rowId">
-                    <td>
-                        @item.Name
-                    </td>
-                    <td>
-                        @item.Country
-                    </td>
-                    <td>
-                        @item.CommercialNumber
-                    </td>
-                    <td>
-                        @item.Description
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Edit","ReceiverCompanies",new { @id = item.ReceiverCompanyId})"><i class="fa fa-edit"></i></a>
-                        <a href="#" class="on-default remove-row deleteButton" data-toggle="modal" data-placement="top" title="" data-id="@item.ReceiverCompanyId" data-target="#deleteModal" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                    </td>
-                </tr>
+            <tr id="@rowId">
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Country
+                </td>
+                <td>
+                    @item.CommercialNumber
+                </td>
+                <td>
+                    @item.Phone1
+                </td>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","ReceiverCompanies",new { @id = item.ReceiverCompanyId})"><i class="fa fa-edit"></i></a>
+                    <a href="#" class="on-default remove-row deleteButton" data-toggle="modal" data-placement="top" title="" data-id="@item.ReceiverCompanyId" data-target="#deleteModal" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

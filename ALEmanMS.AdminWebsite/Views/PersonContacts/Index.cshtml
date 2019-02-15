@@ -1,0 +1,275 @@
+﻿@model ALEmanMS.AdminWebsite.Models.PersonContactViewModel
+@{
+    ViewBag.Title = "الاتصالات";
+}
+
+@section Css {
+    <!-- Css libraries for this page goes here-->
+    <!-- Modals Library-->
+    <link href="~/Content/plugins/custombox/dist/custombox.min.css" rel="stylesheet">
+
+    <!-- DataTables -->
+    <link href="~/Content/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="~/Content/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="card-box">
+    <h2>الاتصالات ل السيد @Model.Person.FullName</h2>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="m-b-30">
+                <button id="btnAddNewContact" data-toggle="modal" data-target="#con-close-modal" class="btn btn-success waves-effect waves-light"><i class="fa fa-plus"></i> إضافة اتصال</button>
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped" id="contactsTable">
+        <thead>
+            <tr>
+                <th>
+                    نوع الاتصال
+                </th>
+                <th>
+                    القيمة
+                </th>
+                <th>إجراءات</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.PersonContacts)
+            {
+                string rowId = "row" + item.PersonContactId;
+                string trId = "tr" + item.PersonContactId;
+            <tr id="@trId">
+                @{
+
+                }
+                <td>
+                    @item.Contact.Name
+                </td>
+                <td>
+                    @item.Value
+                </td>
+                <td class="actions">
+                    <a href="#" class="on-default remove-row removeContact" data-id="@item.PersonContactId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Modals
+{
+    <!-- Insert Modal -->
+    <div id="con-close-modal" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">إضافة اتصال جديد</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="insertForm">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">نوع الاتصال</label>
+                                    <input type="text" class="form-control" required parsley-trigger="change" id="txtAddContactName" placeholder="هاتف او ايميل">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">القيمة</label>
+                                    <input type="number" class="form-control" required parsley-trigger="change" id="txtAddContactValue" placeholder="09------/ someone@example.com">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                            <button type="submit" id="btnAddContact" class="btn btn-info waves-effect waves-light">إضافة</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+    <!-- Delete  Modal -->
+    <div id="con-close-modal-delete" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">رسالة تأكيد</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p>هل أنت متأكد من أنك تريد حذف <strong id="contactName"></strong>؟</p>
+                        </div>
+                        <input type="hidden" id="deleteContactId" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                        <button type="submit" id="btnDeleteContact" class="btn btn-danger waves-effect waves-light">حذف</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+}
+
+@section Scripts {
+
+    <!-- Scripts related to this page goes here -->
+    <!-- Required datatable js -->
+    <script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="~/Content/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/Content/plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/plugins/datatables/jszip.min.js"></script>
+    <script src="~/Content/plugins/datatables/pdfmake.min.js"></script>
+    <script src="~/Content/plugins/datatables/vfs_fonts.js"></script>
+    <script src="~/Content/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="~/Content/plugins/datatables/buttons.print.min.js"></script>
+
+    <!-- Notification js -->
+    <script src="~/Content/plugins/notifyjs/dist/notify.min.js"></script>
+    <script src="~/Content/plugins/notifications/notify-metro.js"></script>
+    <script src="~/Content/assets/js/notifications-asset.js"></script>
+
+    <!-- Parsleyjs -->
+    <script type="text/javascript" src="~/Content/plugins/parsleyjs/dist/parsley.min.js"></script>
+
+    <!-- Modals Effects -->
+    <!-- Modal-Effect -->
+    <script src="~/Content/plugins/custombox/dist/custombox.min.js"></script>
+    <script src="~/Content/plugins/custombox/dist/legacy.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            var table = $("#contactsTable").dataTable();
+
+            //$("#btnAddDestination").click(function () {
+            //    insertDestination();
+            //});
+
+            $('form').parsley();
+
+            $("#insertForm").submit(function (e) {
+                // Stop the form from being accepted
+                e.preventDefault();
+
+                insertContact();
+            });
+
+            // Click the remove city button in the table
+            $(".removeContact").click(function () {
+                // Get the id
+                var id = $(this).data("id");
+                // Open Modal
+                openDeleteModal(id);
+            });
+
+            // Click the delete button in delete modal
+            $("#btnDeleteContact").click(function () {
+                // Get the id
+                var id = $('#deleteContactId').val();
+
+                // Delete
+                removeContact(id);
+            });
+
+        });
+
+         // Insert a new Contact
+            function insertContact() {
+                var table = $("#contactsTable").dataTable();
+
+                // Get the data
+                var contactName = $("#txtAddContactName").val();
+                var contactValue = $("#txtAddContactValue").val();
+
+                var url = "@Url.Action("AddContact", "PersonContacts")";
+
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        ContactName: cityName,
+                        Value: contactValue
+                    },
+                    url: url,
+                    success: function (data) {
+                        showSuccessNotification("تمت العملية بنجاح", 'لقد تم إضافة ' + contactName);
+                        // Close the modal
+                        $("#con-close-modal").modal('toggle');
+
+                        // Add the Contact to the table
+                        table.row.add([data.contactName, data.contactValue,
+                        "<a href='#' class='on-default remove-row removeContact' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='fa fa-trash-o'></i></a>"]).draw(false);
+                        //$("#tableBody").append("<tr><td>" + data.name + "</td><td></td></tr>")
+
+                    }
+                }).fail(function (e) {
+                    //alert(e.status + " " + e.statusCode());
+                    if (e.status === 406) {
+                        showErrorNotification("لم تتم العملية بنجاح", "يرجى ادخال المعلومات بشكل صحيح");
+                    }
+                    else{
+                        showErrorNotification("لم تتم العملية بنجاح", "يوجد هنالك خطأ ما, يرجى إعادة المحاولة لاحقاً");
+                        }
+                    });
+        }
+
+        // Function to open delete modal
+        function openDeleteModal(id) {
+            // Get the name of the contact name from the table
+            var contact = $("#row" + id).text();
+
+            // Show the name in the modal
+            $("#contactName").text(contact);
+
+            // Set the contact in the hidden field
+            $("#deleteContactId").val(id);
+            // Open the modal
+            $("#con-close-modal-delete").modal('toggle');
+        }
+
+        // Function to remove the Contact
+        function removeContact(id) {
+            // Get the table to manpulaite
+            var table = $("#contactsTable").dataTable();
+
+            // Get the name of the destination
+            var name = $("#row" + id).text();
+
+            // Prepare the url
+            var url = "@Url.Action("Delete", "PersonContacts")/" + id;
+
+            // Send the post request to remove
+            $.ajax({
+                url: url,
+                type: "POST",
+                success: function (data) {
+                    // Remove from the table
+                    $('#tr' + id).remove();
+
+                    // Close the modal
+                    $("#con-close-modal-delete").modal('toggle');
+
+                    // Show notification
+                    showSuccessNotification('تمت العملية بنجاح', 'لفد تم حذف الاتصال ' + name);
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم تتم العملية بنجاح, يرجى إعادة المحاولة لاحقاً');
+            });
+        }
+    </script>
+}
+

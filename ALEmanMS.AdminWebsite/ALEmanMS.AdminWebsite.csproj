@@ -209,6 +209,7 @@
     <Compile Include="Controllers\JourneysController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PackagesController.cs" />
+    <Compile Include="Controllers\PersonContactsController.cs" />
     <Compile Include="Controllers\ReceiverCompaniesController.cs" />
     <Compile Include="Controllers\SenderCompaniesController.cs" />
     <Compile Include="Controllers\SendersController.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Models\JourneyViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PackageViewModel.cs" />
+    <Compile Include="Models\PersonContactViewModel.cs" />
     <Compile Include="Models\ReceiverCompanyViewModel.cs" />
     <Compile Include="Models\SenderCompanyViewModel.cs" />
     <Compile Include="Models\SenderViewModel.cs" />
@@ -566,6 +568,7 @@
     <Content Include="Views\Shared\_JourneyLayout.cshtml" />
     <Content Include="Views\Journeys\JourneyProfile.cshtml" />
     <Content Include="Views\Journeys\Statistics.cshtml" />
+    <Content Include="Views\PersonContacts\Index.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

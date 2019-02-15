@@ -556,7 +556,6 @@ D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\Microsof
 D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\Microsoft.AI.WindowsServer.xml
 D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\Microsoft.AI.Web.xml
 D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\obj\Debug\ALEmanMS.AdminWebsite.csprojAssemblyReference.cache
 D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\obj\Debug\ALEmanMS.AdminWebsite.csproj.CoreCompileInputs.cache
 D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\obj\Debug\ALEmanMS.AdminWebsite.csproj.CopyComplete
 D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\obj\Debug\ALEmanMS.AdminWebsite.dll

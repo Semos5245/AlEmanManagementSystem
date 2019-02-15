@@ -48,13 +48,14 @@ namespace ALEmanMS.AdminWebsite.Controllers
                     Name = model.Name.Trim(),
                     Country = model.Country.Trim(),
                     CommercialNumber = model.CommercialNumber.Trim(),
+                    Phone = model.Phone != null ? model.Phone.Trim() : "",
                     Description = model.Description != null ? model.Description.Trim() : "",
                 };
 
                 db.ReceiverCompanies.Add(newCompany);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "PersonContacts", new { id = newCompany.ReceiverCompanyId });
             }
 
             return View(model);
@@ -80,6 +81,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 Name = oldreceiverCompany.Name,
                 CommercialNumber = oldreceiverCompany.CommercialNumber,
                 Country = oldreceiverCompany.Country,
+                Phone = oldreceiverCompany.Phone,
                 Description = oldreceiverCompany.Description
             };
 
@@ -106,6 +108,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 oldCompany.Name = model.Name.Trim();
                 oldCompany.Description = model.Description != null ? model.Description.Trim() : "";
                 oldCompany.Country = model.Country.Trim();
+                oldCompany.Phone = model.Phone != null ? model.Phone.Trim() : "";
                 oldCompany.CommercialNumber = model.CommercialNumber.Trim();
 
                 db.SaveChanges();

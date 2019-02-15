@@ -60,7 +60,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 db.People.Add(newDriver);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","PersonContacts", new { id = newDriver.PersonId });
             }
 
             return View(model);
