@@ -34,7 +34,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="cmbDrivers" class="control-label">السائق</label>
-                                <select class="form-control" id="cmbDrivers">
+                                <select class="form-control driversPage" id="cmbDrivers">
                                     @foreach (var item in Model.DriversList)
                                     {
                                         if (Model.Journey.DriverId == item.PersonId)
@@ -53,7 +53,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="cmbSenderCompanies" class="control-label">الشركة المرسلة</label>
-                                <select class="form-control" id="cmbSenderCompanies">
+                                <select class="form-control senderCompaniesPage" id="cmbSenderCompanies">
                                     @foreach (var item in Model.SenderCompaniesList)
                                     {
                                         if (Model.Journey.SenderCompanyId == item.SenderCompanyId)
@@ -72,7 +72,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="cmbReceiverCompanies" class="control-label">الشركة المستلمة</label>
-                                <select class="form-control" id="cmbReceiverCompanies">
+                                <select class="form-control receiverCompaniesPage" id="cmbReceiverCompanies">
                                     @foreach (var item in Model.ReceiverCompaniesList)
                                     {
                                         if (Model.Journey.ReceiverCompanyId == item.ReceiverCompanyId)
@@ -82,6 +82,25 @@
                                         else
                                         {
                                             <option value="@item.ReceiverCompanyId">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="cmbJourneyTypes" class="control-label">نوع الرحلة</label>
+                                <select class="form-control journeyTypesPage" id="cmbJourneyTypes">
+                                    @foreach (var item in Model.journeyTypesList)
+                                    {
+                                        if (Model.Journey.JourneyTypeId == item.JourneyTypeId)
+                                        {
+                                            <option value="@item.JourneyTypeId" selected>@item.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.JourneyTypeId">@item.Name</option>
                                         }
                                     }
                                 </select>
@@ -173,8 +192,8 @@
                             string rowId = "row" + item.PackageId;
 
                             <tr id="@rowId">
-                                <td>
-                                    <select class="form-control input-control" data-packageId="@item.PackageId" data-type="category" style="width: 150px;">
+                                <td class="customersSelect">
+                                    <select class="form-control input-control categoriesPage" data-packageId="@item.PackageId" data-type="category" style="width: 150px;">
                                         @foreach (var category in Model.Categories)
                                         {
                                             if (category.CategoryId == item.CategoryId)
@@ -208,7 +227,7 @@
                                     <input type="number" class="form-control input-control" id="txtAddWeight" value="@item.Weight" data-packageId="@item.PackageId" data-type="weight" style="width: 75px;" />
                                 </td>
                                 <td>
-                                    <select class="form-control input-control" data-packageId="@item.PackageId" data-type="sender" style="width: 150px;">
+                                    <select class="form-control input-control sendersPage" data-packageId="@item.PackageId" data-type="sender" style="width: 150px;">
                                         @foreach (var sender in Model.Senders)
                                         {
                                             if (item.SenderId == sender.PersonId)
@@ -239,7 +258,7 @@
                                     <input type="number" class="form-control optional-field input-control" disabled value="@item.InternalShipmentPrice" data-packageId="@item.PackageId" data-type="internalShipping" style="width: 75px;" />
                                 </td>
                                 <td>
-                                    <select class="form-control input-control" data-packageId="@item.PackageId" data-type="customer " style="width: 150px;">
+                                    <select class="form-control input-control customersPage" id="customersSelect"  data-packageId="@item.PackageId" data-type="customer " style="width: 150px;">
                                         @foreach (var customer in Model.Customers)
                                         {
                                             if (item.CustomerId == customer.PersonId)
@@ -260,7 +279,7 @@
                     <tfoot>
                         <tr id="newRow" style="background-color:rgba(42, 157, 2, 0.55)">
                             <td>
-                                <select id="cmbAddCategories" class="form-control" style="width: 150px;">
+                                <select id="cmbAddCategories" class="form-control categoriesPage" style="width: 150px;">
                                     @foreach (var item in Model.Categories)
                                     {
                                         <option value="@item.CategoryId">@item.Name</option>
@@ -286,7 +305,7 @@
                                 <input type="number" class="form-control" id="txtAddWeight2" value="0" style="width: 75px;" />
                             </td>
                             <td>
-                                <select id="cmbAddSender" class="form-control" style="width: 150px;">
+                                <select id="cmbAddSender" class="form-control sendersPage" style="width: 150px;">
                                     @foreach (var item in Model.Senders)
                                     {
                                         <option value="@item.PersonId">@item.FullName</option>
@@ -309,7 +328,7 @@
                                 <input type="number" class="form-control optional-field" disabled id="txtAddInternalShipping" value="0" style="width: 75px;" />
                             </td>
                             <td>
-                                <select id="cmbAddCustomers" class="form-control" style="width: 150px;">
+                                <select id="cmbAddCustomers" class="form-control customersPage" style="width: 150px;">
                                     @foreach (var item in Model.Customers)
                                     {
                                         <option value="@item.PersonId">@item.FullName</option>
@@ -381,11 +400,32 @@
                 }
 
             });
-
-            // Edit the driver of the journey
-
-
+           
         });
+
+        $('.customersPage').dblclick(function () {
+            window.location.href = "http://localhost:49923/Customers/Create";
+        })
+
+        $('.sendersPage').dblclick(function () {
+            window.location.href = "http://localhost:49923/Senders/Create";
+        })
+
+        $('.receiverCompaniesPage').dblclick(function () {
+            window.location.href = "http://localhost:49923/ReceiverCompanies/Create";
+        })
+
+        $('.senderCompaniesPage').dblclick(function () {
+            window.location.href = "http://localhost:49923/SenderCompanies/Create";
+        })
+
+        $('.driversPage').dblclick(function () {
+            window.location.href = "http://localhost:49923/Drivers/Create";
+        })
+
+        $('.categoriesPage').dblclick(function () {
+            window.location.href = "http://localhost:49923/Categories";
+        })
 
         // Functin to edit a field
         function editField(packageId, type, value) {
@@ -623,6 +663,7 @@
             var oldDriverId = "";
             var oldSenderId = "";
             var oldReceiverId = "";
+            var oldJourneyTypeId = "";
             var oldDollar = "";
             var oldRyial = "";
             var oldCustoms = "";
@@ -643,6 +684,24 @@
                     var journeyId = $("#journeyId").val();
 
                     editDriver(journeyId, newValue);
+                }
+
+            });
+
+            // ------------- Journey Type -----
+            // Check if the value is changed
+            $('body').on('focusin', '#cmbJourneyTypes', function () {
+                oldJourneyTypeId = $(this).val();
+            });
+
+            // Edit field
+            $('body').on('focusout', '#cmbJourneyTypes', function () {
+                var newValue = $(this).val();
+                if (newValue != oldJourneyTypeId) {
+                    // Get the data
+                    var journeyId = $("#journeyId").val();
+
+                    editJourneyType(journeyId, newValue);
                 }
 
             });
@@ -787,6 +846,28 @@
                 }
             }).fail(function (e) {
                 showErrorNotification('فشل', 'لم يتم تعديل السائق');
+            });
+        }
+
+        // Function to edit the type
+        function editJourneyType(journeyId, value) {
+            // Prepare the url
+            var url = "@Url.Action("EditJourneyType", "Journeys")";
+            var data = {
+                journeyTypeId: value,
+                id: journeyId
+            };
+
+            // Send the request
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (data) {
+                    
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم يتم تعديل نوع الرحلة');
             });
         }
 

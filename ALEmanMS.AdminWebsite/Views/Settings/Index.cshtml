@@ -16,13 +16,25 @@
             </div>
 
             <div class="form-group col-12">
-                <label for="txtShippingPrice" class="label-control">سعر شحن الكيلو</label>
+                <label for="txtLandShippingPrice" class="label-control">سعر شحن الكيلو بري</label>
 
-                <input type="text" value="@Model.ShippingPerKiloPrice" class="form-control" id="txtShippingPrice" name="shippingPrice"/>
+                <input type="text" value="@Model.LandShippingPerKiloPrice" class="form-control" id="txtShippingPrice" name="landShippingPrice" />
+            </div>
+
+            <div class="form-group col-12">
+                <label for="txtNauticalShippingPrice" class="label-control">سعر شحن الكيلو بحري</label>
+
+                <input type="text" value="@Model.NauticalShippingPerKiloPrice" class="form-control" id="txtShippingPrice" name="nauticalShippingPrice" />
+            </div>
+
+            <div class="form-group col-12">
+                <label for="txtAirShippingPrice" class="label-control">سعر شحن الكيلو جوي</label>
+
+                <input type="text" value="@Model.AirShippingPerKiloPrice" class="form-control" id="txtShippingPrice" name="airShippingPrice" />
             </div>
 
             <div class="form-group">
-                <input type="submit" class="btn btn-success" value="حفظ التغيرات"/>
+                <input type="submit" class="btn btn-success" value="حفظ التغيرات" />
             </div>
         </form>
     </div>

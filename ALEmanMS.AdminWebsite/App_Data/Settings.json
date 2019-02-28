@@ -1,1 +1,1 @@
-{"PackagingPrice":12.0,"ShippingPerKiloPrice":25.0}
+{"PackagingPrice":12.0,"LandShippingPerKiloPrice":5.0,"AirShippingPerKiloPrice":19.0,"NauticalShippingPerKiloPrice":12.0}

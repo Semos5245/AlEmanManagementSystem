@@ -58,7 +58,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CityId, Model.Cities, "Select a city", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.CityId, Model.Cities, "Select a city", new { @class = "form-control citiesPage" })
                 @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -104,5 +104,10 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
+        $(document).ready(function () {
+            $('.citiesPage').dblclick(function () {
+                window.location.href = "http://localhost:49923/Cities";
+            })
+        })
     </script>
 }

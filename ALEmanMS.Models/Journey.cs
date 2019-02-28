@@ -10,7 +10,7 @@ namespace ALEmanMS.Models
 {
     public class Journey
     {
-        //[Key]
+        [Key]
         public int JourneyId { get; set; }
 
         [StringLength(50)]

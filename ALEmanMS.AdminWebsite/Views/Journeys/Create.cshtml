@@ -74,7 +74,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.DriverId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.DriverId, Model.Drivers, "أختر سائق", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.DriverId, Model.Drivers, "أختر سائق", new { @class = "form-control driversPage" })
                     @Html.ValidationMessageFor(model => model.DriverId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -82,7 +82,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.SenderCompanyId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.SenderCompanyId, Model.SenderCompanies, "أختر شركة مرسلة", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.SenderCompanyId, Model.SenderCompanies, "أختر شركة مرسلة", new { @class = "form-control senderCompaniesPage" })
                     @Html.ValidationMessageFor(model => model.SenderCompanyId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -90,7 +90,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ReceiverCompanyId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.ReceiverCompanyId, Model.ReceiverCompanies, "اختر شركة مستلمة", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.ReceiverCompanyId, Model.ReceiverCompanies, "اختر شركة مستلمة", new { @class = "form-control receiverCompaniesPage" })
                     @Html.ValidationMessageFor(model => model.ReceiverCompanyId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -120,5 +120,16 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
+        $(document).ready(function () {
+            $('.driversPage').dblclick(function () {
+                window.location.href = "http://localhost:49923/Drivers";
+            })
+            $('.senderCompaniesPage').dblclick(function () {
+                window.location.href = "http://localhost:49923/SenderCompanies";
+            })
+            $('.receiverCompaniesPage').dblclick(function () {
+                window.location.href = "http://localhost:49923/ReceiverCompanies";
+            })
+        })
     </script>
 }

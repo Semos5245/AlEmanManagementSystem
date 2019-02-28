@@ -72,7 +72,7 @@
 @section Modals
 {
     <!-- Insert Modal -->
-    <div id="con-close-modal" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div id="con-close-modal" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -99,7 +99,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">الوجهة</label>
-                                    <select id="cmbAddCityDestination" class="form-control" required parsley-trigger="change">
+                                    <select id="cmbAddCityDestination" class="form-control destinationsPage" required parsley-trigger="change">
                                         <option value="">اختر الوجهة</option>
                                         @foreach (var item in Model.Destinations)
                                         {
@@ -146,7 +146,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">الوجهة</label>
-                                    <select id="cmbEditCityDestination" class="form-control" required parsley-trigger="change">
+                                    <select id="cmbEditCityDestination" class="form-control destinationsPage" required parsley-trigger="change">
                                      
                                         @foreach (var item in Model.Destinations)
                                         {
@@ -223,6 +223,11 @@
 
     <script>
         $(document).ready(function () {
+
+            $('.destinationsPage').dblclick(function () {
+                window.location.href = "http://localhost:49923/Destinations";
+            })
+
             var table = $("#citiesTable").DataTable();
 
             //$("#btnAddDestination").click(function () {

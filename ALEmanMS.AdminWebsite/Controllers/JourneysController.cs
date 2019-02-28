@@ -110,7 +110,8 @@ namespace ALEmanMS.AdminWebsite.Controllers
             model.Senders = db.People.OfType<Sender>().ToList();
             model.DriversList = db.People.OfType<Driver>().ToList();
             model.SenderCompaniesList = db.SenderCompanies.ToList();
-            model.ReceiverCompaniesList = db.ReceiverCompanies.ToList(); 
+            model.ReceiverCompaniesList = db.ReceiverCompanies.ToList();
+            model.journeyTypesList = db.JourneyTypes.ToList();
             return model;
         }
         #endregion  
@@ -194,8 +195,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 journey = db.Journeys.Add(journey);
                 db.SaveChanges();
 
-                //return RedirectToAction("JourneyProfile", new { id = journey.JourneyId });
-                return RedirectToAction("Index"); 
+                return RedirectToAction("JourneyProfile", new { id = journey.JourneyId }); 
             }
 
             model.Message = "يوجد هنالك خطأ ما, يرجى التحقق من المدخلات";
@@ -416,6 +416,31 @@ namespace ALEmanMS.AdminWebsite.Controllers
             db.SaveChanges();
 
             return new HttpStatusCodeResult(200); 
+        }
+
+        // Edit JourneyType 
+        // POST: Journeys/EditDate 
+        [HttpPost]
+        public ActionResult EditJourneyType(int id, string journeyTypeId)
+        {
+            if (string.IsNullOrEmpty(journeyTypeId))
+                new HttpStatusCodeResult(406);
+
+            var journey = db.Journeys.Find(id);
+            if (journey == null)
+                return HttpNotFound();
+
+            var type = db.JourneyTypes.Find(journeyTypeId);
+            if (type == null)
+            {
+                return HttpNotFound();
+            }
+
+            journey.JourneyType = type;
+
+            db.SaveChanges();
+
+            return new HttpStatusCodeResult(200);
         }
         #endregion
 

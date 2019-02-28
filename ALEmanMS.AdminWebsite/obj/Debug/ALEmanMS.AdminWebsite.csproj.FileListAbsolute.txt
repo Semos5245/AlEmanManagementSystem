@@ -560,3 +560,4 @@ D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\obj\Debug\AL
 D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\obj\Debug\ALEmanMS.AdminWebsite.csproj.CopyComplete
 D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\obj\Debug\ALEmanMS.AdminWebsite.dll
 D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\obj\Debug\ALEmanMS.AdminWebsite.pdb
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\obj\Debug\ALEmanMS.AdminWebsite.csprojAssemblyReference.cache

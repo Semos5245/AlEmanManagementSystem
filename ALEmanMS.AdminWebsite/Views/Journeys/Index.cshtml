@@ -65,7 +65,7 @@
                 string rowId = "row" + item.JourneyId;
 
                 <tr id="@rowId">
-                    <td>
+                    <td class="dblClickJourney" data-id="@item.JourneyId">
                         @item.JourneyId
                     </td>
                     <td>
@@ -160,6 +160,13 @@
 
     <script>
         $(document).ready(function () {
+
+            $('.groupsPage').dblclick(function () {
+                window.location.href = "http://localhost:49923/Groups";
+            })
+            $('.groupingGroupsPage').dblclick(function () {
+                window.location.href = "http://localhost:49923/GroupingGroups";
+            })
             var table = $("#journeysTable").dataTable();
 
             // Click the remove city button in the table
@@ -180,6 +187,12 @@
             });
 
         });
+
+        //Double click on the id of the journey event handles
+        $(".dblClickJourney").dblclick(function () {
+            var id = $(this).data("id");
+            window.location.href = "http://localhost:49923/Journeys/JourneyProfile/" + id;
+        })
 
          // Function to open delete modal
         function openDeleteModal(id) {

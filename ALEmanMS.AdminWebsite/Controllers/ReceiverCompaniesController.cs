@@ -55,7 +55,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 db.ReceiverCompanies.Add(newCompany);
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "PersonContacts", new { id = newCompany.ReceiverCompanyId });
+                return RedirectToAction("Index", "ReceiverCompanies");
             }
 
             return View(model);

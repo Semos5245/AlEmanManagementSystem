@@ -227,38 +227,38 @@
                             <ul class="list-unstyled">
                                 @if (ViewBag.Page == "SenderCompanies")
                                 {
-                                    <li><a href="@Url.Action("Index", "SenderCompanies")" class="active">الشركات المرسلة</a></li>
+                                    <li><a href="@Url.Action("Index", (string)"SenderCompanies")" class="active">الشركات المرسلة</a></li>
                                 }
                                 else
                                 {
-                                    <li><a href="@Url.Action("Index", "SenderCompanies")">الشركات المرسلة</a></li>
+                                    <li><a href="@Url.Action("Index", (string)"SenderCompanies")">الشركات المرسلة</a></li>
                                 }
 
                                 @if (ViewBag.Page == "ReceiverCompanies")
                                 {
-                                    <li><a href="@Url.Action("Index", "ReceiverCompanies")" class="active">الشركات المستلمة</a></li>
+                                    <li><a href="@Url.Action("Index", (string)"ReceiverCompanies")" class="active">الشركات المستلمة</a></li>
                                 }
                                 else
                                 {
-                                    <li><a href="@Url.Action("Index", "ReceiverCompanies")">الشركات المستلمة</a></li>
+                                    <li><a href="@Url.Action("Index", (string)"ReceiverCompanies")">الشركات المستلمة</a></li>
                                 }
 
                                 @if (ViewBag.Page == "Settings")
                                 {
-                                    <li><a href="@Url.Action("Index","Settings")" class="active">قيم الشحن والخيش</a></li>
+                                    <li><a href="@Url.Action("Index",(string)"Settings")" class="active">قيم الشحن والخيش</a></li>
                                 }
                                 else
                                 {
-                                    <li><a href="@Url.Action("Index","Settings")">قيم الشحن والخيش</a></li>
+                                    <li><a href="@Url.Action("Index",(string)"Settings")">قيم الشحن والخيش</a></li>
                                 }
 
                                 @if (ViewBag.Page == "Users")
                                 {
-                                    <li><a href="@Url.Action("GetUsers","Account")" class="active">المستخدمين</a></li>
+                                    <li><a href="@Url.Action("GetUsers",(string)"Account")" class="active">المستخدمين</a></li>
                                 }
                                 else
                                 {
-                                    <li><a href="@Url.Action("GetUsers","Account")">المستخدمين</a></li>
+                                    <li><a href="@Url.Action("GetUsers",(string)"Account")">المستخدمين</a></li>
                                 }
 
 

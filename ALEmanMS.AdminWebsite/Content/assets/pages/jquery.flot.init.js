@@ -4,129 +4,129 @@
  * Module/App: Flot-Chart
  */
 
-! function($) {
+! function ($) {
     "use strict";
 
-    var FlotChart = function() {
+    var FlotChart = function () {
         this.$body = $("body")
         this.$realData = []
     };
 
     //creates plot graph
-    FlotChart.prototype.createPlotGraph = function(selector, data1, data2, labels, colors, borderColor, bgColor) {
+    FlotChart.prototype.createPlotGraph = function (selector, data1, data2, labels, colors, borderColor, bgColor) {
         //shows tooltip
         function showTooltip(x, y, contents) {
             $('<div id="tooltip" class="tooltipflot">' + contents + '</div>').css({
-                position : 'absolute',
-                top : y + 5,
-                left : x + 5
+                position: 'absolute',
+                top: y + 5,
+                left: x + 5
             }).appendTo("body").fadeIn(200);
         }
 
 
         $.plot($(selector), [{
-            data : data1,
-            label : labels[0],
-            color : colors[0]
+            data: data1,
+            label: labels[0],
+            color: colors[0]
         }, {
-            data : data2,
-            label : labels[1],
-            color : colors[1]
+            data: data2,
+            label: labels[1],
+            color: colors[1]
         }], {
-            series : {
-                lines : {
-                    show : true,
-                    fill : true,
-                    lineWidth : 1,
-                    fillColor : {
-                        colors : [{
-                            opacity : 0.5
-                        }, {
-                            opacity : 0.5
-                        }]
+                series: {
+                    lines: {
+                        show: true,
+                        fill: true,
+                        lineWidth: 1,
+                        fillColor: {
+                            colors: [{
+                                opacity: 0.5
+                            }, {
+                                opacity: 0.5
+                            }]
+                        }
+                    },
+                    points: {
+                        show: false
+                    },
+                    shadowSize: 0
+                },
+
+                grid: {
+                    hoverable: true,
+                    clickable: true,
+                    borderColor: borderColor,
+                    borderWidth: 0,
+                    labelMargin: 10
+                },
+                legend: {
+                    position: "ne",
+                    margin: [0, -24],
+                    noColumns: 0,
+                    labelBoxBorderColor: null,
+                    labelFormatter: function (label, series) {
+                        // just add some space to labes
+                        return '' + label + '&nbsp;&nbsp;';
+                    },
+                    width: 30,
+                    height: 2
+                },
+                yaxis: {
+                    tickColor: 'transparent',
+                    tickLength: 0,
+                    font: {
+                        color: '#bdbdbd'
                     }
                 },
-                points : {
-                    show : false
+                xaxis: {
+                    tickColor: '#transparent',
+                    tickLength: 0,
+                    font: {
+                        color: '#bdbdbd'
+                    }
                 },
-                shadowSize : 0
-            },
-
-            grid : {
-                hoverable : true,
-                clickable : true,
-                borderColor : borderColor,
-                borderWidth : 0,
-                labelMargin : 10
-            },
-            legend : {
-                position : "ne",
-                margin : [0, -24],
-                noColumns : 0,
-                labelBoxBorderColor : null,
-                labelFormatter : function(label, series) {
-                    // just add some space to labes
-                    return '' + label + '&nbsp;&nbsp;';
-                },
-                width : 30,
-                height : 2
-            },
-            yaxis : {
-                tickColor : 'transparent',
-                tickLength: 0,
-                font : {
-                    color : '#bdbdbd'
+                tooltip: true,
+                tooltipOpts: {
+                    content: '%s: Value of %x is %y',
+                    shifts: {
+                        x: -60,
+                        y: 25
+                    },
+                    defaultTheme: false
                 }
-            },
-            xaxis : {
-                tickColor : '#transparent',
-                tickLength: 0,
-                font : {
-                    color : '#bdbdbd'
-                }
-            },
-            tooltip : true,
-            tooltipOpts : {
-                content : '%s: Value of %x is %y',
-                shifts : {
-                    x : -60,
-                    y : 25
-                },
-                defaultTheme : false
-            }
-        });
+            });
     },
         //end plot graph
 
         //creates Pie Chart
-        FlotChart.prototype.createPieGraph = function(selector, labels, datas, colors) {
+        FlotChart.prototype.createPieGraph = function (selector, labels, datas, colors) {
             var data = [{
-                label : labels[0],
-                data : datas[0]
+                label: labels[0],
+                data: datas[0]
             }, {
-                label : labels[1],
-                data : datas[1]
+                label: labels[1],
+                data: datas[1]
             }, {
-                label : labels[2],
-                data : datas[2]
+                label: labels[2],
+                data: datas[2]
             }];
             var options = {
-                series : {
-                    pie : {
-                        show : true
+                series: {
+                    pie: {
+                        show: true
                     }
                 },
-                legend : {
-                    show : false
+                legend: {
+                    show: false
                 },
-                grid : {
-                    hoverable : true,
-                    clickable : true
+                grid: {
+                    hoverable: true,
+                    clickable: true
                 },
-                colors : colors,
-                tooltip : true,
-                tooltipOpts : {
-                    content : "%s, %p.0%"
+                colors: colors,
+                tooltip: true,
+                tooltipOpts: {
+                    content: "%s, %p.0%"
                 }
             };
 
@@ -134,7 +134,7 @@
         },
 
         //returns some random data
-        FlotChart.prototype.randomData = function() {
+        FlotChart.prototype.randomData = function () {
             var totalPoints = 300;
             if (this.$realData.length > 0)
                 this.$realData = this.$realData.slice(1);
@@ -161,170 +161,170 @@
             }
 
             return res;
-        }, FlotChart.prototype.createRealTimeGraph = function(selector, data, colors) {
-        var plot = $.plot(selector, [data], {
-            colors : colors,
-            series : {
-                grow : {
-                    active : false
-                }, //disable auto grow
-                shadowSize : 0, // drawing is faster without shadows
-                lines : {
-                    show : true,
-                    fill : true,
-                    lineWidth : 2,
-                    steps : false
-                }
-            },
-            grid : {
-                show : true,
-                aboveData : false,
-                color : '#36404a',
-                labelMargin : 15,
-                axisMargin : 0,
-                borderWidth : 0,
-                borderColor : null,
-                minBorderMargin : 5,
-                clickable : true,
-                hoverable : true,
-                autoHighlight : false,
-                mouseActiveRadius : 20
-            },
-            tooltip : true, //activate tooltip
-            tooltipOpts : {
-                content : "Value is : %y.0" + "%",
-                shifts : {
-                    x : -30,
-                    y : -50
-                }
-            },
-            yaxis : {
-                min : 0,
-                max : 100,
-                tickColor : '#transparent',
-                tickLength: 0
-            },
-            xaxis : {
-                show : false
-            }
-        });
-
-        return plot;
-    },
-        //creates Pie Chart
-        FlotChart.prototype.createDonutGraph = function(selector, labels, datas, colors) {
-            var data = [{
-                label : labels[0],
-                data : datas[0]
-            }, {
-                label : labels[1],
-                data : datas[1]
-            }, {
-                label : labels[2],
-                data : datas[2]
-            }, {
-                label : labels[3],
-                data : datas[3]
-            }];
-            var options = {
-                series : {
-                    pie : {
-                        show : true,
-                        innerRadius : 0.5
+        }, FlotChart.prototype.createRealTimeGraph = function (selector, data, colors) {
+            var plot = $.plot(selector, [data], {
+                colors: colors,
+                series: {
+                    grow: {
+                        active: false
+                    }, //disable auto grow
+                    shadowSize: 0, // drawing is faster without shadows
+                    lines: {
+                        show: true,
+                        fill: true,
+                        lineWidth: 2,
+                        steps: false
                     }
                 },
-                legend : {
-                    show : true,
-                    labelFormatter : function(label, series) {
+                grid: {
+                    show: true,
+                    aboveData: false,
+                    color: '#36404a',
+                    labelMargin: 15,
+                    axisMargin: 0,
+                    borderWidth: 0,
+                    borderColor: null,
+                    minBorderMargin: 5,
+                    clickable: true,
+                    hoverable: true,
+                    autoHighlight: false,
+                    mouseActiveRadius: 20
+                },
+                tooltip: true, //activate tooltip
+                tooltipOpts: {
+                    content: "Value is : %y.0" + "%",
+                    shifts: {
+                        x: -30,
+                        y: -50
+                    }
+                },
+                yaxis: {
+                    min: 0,
+                    max: 100,
+                    tickColor: '#transparent',
+                    tickLength: 0
+                },
+                xaxis: {
+                    show: false
+                }
+            });
+
+            return plot;
+        },
+        //creates Pie Chart
+        FlotChart.prototype.createDonutGraph = function (selector, labels, datas, colors) {
+            var data = [{
+                label: labels[0],
+                data: datas[0]
+            }, {
+                label: labels[1],
+                data: datas[1]
+            }, {
+                label: labels[2],
+                data: datas[2]
+            }, {
+                label: labels[3],
+                data: datas[3]
+            }];
+            var options = {
+                series: {
+                    pie: {
+                        show: true,
+                        innerRadius: 0.5
+                    }
+                },
+                legend: {
+                    show: true,
+                    labelFormatter: function (label, series) {
                         return '<div style="font-size:14px;">&nbsp;' + label + '</div>'
                     },
-                    labelBoxBorderColor : null,
-                    margin : 50,
-                    width : 20,
-                    padding : 1
+                    labelBoxBorderColor: null,
+                    margin: 50,
+                    width: 20,
+                    padding: 1
                 },
-                grid : {
-                    hoverable : true,
-                    clickable : true
+                grid: {
+                    hoverable: true,
+                    clickable: true
                 },
-                colors : colors,
-                tooltip : true,
-                tooltipOpts : {
-                    content : "%s, %p.0%"
+                colors: colors,
+                tooltip: true,
+                tooltipOpts: {
+                    content: "%s, %p.0%"
                 }
             };
 
             $.plot($(selector), data, options);
         },
         //creates Combine Chart
-        FlotChart.prototype.createCombineGraph = function(selector, ticks, labels, datas) {
+        FlotChart.prototype.createCombineGraph = function (selector, ticks, labels, datas) {
 
             var data = [{
-                label : labels[0],
-                data : datas[0],
-                lines : {
-                    show : true,
-                    fill : true
+                label: labels[0],
+                data: datas[0],
+                lines: {
+                    show: true,
+                    fill: true
                 },
-                points : {
-                    show : true
+                points: {
+                    show: true
                 }
             }, {
-                label : labels[1],
-                data : datas[1],
-                lines : {
-                    show : true
+                label: labels[1],
+                data: datas[1],
+                lines: {
+                    show: true
                 },
-                points : {
-                    show : true
+                points: {
+                    show: true
                 }
             }, {
-                label : labels[2],
-                data : datas[2],
-                bars : {
-                    show : true
+                label: labels[2],
+                data: datas[2],
+                bars: {
+                    show: true
                 }
             }];
             var options = {
-                series : {
-                    shadowSize : 0
+                series: {
+                    shadowSize: 0
                 },
-                grid : {
-                    hoverable : true,
-                    clickable : true,
-                    tickColor : "transparent",
-                    borderWidth : 0
+                grid: {
+                    hoverable: true,
+                    clickable: true,
+                    tickColor: "transparent",
+                    borderWidth: 0
                 },
-                colors : ["#3bafda", "#f76397", "#34d3eb"],
-                tooltip : true,
-                tooltipOpts : {
-                    defaultTheme : false
+                colors: ["#3bafda", "#f76397", "#34d3eb"],
+                tooltip: true,
+                tooltipOpts: {
+                    defaultTheme: false
                 },
-                legend : {
-                    position : "ne",
-                    margin : [0, -24],
-                    noColumns : 0,
-                    labelBoxBorderColor : null,
-                    labelFormatter : function(label, series) {
+                legend: {
+                    position: "ne",
+                    margin: [0, -24],
+                    noColumns: 0,
+                    labelBoxBorderColor: null,
+                    labelFormatter: function (label, series) {
                         // just add some space to labes
                         return '' + label + '&nbsp;&nbsp;';
                     },
-                    width : 30,
-                    height : 2
+                    width: 30,
+                    height: 2
                 },
-                yaxis : {
-                    tickColor : '#f5f5f5',
+                yaxis: {
+                    tickColor: '#f5f5f5',
                     tickLength: 0,
-                    font : {
-                        color : '#bdbdbd'
+                    font: {
+                        color: '#bdbdbd'
                     }
                 },
-                xaxis : {
+                xaxis: {
                     ticks: ticks,
-                    tickColor : '#f5f5f5',
+                    tickColor: '#f5f5f5',
                     tickLength: 0,
-                    font : {
-                        color : '#bdbdbd'
+                    font: {
+                        color: '#bdbdbd'
                     }
                 }
             };
@@ -333,23 +333,23 @@
         },
 
         //initializing various charts and components
-        FlotChart.prototype.init = function() {
+        FlotChart.prototype.init = function () {
             //plot graph data
-        var uploads = [
+            var uploads = [
 
             @for (int i = 0; i < 12; i++)
-        {
-            if (i == 11) {
-                <text>
-                    [@Model.JourneyStatistics[i].Month, @Model.JourneyStatistics[i].Value]
+            {
+                if (i == 11) {
+                    <text>
+                        [@Model.JourneyStatistics[i].Month, @Model.JourneyStatistics[i].Value]
                         </text>
-            }
-            else {
-                <text>
-                    [@Model.JourneyStatistics[i].Month, @Model.JourneyStatistics[i].Value],
+                }
+                else {
+                    <text>
+                        [@Model.JourneyStatistics[i].Month, @Model.JourneyStatistics[i].Value],
                         </text>
+                }
             }
-        }
 
         ];
             var downloads = [];
@@ -401,18 +401,18 @@
 
 }(window.jQuery),
 
-//initializing flotchart
-    function($) {
+    //initializing flotchart
+    function ($) {
         "use strict";
         $.FlotChart.init()
     }(window.jQuery);
 
-$(document).ready(function() {
+$(document).ready(function () {
 
 
 
     //------------- Ordered bars chart -------------//
-    $(function() {
+    $(function () {
         //some data
         var d1 = [];
         for (var i = 0; i <= 10; i += 1)
@@ -429,24 +429,24 @@ $(document).ready(function() {
         var ds = new Array();
 
         ds.push({
-            label : "Data One",
-            data : d1,
-            bars : {
-                order : 1
+            label: "Data One",
+            data: d1,
+            bars: {
+                order: 1
             }
         });
         ds.push({
-            label : "Data Two",
-            data : d2,
-            bars : {
-                order : 2
+            label: "Data Two",
+            data: d2,
+            bars: {
+                order: 2
             }
         });
         ds.push({
-            label : "Data Three",
-            data : d3,
-            bars : {
-                order : 3
+            label: "Data Three",
+            data: d3,
+            bars: {
+                order: 3
             }
         });
 
@@ -456,60 +456,60 @@ $(document).ready(function() {
             steps = false;
 
         var options = {
-            bars : {
-                show : true,
-                barWidth : 0.2,
-                fill : 1
+            bars: {
+                show: true,
+                barWidth: 0.2,
+                fill: 1
             },
-            grid : {
-                show : true,
-                aboveData : false,
-                labelMargin : 5,
-                axisMargin : 0,
-                borderWidth : 0,
-                minBorderMargin : 5,
-                clickable : true,
-                hoverable : true,
-                autoHighlight : false,
-                mouseActiveRadius : 20,
-                borderColor : '#f5f5f5'
+            grid: {
+                show: true,
+                aboveData: false,
+                labelMargin: 5,
+                axisMargin: 0,
+                borderWidth: 0,
+                minBorderMargin: 5,
+                clickable: true,
+                hoverable: true,
+                autoHighlight: false,
+                mouseActiveRadius: 20,
+                borderColor: '#f5f5f5'
             },
-            series : {
-                stack : stack
+            series: {
+                stack: stack
             },
-            legend : {
-                position : "ne",
-                margin : [0, -24],
-                noColumns : 0,
-                labelBoxBorderColor : null,
-                labelFormatter : function(label, series) {
+            legend: {
+                position: "ne",
+                margin: [0, -24],
+                noColumns: 0,
+                labelBoxBorderColor: null,
+                labelFormatter: function (label, series) {
                     // just add some space to labes
                     return '' + label + '&nbsp;&nbsp;';
                 },
-                width : 30,
-                height : 2
+                width: 30,
+                height: 2
             },
-            yaxis : {
-                tickColor : '#f5f5f5',
+            yaxis: {
+                tickColor: '#f5f5f5',
                 tickLength: 0,
-                font : {
-                    color : '#bdbdbd'
+                font: {
+                    color: '#bdbdbd'
                 }
             },
-            xaxis : {
-                tickColor : '#f5f5f5',
+            xaxis: {
+                tickColor: '#f5f5f5',
                 tickLength: 0,
-                font : {
-                    color : '#bdbdbd'
+                font: {
+                    color: '#bdbdbd'
                 }
             },
-            colors : ["#3bafda", "#26c6da", "#80deea"],
-            tooltip : true, //activate tooltip
-            tooltipOpts : {
-                content : "%s : %y.0",
-                shifts : {
-                    x : -30,
-                    y : -50
+            colors: ["#3bafda", "#26c6da", "#80deea"],
+            tooltip: true, //activate tooltip
+            tooltipOpts: {
+                content: "%s : %y.0",
+                shifts: {
+                    x: -30,
+                    y: -50
                 }
             }
         };

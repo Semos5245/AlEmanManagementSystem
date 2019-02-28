@@ -24,12 +24,14 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
         // POST: Settings/Edit 
         [HttpPost]
-        public ActionResult Edit(decimal packagingPrice,decimal shippingPrice)
+        public ActionResult Edit(decimal packagingPrice,decimal landShippingPrice, decimal nauticalShippingPrice, decimal airShippingPrice)
         {
             Setting setting = new Setting()
             {
                 PackagingPrice = packagingPrice,
-                ShippingPerKiloPrice = shippingPrice
+                LandShippingPerKiloPrice = landShippingPrice,
+                NauticalShippingPerKiloPrice = nauticalShippingPrice,
+                AirShippingPerKiloPrice = airShippingPrice
             };
 
             setting.SaveSettings(Server.MapPath("~/App_Data/Settings.json"));

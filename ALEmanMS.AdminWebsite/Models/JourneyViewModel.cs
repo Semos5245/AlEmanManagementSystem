@@ -73,5 +73,7 @@ namespace ALEmanMS.AdminWebsite.Models
         public List<SenderCompany> SenderCompaniesList { get; set; }
 
         public List<ReceiverCompany> ReceiverCompaniesList { get; set; }
+
+        public List<JourneyType> journeyTypesList { get; set; }
     }
 }

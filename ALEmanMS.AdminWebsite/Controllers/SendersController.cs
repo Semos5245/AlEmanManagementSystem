@@ -78,7 +78,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 db.People.Add(newSender);
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "PersonContacts", new { id = newSender.PersonId });
+                return RedirectToAction("Index", "Senders");
             }
 
             return View(model);

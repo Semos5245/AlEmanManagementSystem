@@ -13,8 +13,12 @@ namespace ALEmanMS.Models
 
         public decimal PackagingPrice { get; set; }
 
-        public decimal ShippingPerKiloPrice { get; set; }
-        
+        public decimal LandShippingPerKiloPrice { get; set; }
+
+        public decimal AirShippingPerKiloPrice { get; set; }
+
+        public decimal NauticalShippingPerKiloPrice { get; set; }
+
         // Save the settings 
         public void SaveSettings(string path)
         {

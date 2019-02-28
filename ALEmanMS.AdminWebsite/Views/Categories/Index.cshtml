@@ -84,7 +84,7 @@
 @section Modals
 {
     <!-- Insert Modal -->
-    <div id="con-close-modal" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div id="con-close-modal" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -118,7 +118,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">المجموعة</label>
-                                    <select id="cmbAddCategoryGroup" class="form-control" required parsley-trigger="change">
+                                    <select id="cmbAddCategoryGroup" class="form-control groupsPage" required parsley-trigger="change">
                                         <option value="">اختر مجموعة</option>
                                         @foreach (var item in Model.Groups)
                                         {
@@ -131,7 +131,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">مجموعة التجميع</label>
-                                    <select id="cmbAddCategoryGroupingGroup" class="form-control" required parsley-trigger="change">
+                                    <select id="cmbAddCategoryGroupingGroup" class="form-control groupingGroupsPage" required parsley-trigger="change">
                                         <option value="">اختر مجموعة تجميع</option>
                                         @foreach (var item in Model.GroupingGroups)
                                         {
@@ -144,7 +144,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">مجموعة التجميع المخفضة</label>
-                                    <select id="cmbAddCategoryLowGroupingGroup" class="form-control" required parsley-trigger="change">
+                                    <select id="cmbAddCategoryLowGroupingGroup" class="form-control groupingGroupsPage" required parsley-trigger="change">
                                         <option value="">اختر مجموعة التجميع المخفضة</option>
                                         @foreach (var item in Model.GroupingGroups)
                                         {
@@ -200,7 +200,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">المجموعة</label>
-                                    <select id="cmbEditCategoryGroup" class="form-control" required parsley-trigger="change">
+                                    <select id="cmbEditCategoryGroup" class="form-control groupsPage" required parsley-trigger="change">
                                         <option value="">اختر مجموعة</option>
                                         @foreach (var item in Model.Groups)
                                         {
@@ -213,7 +213,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">مجموعة التجميع</label>
-                                    <select id="cmbEditCategoryGroupingGroup" class="form-control" required parsley-trigger="change">
+                                    <select id="cmbEditCategoryGroupingGroup" class="form-control groupingGroupsPage" required parsley-trigger="change">
                                         <option value="">اختر مجموعة تجميع</option>
                                         @foreach (var item in Model.GroupingGroups)
                                         {
@@ -226,7 +226,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">مجموعة التجميع المخفضة</label>
-                                    <select id="cmbEditCategoryLowGroupingGroup" class="form-control" required parsley-trigger="change">
+                                    <select id="cmbEditCategoryLowGroupingGroup" class="form-control groupingGroupsPage" required parsley-trigger="change">
                                         <option value="">اختر مجموعة التجميع المخفضة</option>
                                         @foreach (var item in Model.GroupingGroups)
                                         {
