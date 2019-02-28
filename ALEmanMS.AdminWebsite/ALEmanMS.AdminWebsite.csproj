@@ -225,6 +225,7 @@
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\DashboardViewModel.cs" />
+    <Compile Include="Models\DbInitializer.cs" />
     <Compile Include="Models\GroupingGroupsViewModel.cs" />
     <Compile Include="Models\DriverViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -397,6 +398,7 @@
     <Content Include="Content\plugins\jquery-validation\js\jquery.validate.min.js" />
     <Content Include="Content\plugins\jquery.easy-pie-chart\dist\easypiechart.min.js" />
     <Content Include="Content\plugins\jquery.easy-pie-chart\dist\jquery.easypiechart.min.js" />
+    <Content Include="Content\plugins\jquery.fixedheadertable.min.js" />
     <Content Include="Content\plugins\jquery.steps\css\jquery.steps.css" />
     <Content Include="Content\plugins\jquery.steps\js\jquery.steps.min.js" />
     <Content Include="Content\plugins\jstree\32px.png" />

@@ -3,10 +3,10 @@
 @{
     ViewBag.Title = "معلمات الرحلة رقم " + Model.Journey.JourneyId;
     Layout = "~/Views/Shared/_JourneyLayout.cshtml";
+    var counter = 1;
 }
 
 <div class="card-box">
-
     <div class="col-12">
         <div class="portlet">
             <div class="portlet-heading bg-warning">
@@ -27,7 +27,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="txtJourneyNumber" class="control-label">رقم الرحلة</label>
-                                <input disabled type="text" value="@Model.Journey.JourneyId" id="txtJourneyNumber" class="form-control" />
+                                <input disabled type="text" value="@Model.Journey.JourneyNumber" id="txtJourneyNumber" class="form-control" />
                             </div>
                         </div>
 
@@ -165,7 +165,7 @@
             <div class="clearfix"></div>
         </div>
         <div id="bg-danger" class="panel-collapse collapse show">
-            <div class="portlet-body" style="overflow-x:scroll">
+            <div class="portlet-body" style="overflow-x:scroll;">
                 <table class="table table-striped table-bordered" id="packagesTable">
                     <thead>
                         <tr>
@@ -190,6 +190,9 @@
                         @foreach (var item in Model.Packages)
                         {
                             string rowId = "row" + item.PackageId;
+                            string dozenName = "dozen" + item.PackageId;
+                            string kiloName = "kilo" + item.PackageId;
+                            string countName = "count" + item.PackageId;
 
                             <tr id="@rowId">
                                 <td class="customersSelect">
@@ -198,30 +201,70 @@
                                         {
                                             if (category.CategoryId == item.CategoryId)
                                             {
-                                                <option value="@category.CategoryId" selected>@category.Name</option>
+                                                <option data-unit="@category.Unit.Name" value="@category.CategoryId" selected>@category.Name</option>
                                             }
                                             else
                                             {
-                                                <option value="@category.CategoryId">@category.Name</option>
+                                                <option data-unit="@category.Unit.Name" value="@category.CategoryId">@category.Name</option>
                                             }
 
                                         }
                                     </select>
                                 </td>
-                                <td>
-                                    <input type="number" class="form-control input-control" value="@item.Quantity" data-packageId="@item.PackageId" data-type="count" style="width: 75px;" />
-                                </td>
-                                <td>
-                                    <input type="number" class="form-control input-control" value="@item.Dozens" data-packageId="@item.PackageId" data-type="dozen" style="width: 75px;" />
-                                </td>
-                                <td>
-                                    <input type="number" class="form-control input-control" value="@item.Kilograms" data-packageId="@item.PackageId" data-type="kilo" style="width: 75px;" />
-                                </td>
+                                @if (item.Category.Unit.Name == "عدد")
+                                {
+                                    <td>
+                                        <input type="number" id="@countName" class="form-control input-control" value="@item.Quantity" data-packageId="@item.PackageId" data-type="count" style="width: 75px;" />
+                                    </td>
+                                    <td>
+                                        <input type="number" disabled id="@dozenName" class="form-control input-control" value="@item.Dozens" data-packageId="@item.PackageId" data-type="dozen" style="width: 75px;" />
+                                    </td>
+                                    <td>
+                                        <input type="number" disabled id="@kiloName" class="form-control input-control" value="@item.Kilograms" data-packageId="@item.PackageId" data-type="kilo" style="width: 75px;" />
+                                    </td>
+                                }
+                                else if (item.Category.Unit.Name == "دزينة")
+                                {
+                                    <td>
+                                        <input type="number" disabled id="@countName" class="form-control input-control" value="@item.Quantity" data-packageId="@item.PackageId" data-type="count" style="width: 75px;" />
+                                    </td>
+                                    <td>
+                                        <input type="number" id="@dozenName" class="form-control input-control" value="@item.Dozens" data-packageId="@item.PackageId" data-type="dozen" style="width: 75px;" />
+                                    </td>
+                                    <td>
+                                        <input type="number" disabled id="@kiloName" class="form-control input-control" value="@item.Kilograms" data-packageId="@item.PackageId" data-type="kilo" style="width: 75px;" />
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <input type="number" disabled id="@countName" class="form-control input-control" value="@item.Quantity" data-packageId="@item.PackageId" data-type="count" style="width: 75px;" />
+                                    </td>
+                                    <td>
+                                        <input type="number" disabled id="@dozenName" class="form-control input-control" value="@item.Dozens" data-packageId="@item.PackageId" data-type="dozen" style="width: 75px;" />
+                                    </td>
+                                    <td>
+                                        <input type="number" id="@kiloName" class="form-control input-control" value="@item.Kilograms" data-packageId="@item.PackageId" data-type="kilo" style="width: 75px;" />
+                                    </td>
+                                }
+
                                 <td>
                                     <input type="number" class="form-control input-control" value="@item.PackagesCount" data-packageId="@item.PackageId" data-type="packagesCount" style="width: 75px;" />
                                 </td>
                                 <td>
-                                    <input type="number" class="form-control input-control" value="@item.PackageNumber" data-packageId="@item.PackageId" data-type="packagesNumber" style="width: 75px;" />
+                                    @{
+
+                                        if (item.PackagesCount > 1)
+                                        {
+                                            string packageNumber = counter + " - " + (counter + item.PackagesCount - 1);
+                                            <input type="text" class="form-control input-control" value="@packageNumber" disabled data-packageId="@item.PackageId" data-type="packagesNumber" style="width: 100px;"/>
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class="form-control input-control" value="@item.PackageNumber" disabled data-packageId="@item.PackageId" data-type="packagesNumber" style="width: 100px;" />
+                                        }
+                                        counter += item.PackagesCount.Value;
+                                    }
                                 </td>
                                 <td>
                                     <input type="number" class="form-control input-control" id="txtAddWeight" value="@item.Weight" data-packageId="@item.PackageId" data-type="weight" style="width: 75px;" />
@@ -258,7 +301,7 @@
                                     <input type="number" class="form-control optional-field input-control" disabled value="@item.InternalShipmentPrice" data-packageId="@item.PackageId" data-type="internalShipping" style="width: 75px;" />
                                 </td>
                                 <td>
-                                    <select class="form-control input-control customersPage" id="customersSelect"  data-packageId="@item.PackageId" data-type="customer " style="width: 150px;">
+                                    <select class="form-control input-control customersPage" id="customersSelect" data-packageId="@item.PackageId" data-type="customer " style="width: 150px;">
                                         @foreach (var customer in Model.Customers)
                                         {
                                             if (item.CustomerId == customer.PersonId)
@@ -282,7 +325,7 @@
                                 <select id="cmbAddCategories" class="form-control categoriesPage" style="width: 150px;">
                                     @foreach (var item in Model.Categories)
                                     {
-                                        <option value="@item.CategoryId">@item.Name</option>
+                                        <option data-unit="@item.Unit.Name" value="@item.CategoryId">@item.Name</option>
                                     }
                                 </select>
                             </td>
@@ -296,10 +339,12 @@
                                 <input type="number" class="form-control" id="txtAddKilo" value="0" style="width: 75px;" />
                             </td>
                             <td>
-                                <input type="number" class="form-control" id="txtAddPackagesCount" value="0" style="width: 75px;" />
+                                <input type="number" class="form-control" id="txtAddPackagesCount" value="1" style="width: 75px;" />
                             </td>
                             <td>
-                                <input type="number" class="form-control" id="txtAddPackageNumber" value="0" style="width: 75px;" />
+                                @{
+                                    <input type="text" class="form-control" disabled id="txtAddPackageNumber" value="@counter" style="width: 100px;" />
+                                }
                             </td>
                             <td>
                                 <input type="number" class="form-control" id="txtAddWeight2" value="0" style="width: 75px;" />
@@ -343,6 +388,9 @@
                             <td>
                                 <button id="btnEnableContent" class="btn btn-danger waves-effect btn-custom btn-block"><i class="fa fa-mouse-pointer"></i> تمكين</button>
                             </td>
+                            <td>
+                                <a href="@Url.Action("Numbering", "Packages", new { id = Model.Journey.JourneyId})" id="btnUpdateNumbering" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-sort-numeric-asc"></i> ترقيم</a>
+                            </td>
                         </tr>
 
                     </tfoot>
@@ -361,9 +409,17 @@
     <script src="~/Content/plugins/notifications/notify-metro.js"></script>
     <script src="~/Content/assets/js/notifications-asset.js"></script>
 
+    <!-- Script for the table header fixed -->
+    <script src="~/Content/plugins/jquery.fixedheadertable.min.js"></script>
     <!-- Scripts for the second part (packages) -->
     <script>
+
+        var currentCounter = @counter;
+        
         $(document).ready(function () {
+
+            // Fix the table header 
+
             // Document Ready
             $("#btnAddPakcage").click(function () {
                 addRow();
@@ -400,32 +456,128 @@
                 }
 
             });
-           
+
+            //// Check when the category is changed
+            //var oldSelectedCateogry = "";
+            //$('table').on('focusin', '.categoriesPage', function () {
+            //    oldSelectedCateogry = $(this).val();
+            //});
+
+            //// Edit field
+            //$('table').on('focusout', '.categoriesPage', function () {
+            //    var newValue = $(this).val();
+            //    if (newValue != oldSelectedCateogry) {
+            //        // Get the data
+            //        var unit = $(this).data("unit");
+            //        var packageId = $(this).data("packageid");
+
+            //        enableDisableFields(unit, packageId);
+            //    }
+
+            //});
+
+            // Edit the cateogry of the page
+            $('table').on('change', '.categoriesPage', function ()  {
+                var unit = $("option:selected",this).data("unit");
+                var packageId = $(this).data("packageid");
+
+                enableDisableFields(unit, packageId);
+            });
+
+            // Edit the category of the new row
+            $("#cmbAddCategories").on("change", function () {
+                var unit = $("option:selected", this).data("unit");
+                enableDisableNewFields(unit);
+            });
+
+            // Change the packagesCount 
+            $("#txtAddPackagesCount").change(function () {
+                var packagesCount = parseInt($(this).val()); 
+                
+                if (packagesCount > 1) {
+                    var top = currentCounter + packagesCount - 1;
+                    var value = currentCounter + " - " + top;
+                    $("#txtAddPackageNumber").val(value);
+                }
+                else {
+                    $("#txtAddPackageNumber").val(currentCounter);
+                }
+            }); 
+
+            // Click tab on the customers cmb
+            $("#cmbAddCustomers").focusout(function () {
+                addRow();
+                // go with the focums
+                $("cmbAddCategories").focus();
+            });
+
+            $('.customersPage').dblclick(function () {
+                window.location.href = "http://localhost:49923/Customers/Create";
+            })
+
+            $('.sendersPage').dblclick(function () {
+                window.location.href = "http://localhost:49923/Senders/Create";
+            })
+
+            $('.receiverCompaniesPage').dblclick(function () {
+                window.location.href = "http://localhost:49923/ReceiverCompanies/Create";
+            })
+
+            $('.senderCompaniesPage').dblclick(function () {
+                window.location.href = "http://localhost:49923/SenderCompanies/Create";
+            })
+
+            $('.driversPage').dblclick(function () {
+                window.location.href = "http://localhost:49923/Drivers/Create";
+            })
+
+            $('.categoriesPage').dblclick(function () {
+                window.location.href = "http://localhost:49923/Categories";
+            })
+
         });
 
-        $('.customersPage').dblclick(function () {
-            window.location.href = "http://localhost:49923/Customers/Create";
-        })
+        // Enable Disable fields in the new row
+        function enableDisableNewFields(unit){
+            // Get the fields
+            if (unit == "دزينة") {
+                $("#txtAddCount").prop("disabled", true);
+                $("#txtAddDozen").prop("disabled", false);
+                $("#txtAddKilo").prop("disabled", true);
+            }
+            else if (unit == "كيلو") {
+                $("#txtAddCount").prop("disabled", true);
+                $("#txtAddDozen").prop("disabled", true);
+                $("#txtAddKilo") .prop("disabled", false);
+            }
+            else {
+                $("#txtAddCount").prop("disabled", false);
+                $("#txtAddDozen").prop("disabled", true);
+                $("#txtAddKilo").prop("disabled", true);
+            }
 
-        $('.sendersPage').dblclick(function () {
-            window.location.href = "http://localhost:49923/Senders/Create";
-        })
+        }
 
-        $('.receiverCompaniesPage').dblclick(function () {
-            window.location.href = "http://localhost:49923/ReceiverCompanies/Create";
-        })
-
-        $('.senderCompaniesPage').dblclick(function () {
-            window.location.href = "http://localhost:49923/SenderCompanies/Create";
-        })
-
-        $('.driversPage').dblclick(function () {
-            window.location.href = "http://localhost:49923/Drivers/Create";
-        })
-
-        $('.categoriesPage').dblclick(function () {
-            window.location.href = "http://localhost:49923/Categories";
-        })
+        // Enable disable fields depends on the unit
+        function enableDisableFields(unit, packageId) {
+            // Get the fields
+            if (unit == "دزينة") {
+                // Get the inputs
+                $("#kilo" + packageId).prop("disabled", true);
+                $("#dozen" + packageId).prop("disabled", false);
+                $("#count" + packageId).prop("disabled", true);
+            }
+            else if (unit == "كيلو") {
+                $("#kilo" + packageId).prop("disabled", false);
+                $("#dozen" + packageId).prop("disabled", true);
+                $("#count" + packageId).prop("disabled", true);
+            }
+            else {
+                $("#kilo" + packageId).prop("disabled", true);
+                $("#dozen" + packageId).prop("disabled", true);
+                $("#count" + packageId).prop("disabled", false);
+            }
+        }
 
         // Functin to edit a field
         function editField(packageId, type, value) {
@@ -491,8 +643,8 @@
             var dozen = $("#txtAddDozen").val();
             var kilo = $("#txtAddKilo").val();
             var packagesCount = $("#txtAddPackagesCount").val();
-            var packageNumber = $("#txtAddPackageNumber").val();
-            var weight = $("#txtAddWeight2").val(); 
+            var packageNumber = currentCounter;
+            var weight = $("#txtAddWeight2").val();
             var senderId = $("#cmbAddSender").val();
             var planeWeight = $("#txtAddPlaneWeight").val();
             var casedOriginalNumber = $("#txtAddCasedOriginalNumber").val();
@@ -517,7 +669,6 @@
                 InternalShipping: internalShipping,
                 CustomerId: customerId,
             }
-            alert(weight + '  ' + packagesCount);
             // Make ajax request
             $.ajax({
                 type: 'POST',
@@ -525,6 +676,7 @@
                 data: data,
                 success: function (data) {
                     drawAddedRow(data);
+                    $("#txtAddPackageNumber").val(currentCounter); 
                 }
             }).fail(function (e) {
                 showErrorNotification('فشل', 'لم تتم إضافة السجل');
@@ -543,6 +695,7 @@
             var category = row.find("#cmbAddCategories");
             category.removeAttr('id');
             category.addClass("input-control");
+            category.addClass("categoriesPage");
             category.attr("data-packageid", data.packageId);
             category.attr("data-type", "category");
             category.val(data.categoryId);
@@ -551,6 +704,7 @@
             var count = row.find("#txtAddCount");
             count.removeAttr('id');
             count.addClass('input-control');
+            count.attr("id", "count" + data.packageId);
             count.attr('data-packageid', data.packageId);
             count.attr('data-type', 'count');
             //count.val(data.count);
@@ -560,6 +714,7 @@
             dozen.removeAttr('id');
             dozen.addClass('input-control');
             dozen.attr('data-packageid', data.packageId);
+            dozen.attr("id", "dozen" + data.packageId);
             dozen.attr('data-type', 'dozen');
             //dozen.val(data.dozen);
 
@@ -568,6 +723,7 @@
             kilo.removeAttr('id');
             kilo.addClass('input-control');
             kilo.attr('data-packageid', data.packageId);
+            kilo.attr("id", "kilo" + data.packageId);
             kilo.attr('data-type', 'kilo');
             //kilo.val(data.kilo);
 
@@ -579,13 +735,25 @@
             packagesCount.attr('data-type', 'packagesCount');
             //packagesCount.val(data.packagesCount);
 
+           
+
             // PackagesNumber
-            var packagesNumber = row.find("#txtAddPackagesNumber");
+            var packagesNumber = row.find("#txtAddPackageNumber");
             packagesNumber.removeAttr('id');
             packagesNumber.addClass('input-control');
             packagesNumber.attr('data-packageid', data.packageId);
             packagesNumber.attr('data-type', 'packagesNumber');
-            //packagesNumber.val(data.packagesNumber);
+            if (data.packagesCount > 1) {
+                var value = data.packageNumber + " - " + (data.packageNumber + data.packagesCount - 1);
+                packagesNumber.val(value);
+
+                // Counter 
+                currentCounter = data.packageNumber + data.packagesCount;
+            }
+            else {
+                currentCounter += 1;
+            }
+
 
             // Weight
             var weight = row.find("#txtAddWeight2");
@@ -653,6 +821,7 @@
 
             row.append('<td><a class="link removeRow" data-id="' + data.packageId + '" style="color:red"><i class="fa fa-remove"></i></a></td>');
             $("#tableBody").append(row);
+          
         }
     </script>
     <!-- Scripts for the first part (Journey) -->
@@ -668,7 +837,7 @@
             var oldRyial = "";
             var oldCustoms = "";
             var oldPolicy = "";
-            var oldDate = ""; 
+            var oldDate = "";
 
             // ------------- Driver -----
             // Check if the value is changed
@@ -864,7 +1033,7 @@
                 data: data,
                 url: url,
                 success: function (data) {
-                    
+
                 }
             }).fail(function (e) {
                 showErrorNotification('فشل', 'لم يتم تعديل نوع الرحلة');

@@ -11,7 +11,9 @@ namespace ALEmanMS.Models
     public class Journey
     {
         [Key]
-        public int JourneyId { get; set; }
+        public string JourneyId { get; set; }
+
+        public int JourneyNumber { get; set; }
 
         [StringLength(50)]
         public string Location { get; set; }

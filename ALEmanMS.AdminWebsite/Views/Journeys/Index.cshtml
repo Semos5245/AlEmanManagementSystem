@@ -65,8 +65,8 @@
                 string rowId = "row" + item.JourneyId;
 
                 <tr id="@rowId">
-                    <td class="dblClickJourney" data-id="@item.JourneyId">
-                        @item.JourneyId
+                    <td data-id="@item.JourneyId">
+                        <a href="@Url.Action("Profile", "Journeys", new { id = item.JourneyId})">@item.JourneyNumber</a>
                     </td>
                     <td>
                         @item.JourneyDate.ToShortDateString()
@@ -186,13 +186,11 @@
                 removeJourney(id);
             });
 
+
+
+          
         });
 
-        //Double click on the id of the journey event handles
-        $(".dblClickJourney").dblclick(function () {
-            var id = $(this).data("id");
-            window.location.href = "http://localhost:49923/Journeys/JourneyProfile/" + id;
-        })
 
          // Function to open delete modal
         function openDeleteModal(id) {

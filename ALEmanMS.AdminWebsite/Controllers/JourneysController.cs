@@ -180,6 +180,8 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 // Create new journey 
                 var journey = new Journey
                 {
+                    JourneyId = Guid.NewGuid().ToString(), 
+                    JourneyNumber = model.JourneyNumber,  
                     Customs = model.Customs,
                     DollarPrice = model.DollarPrice,
                     JourneyDate = model.JourneyDate,
@@ -222,9 +224,9 @@ namespace ALEmanMS.AdminWebsite.Controllers
         }
 
         // Open the journey Profile 
-        public ActionResult JourneyProfile(int? id)
+        public ActionResult JourneyProfile(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
                 return HttpNotFound();
 
             Journey journey = db.Journeys.Find(id);
@@ -234,7 +236,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
             var model = initialzeViewModel();
             model.Journey = journey;
-            model.Packages = db.Pakcages.Where(p => p.JourneyId == id.Value).ToList();
+            model.Packages = db.Pakcages.Where(p => p.JourneyId == id).OrderBy(j => j.PackageNumber).ToList();
 
             return View(model); 
         }
@@ -442,12 +444,16 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
             return new HttpStatusCodeResult(200);
         }
+
+        // Edit Journey Number  
+        // TODO: Ask Ziad to eidt the journey Number 
+        // TODO: Implementing Edit journey Number 
         #endregion
 
         // Get statstics about each journey 
-        public ActionResult Statistics(int? id)
+        public ActionResult Statistics(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
                 return HttpNotFound();
 
             var journey = db.Journeys.Find(id);

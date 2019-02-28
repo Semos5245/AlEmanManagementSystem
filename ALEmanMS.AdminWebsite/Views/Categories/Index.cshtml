@@ -358,6 +358,13 @@
                 removeCategory(id);
             });
 
+
+            // Double click to go to the page 
+            $('.groupsPage').dblclick(function () {
+                window.location.href = "@Url.Action("I", "Groups")";
+            })
+
+
         });
 
          // Insert a new City

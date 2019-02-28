@@ -52,8 +52,8 @@ namespace ALEmanMS.Models
 
         [Required]
         public virtual Journey Journey { get; set; }
-
-        public int JourneyId { get; set; }
+        
+        public string JourneyId { get; set; }
 
         [Required]
         public virtual Category Category { get; set; }

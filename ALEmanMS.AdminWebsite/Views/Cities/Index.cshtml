@@ -225,7 +225,7 @@
         $(document).ready(function () {
 
             $('.destinationsPage').dblclick(function () {
-                window.location.href = "http://localhost:49923/Destinations";
+                window.location.href = "@Url.Action("Index", "Destinations")";
             })
 
             var table = $("#citiesTable").DataTable();

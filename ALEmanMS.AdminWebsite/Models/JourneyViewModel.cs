@@ -10,6 +10,10 @@ namespace ALEmanMS.AdminWebsite.Models
 {
     public class JourneyViewModel
     {
+        [Required]
+        [Display(Name = "رقم الرحلة")]
+        public int JourneyNumber { get; set; }
+
         [StringLength(50)]
         [Display(Name = "الموقع")]
         public string Location { get; set; }

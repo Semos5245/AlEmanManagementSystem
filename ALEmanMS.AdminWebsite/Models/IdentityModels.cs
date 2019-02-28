@@ -35,6 +35,10 @@ namespace ALEmanMS.AdminWebsite.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            if(!Database.Exists())
+            {
+                Database.SetInitializer(new DbInitializer()); 
+            }
         }
 
         // Add the tables here 

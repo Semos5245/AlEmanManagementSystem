@@ -39,16 +39,16 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
         //Method to add a new package
        [HttpPost]
-        public ActionResult AddPackage(int? id,PackageViewModel model)
+        public ActionResult AddPackage(string id,PackageViewModel model)
         {
             // Validate the id 
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
                 return new HttpStatusCodeResult(406);
 
             if (ModelState.IsValid)
             {
                 // Get the journey 
-                var journey = db.Journeys.Find(id.Value);
+                var journey = db.Journeys.Find(id);
                 if (journey == null)
                     return HttpNotFound();
 
@@ -220,6 +220,35 @@ namespace ALEmanMS.AdminWebsite.Controllers
             db.SaveChanges();
 
             return new HttpStatusCodeResult(200); 
+        }
+
+        // ReNumber the packages 
+        // GET: Packages/Numbering/54389dsnf
+        public ActionResult Numbering(string id)
+        {
+            // Validate the id 
+            if (string.IsNullOrEmpty(id))
+                return HttpNotFound();
+
+            // Get the journey 
+            var journey = db.Journeys.Find(id);
+            if (journey == null)
+                return HttpNotFound();
+
+            // Get the packages 
+            var packages = db.Pakcages.Where(p => p.JourneyId == id).OrderBy(p => p.PackageNumber);
+
+            int counter = 1; 
+            foreach (var item in packages)
+            {
+                item.PackageNumber = counter;
+                counter += item.PackagesCount.Value; 
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("JourneyProfile", "Journeys", new { id = id }); 
+           
         }
     }
 }
