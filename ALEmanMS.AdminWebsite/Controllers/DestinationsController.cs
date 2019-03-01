@@ -14,6 +14,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
         ApplicationDbContext db = new ApplicationDbContext();
 
+        //Get the destinations
         public DestinationsController()
         {
             ViewBag.Page = "Destinations";
@@ -52,6 +53,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 Name = destinationName
             };
 
+            //Add to the database
             db.Destinations.Add(newDestination);
             db.SaveChanges();
 

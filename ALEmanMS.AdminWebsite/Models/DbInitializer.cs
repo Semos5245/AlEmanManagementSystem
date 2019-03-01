@@ -30,6 +30,24 @@ namespace ALEmanMS.AdminWebsite.Models
                 UnitId = Guid.NewGuid().ToString()
             });
 
+            context.JourneyTypes.Add(new ALEmanMS.Models.JourneyType
+            {
+                Name = "جوي",
+                JourneyTypeId = Guid.NewGuid().ToString()
+            });
+
+            context.JourneyTypes.Add(new ALEmanMS.Models.JourneyType
+            {
+                Name = "بحري",
+                JourneyTypeId = Guid.NewGuid().ToString()
+            });
+
+            context.JourneyTypes.Add(new ALEmanMS.Models.JourneyType
+            {
+                Name = "بري",
+                JourneyTypeId = Guid.NewGuid().ToString()
+            });
+
             // Insert Roles 
             context.Roles.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityRole
             {

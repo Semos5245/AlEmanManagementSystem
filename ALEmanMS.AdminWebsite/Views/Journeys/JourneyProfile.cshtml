@@ -410,15 +410,17 @@
     <script src="~/Content/assets/js/notifications-asset.js"></script>
 
     <!-- Script for the table header fixed -->
-    <script src="~/Content/plugins/jquery.fixedheadertable.min.js"></script>
+    <script src="~/Content/plugins/jquery.stickytableheaders.js"></script>
+    <script src="~/Content/plugins/jquery.stickytableheaders.min.js"></script>
     <!-- Scripts for the second part (packages) -->
     <script>
 
         var currentCounter = @counter;
-        
+
         $(document).ready(function () {
 
-            // Fix the table header 
+            // Fix the table header
+            $("table").stickyTableHeaders();
 
             // Document Ready
             $("#btnAddPakcage").click(function () {
@@ -490,10 +492,10 @@
                 enableDisableNewFields(unit);
             });
 
-            // Change the packagesCount 
+            // Change the packagesCount
             $("#txtAddPackagesCount").change(function () {
-                var packagesCount = parseInt($(this).val()); 
-                
+                var packagesCount = parseInt($(this).val());
+
                 if (packagesCount > 1) {
                     var top = currentCounter + packagesCount - 1;
                     var value = currentCounter + " - " + top;
@@ -502,37 +504,37 @@
                 else {
                     $("#txtAddPackageNumber").val(currentCounter);
                 }
-            }); 
+            });
 
             // Click tab on the customers cmb
             $("#cmbAddCustomers").focusout(function () {
                 addRow();
-                // go with the focums
-                $("cmbAddCategories").focus();
+                // go with the focus
+                $("#cmbAddCategories").focus();
             });
 
             $('.customersPage').dblclick(function () {
-                window.location.href = "http://localhost:49923/Customers/Create";
+                window.location.href = "@Url.Action("Create","Customers")";
             })
 
             $('.sendersPage').dblclick(function () {
-                window.location.href = "http://localhost:49923/Senders/Create";
+                window.location.href = "@Url.Action("Create","Senders")";
             })
 
             $('.receiverCompaniesPage').dblclick(function () {
-                window.location.href = "http://localhost:49923/ReceiverCompanies/Create";
+                window.location.href = "@Url.Action("Create","ReceiverCompanies")";
             })
 
             $('.senderCompaniesPage').dblclick(function () {
-                window.location.href = "http://localhost:49923/SenderCompanies/Create";
+                window.location.href = "@Url.Action("Create","SenderCompanies")";
             })
 
             $('.driversPage').dblclick(function () {
-                window.location.href = "http://localhost:49923/Drivers/Create";
+                window.location.href = "@Url.Action("Create","Drivers")";
             })
 
             $('.categoriesPage').dblclick(function () {
-                window.location.href = "http://localhost:49923/Categories";
+                window.location.href = "@Url.Action("Index","Categories")"; 
             })
 
         });
@@ -676,7 +678,7 @@
                 data: data,
                 success: function (data) {
                     drawAddedRow(data);
-                    $("#txtAddPackageNumber").val(currentCounter); 
+                    $("#txtAddPackageNumber").val(currentCounter);
                 }
             }).fail(function (e) {
                 showErrorNotification('فشل', 'لم تتم إضافة السجل');
@@ -735,7 +737,7 @@
             packagesCount.attr('data-type', 'packagesCount');
             //packagesCount.val(data.packagesCount);
 
-           
+
 
             // PackagesNumber
             var packagesNumber = row.find("#txtAddPackageNumber");
@@ -747,7 +749,7 @@
                 var value = data.packageNumber + " - " + (data.packageNumber + data.packagesCount - 1);
                 packagesNumber.val(value);
 
-                // Counter 
+                // Counter
                 currentCounter = data.packageNumber + data.packagesCount;
             }
             else {
@@ -821,7 +823,7 @@
 
             row.append('<td><a class="link removeRow" data-id="' + data.packageId + '" style="color:red"><i class="fa fa-remove"></i></a></td>');
             $("#tableBody").append(row);
-          
+
         }
     </script>
     <!-- Scripts for the first part (Journey) -->

@@ -38,9 +38,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 var oldCompany = db.SenderCompanies.FirstOrDefault(r => r.Name == model.Name || r.CommercialNumber == model.CommercialNumber);
 
                 if (oldCompany != null)
-                {
                     return View(model);
-                }
 
                 var newCompany = new SenderCompany
                 {
@@ -65,16 +63,12 @@ namespace ALEmanMS.AdminWebsite.Controllers
         public ActionResult Edit(string id)
         {
             if (string.IsNullOrEmpty(id))
-            {
-                return HttpNotFound();
-            }
+                return new HttpStatusCodeResult(406);
 
             var oldsenderCompany = db.SenderCompanies.Find(id);
 
             if (oldsenderCompany == null)
-            {
                 return HttpNotFound();
-            }
 
             var senderCompany = new SenderCompanyViewModel
             {
@@ -93,23 +87,23 @@ namespace ALEmanMS.AdminWebsite.Controllers
         public ActionResult Edit(string id, SenderCompanyViewModel model)
         {
             if (string.IsNullOrEmpty(id))
-            {
-                return View(model);
-            }
+                return new HttpStatusCodeResult(406);
 
             if (ModelState.IsValid)
             {
-                var oldCompany = db.SenderCompanies.Find(id);
-                if (oldCompany == null)
-                {
+                var company = db.SenderCompanies.Find(id);
+                if (company == null)
                     return HttpNotFound();
-                }
 
-                oldCompany.Name = model.Name.Trim();
-                oldCompany.Description = model.Description != null ? model.Description.Trim() : "";
-                oldCompany.Country = model.Country.Trim();
-                oldCompany.Phone = model.Phone != null ? model.Phone.Trim() : "";
-                oldCompany.CommercialNumber = model.CommercialNumber.Trim();
+                var oldCompany = db.SenderCompanies.SingleOrDefault(s => (s.Name == model.Name || s.CommercialNumber == model.CommercialNumber) && s.SenderCompanyId != id);
+                if (oldCompany != null)
+                    return View(model);
+
+                company.Name = model.Name.Trim();
+                company.Description = model.Description != null ? model.Description.Trim() : "";
+                company.Country = model.Country.Trim();
+                company.Phone = model.Phone != null ? model.Phone.Trim() : "";
+                company.CommercialNumber = model.CommercialNumber.Trim();
 
                 db.SaveChanges();
 
@@ -123,16 +117,12 @@ namespace ALEmanMS.AdminWebsite.Controllers
         public ActionResult Delete(string id)
         {
             if (string.IsNullOrEmpty(id))
-            {
-                return HttpNotFound();
-            }
+                return new HttpStatusCodeResult(406);
 
             var company = db.SenderCompanies.Find(id);
 
             if (company == null)
-            {
                 return HttpNotFound();
-            }
 
             db.SenderCompanies.Remove(company);
             db.SaveChanges();

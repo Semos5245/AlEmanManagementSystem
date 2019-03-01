@@ -12,6 +12,12 @@ namespace ALEmanMS.AdminWebsite.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
+        public PersonContactsController()
+        {
+            this.ViewBag.Page = "PersonContacts";
+            this.ViewBag.PageAr = "الإتصالات";
+        }
+
         // GET: PersonContacts
         public ActionResult Index(string id)
         {
@@ -20,9 +26,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
             var oldPerson = db.People.Find(id);
             if (oldPerson == null)
-            {
                 return HttpNotFound();
-            }
 
             var model = new PersonContactViewModel
             {
@@ -37,23 +41,21 @@ namespace ALEmanMS.AdminWebsite.Controllers
         [HttpPost]
         public ActionResult AddContact(string id, PersonContactViewModel model)
         {
+            if (string.IsNullOrEmpty(id))
+                return new HttpStatusCodeResult(406);
+
             var person = db.People.Find(id);
             if (person == null)
-            {
                 return HttpNotFound();
-            }
 
             model.PersonContacts = person.PersonContacts;
             model.Person = person;
 
             if (ModelState.IsValid)
             {
-                var contact = db.PersonContacts.Where(c => c.Value == model.Value && c.PersonId == id);
-
+                var contact = db.PersonContacts.SingleOrDefault(c => (c.Value == model.Value && c.PersonId == id));
                 if (contact != null)
-                {
                     return new HttpStatusCodeResult(406);
-                }
 
                 var _newContact = new Contact { ContactId = Guid.NewGuid().ToString(), Name = model.ContactName };
 
@@ -81,16 +83,12 @@ namespace ALEmanMS.AdminWebsite.Controllers
         public ActionResult Delete(string id)
         {
             if (string.IsNullOrEmpty(id))
-            {
                 return new HttpStatusCodeResult(406);
-            }
 
             var personContact = db.PersonContacts.Find(id);
 
             if (personContact == null)
-            {
                 return HttpNotFound();
-            }
 
             db.PersonContacts.Remove(personContact);
             db.SaveChanges();

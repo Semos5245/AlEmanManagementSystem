@@ -17,7 +17,7 @@
 
 <div class="card-box">
     <h2>الاتصالات ل السيد @Model.Person.FullName</h2>
-
+    <input type="text" hidden id="personId" value="@Model.Person.PersonId" />
     <div class="row">
         <div class="col-sm-6">
             <div class="m-b-30">
@@ -43,20 +43,20 @@
             {
                 string rowId = "row" + item.PersonContactId;
                 string trId = "tr" + item.PersonContactId;
-            <tr id="@trId">
-                @{
+                <tr id="@trId">
+                    @{
 
-                }
-                <td>
-                    @item.Contact.Name
-                </td>
-                <td>
-                    @item.Value
-                </td>
-                <td class="actions">
-                    <a href="#" class="on-default remove-row removeContact" data-id="@item.PersonContactId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                </td>
-            </tr>
+                    }
+                    <td>
+                        @item.Contact.Name
+                    </td>
+                    <td>
+                        @item.Value
+                    </td>
+                    <td class="actions">
+                        <a href="#" class="on-default remove-row removeContact" data-id="@item.PersonContactId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -85,7 +85,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">القيمة</label>
-                                    <input type="number" class="form-control" required parsley-trigger="change" id="txtAddContactValue" placeholder="09------/ someone@example.com">
+                                    <input type="text" class="form-control" required parsley-trigger="change" id="txtAddContactValue" placeholder="09------/ someone@example.com">
                                 </div>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
 
     <script>
         $(document).ready(function () {
-            var table = $("#contactsTable").dataTable();
+            var table = $("#contactsTable").DataTable();
 
             //$("#btnAddDestination").click(function () {
             //    insertDestination();
@@ -166,10 +166,12 @@
                 // Stop the form from being accepted
                 e.preventDefault();
 
-                insertContact();
+                var id = $('#personId').val();
+
+                insertContact(id);
             });
 
-            // Click the remove city button in the table
+            // Click the remove contact button in the table
             $(".removeContact").click(function () {
                 // Get the id
                 var id = $(this).data("id");
@@ -189,19 +191,20 @@
         });
 
          // Insert a new Contact
-            function insertContact() {
-                var table = $("#contactsTable").dataTable();
+            function insertContact(id) {
+                var table = $("#contactsTable").DataTable();
 
                 // Get the data
                 var contactName = $("#txtAddContactName").val();
                 var contactValue = $("#txtAddContactValue").val();
-
+                
                 var url = "@Url.Action("AddContact", "PersonContacts")";
-
+                
                 $.ajax({
                     type: 'POST',
                     data: {
-                        ContactName: cityName,
+                        id : id,
+                        ContactName: contactName,
                         Value: contactValue
                     },
                     url: url,
@@ -244,7 +247,7 @@
         // Function to remove the Contact
         function removeContact(id) {
             // Get the table to manpulaite
-            var table = $("#contactsTable").dataTable();
+            var table = $("#contactsTable").DataTable();
 
             // Get the name of the destination
             var name = $("#row" + id).text();
