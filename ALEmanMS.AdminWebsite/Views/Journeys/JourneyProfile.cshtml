@@ -257,7 +257,7 @@
                                         if (item.PackagesCount > 1)
                                         {
                                             string packageNumber = counter + " - " + (counter + item.PackagesCount - 1);
-                                            <input type="text" class="form-control input-control" value="@packageNumber" disabled data-packageId="@item.PackageId" data-type="packagesNumber" style="width: 100px;"/>
+                                            <input type="text" class="form-control input-control" value="@packageNumber" disabled data-packageId="@item.PackageId" data-type="packagesNumber" style="width: 100px;" />
                                         }
                                         else
                                         {
@@ -381,20 +381,29 @@
                                 </select>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <button id="btnAddPakcage" class="btn btn-success waves-effect btn-custom btn-block"><i class="fa fa-plus"></i> إضافة</button>
-
-                            <td>
-                                <button id="btnEnableContent" class="btn btn-danger waves-effect btn-custom btn-block"><i class="fa fa-mouse-pointer"></i> تمكين</button>
-                            </td>
-                            <td>
-                                <a href="@Url.Action("Numbering", "Packages", new { id = Model.Journey.JourneyId})" id="btnUpdateNumbering" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-sort-numeric-asc"></i> ترقيم</a>
-                            </td>
-                        </tr>
-
                     </tfoot>
                 </table>
+
+                <div class="row">
+                    <div class="col-2">
+                        <button id="btnAddPakcage" class="btn btn-success waves-effect btn-custom btn-block"><i class="fa fa-plus"></i> إضافة</button>
+                    </div>
+                    <div class="col-2">
+                        <button id="btnEnableContent" class="btn btn-danger waves-effect btn-custom btn-block"><i class="fa fa-mouse-pointer"></i> تمكين</button>
+                    </div>
+                    <div class="col-2">
+                        <a href="@Url.Action("Numbering", "Packages", new { id = Model.Journey.JourneyId})" id="btnUpdateNumbering" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-sort-numeric-asc"></i> ترقيم</a>
+                    </div>
+                    <div class="col-2">
+                        <a href="@Url.Action("Generate", "CustomerBills", new { id = Model.Journey.JourneyId})" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-pie-chart"></i> كشف حساب</a>
+                    </div>
+                    <div class="col-2">
+                        <a href="@Url.Action("CalculationsTable", "Reports", new { id = Model.Journey.JourneyId})" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-pie-chart"></i> جدول الحسابات</a>
+                    </div>
+                    <div class="col-2">
+                        <a href="@Url.Action("DetailedPackagesTable", "Reports", new { id = Model.Journey.JourneyId})" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-pie-chart"></i> التفصيلي</a>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -415,10 +424,10 @@
     <script>
 
         var currentCounter = @counter;
-        
+
         $(document).ready(function () {
 
-            // Fix the table header 
+            // Fix the table header
 
             // Document Ready
             $("#btnAddPakcage").click(function () {
@@ -490,10 +499,10 @@
                 enableDisableNewFields(unit);
             });
 
-            // Change the packagesCount 
+            // Change the packagesCount
             $("#txtAddPackagesCount").change(function () {
-                var packagesCount = parseInt($(this).val()); 
-                
+                var packagesCount = parseInt($(this).val());
+
                 if (packagesCount > 1) {
                     var top = currentCounter + packagesCount - 1;
                     var value = currentCounter + " - " + top;
@@ -502,7 +511,7 @@
                 else {
                     $("#txtAddPackageNumber").val(currentCounter);
                 }
-            }); 
+            });
 
             // Click tab on the customers cmb
             $("#cmbAddCustomers").focusout(function () {
@@ -676,7 +685,7 @@
                 data: data,
                 success: function (data) {
                     drawAddedRow(data);
-                    $("#txtAddPackageNumber").val(currentCounter); 
+                    $("#txtAddPackageNumber").val(currentCounter);
                 }
             }).fail(function (e) {
                 showErrorNotification('فشل', 'لم تتم إضافة السجل');
@@ -735,7 +744,7 @@
             packagesCount.attr('data-type', 'packagesCount');
             //packagesCount.val(data.packagesCount);
 
-           
+
 
             // PackagesNumber
             var packagesNumber = row.find("#txtAddPackageNumber");
@@ -747,7 +756,7 @@
                 var value = data.packageNumber + " - " + (data.packageNumber + data.packagesCount - 1);
                 packagesNumber.val(value);
 
-                // Counter 
+                // Counter
                 currentCounter = data.packageNumber + data.packagesCount;
             }
             else {
@@ -821,7 +830,7 @@
 
             row.append('<td><a class="link removeRow" data-id="' + data.packageId + '" style="color:red"><i class="fa fa-remove"></i></a></td>');
             $("#tableBody").append(row);
-          
+
         }
     </script>
     <!-- Scripts for the first part (Journey) -->

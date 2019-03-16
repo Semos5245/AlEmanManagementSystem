@@ -48,6 +48,9 @@
     <Reference Include="AKSoftware.WebApi, Version=1.7.0.0, Culture=neutral, PublicKeyToken=54b4f4e6d05f7336, processorArchitecture=MSIL">
       <HintPath>..\packages\AKSoftware.WebApi.1.7.0\lib\netstandard2.0\AKSoftware.WebApi.dll</HintPath>
     </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -200,6 +203,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
+    <Compile Include="Controllers\CustomerBillsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\GroupingGroupsController.cs" />
@@ -211,15 +215,22 @@
     <Compile Include="Controllers\PackagesController.cs" />
     <Compile Include="Controllers\PersonContactsController.cs" />
     <Compile Include="Controllers\ReceiverCompaniesController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SenderCompaniesController.cs" />
     <Compile Include="Controllers\SendersController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Datasets\ReportsDataset.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportsDataset.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApiResponse.cs" />
+    <Compile Include="Models\BillViewModel.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\CityViewModel.cs" />
     <Compile Include="Models\Currency.cs" />
@@ -240,6 +251,24 @@
     <Compile Include="Models\StatisticViewModel.cs" />
     <Compile Include="Models\StatsticItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\CalculationsTableReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CalculationsTableReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CustomerEnvelope.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CustomerEnvelope.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DetailedPackagesTableReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DetailedPackagesTableReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Services\CurrenyService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -504,6 +533,17 @@
     <Content Include="Content\plugins\summernote\font\summernote291f.ttf" />
     <Content Include="Content\plugins\summernote\font\summernote291f.woff" />
     <Content Include="Content\plugins\summernote\font\summernoted41d.eot" />
+    <Content Include="Datasets\ReportsDataset.xsc">
+      <DependentUpon>ReportsDataset.xsd</DependentUpon>
+    </Content>
+    <None Include="Datasets\ReportsDataset.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportsDataset.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Datasets\ReportsDataset.xss">
+      <DependentUpon>ReportsDataset.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -571,6 +611,7 @@
     <Content Include="Views\Journeys\JourneyProfile.cshtml" />
     <Content Include="Views\Journeys\Statistics.cshtml" />
     <Content Include="Views\PersonContacts\Index.cshtml" />
+    <Content Include="Views\CustomerBills\Index.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -582,6 +623,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Dashboard\" />
     <Folder Include="Views\Packages\" />
+    <Folder Include="Views\Reports\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -597,6 +639,23 @@
       <Project>{0b7c4fce-46e4-4ab3-a904-bba4c459a99c}</Project>
       <Name>ALEmanMS.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\CalculationsTableReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CalculationsTableReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CustomerEnvelope.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CustomerEnvelope.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DetailedPackagesTableReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DetailedPackagesTableReport.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -616,7 +675,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49923</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49923/</IISUrl>
+          <IISUrl>http://localhost:55066/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

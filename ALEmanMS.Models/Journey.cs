@@ -25,6 +25,8 @@ namespace ALEmanMS.Models
 
         public DateTime JourneyDate { get; set; }
 
+        public bool IsBillGenerated { get; set; } = false;
+
         //Relation with other tables
         public  virtual List<Package> Packages { get; set; }
 

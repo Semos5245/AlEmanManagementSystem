@@ -61,6 +61,25 @@ namespace ALEmanMS.AdminWebsite.Models
                 Name = "SaudiAdmin"
             });
 
+            // Add the journey types 
+            context.JourneyTypes.Add(new ALEmanMS.Models.JourneyType
+            {
+                JourneyTypeId = Guid.NewGuid().ToString(),
+                Name = "بري"
+            });
+
+            context.JourneyTypes.Add(new ALEmanMS.Models.JourneyType
+            {
+                JourneyTypeId = Guid.NewGuid().ToString(),
+                Name = "بحري"
+            });
+
+            context.JourneyTypes.Add(new ALEmanMS.Models.JourneyType
+            {
+                JourneyTypeId = Guid.NewGuid().ToString(),
+                Name = "جوي"
+            });
+
             context.SaveChanges();
 
             base.Seed(context);
