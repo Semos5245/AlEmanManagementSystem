@@ -427,9 +427,10 @@
     <Content Include="Content\plugins\jquery-validation\js\jquery.validate.min.js" />
     <Content Include="Content\plugins\jquery.easy-pie-chart\dist\easypiechart.min.js" />
     <Content Include="Content\plugins\jquery.easy-pie-chart\dist\jquery.easypiechart.min.js" />
-    <Content Include="Content\plugins\jquery.fixedheadertable.min.js" />
     <Content Include="Content\plugins\jquery.steps\css\jquery.steps.css" />
     <Content Include="Content\plugins\jquery.steps\js\jquery.steps.min.js" />
+    <Content Include="Content\plugins\jquery.stickytableheaders.js" />
+    <Content Include="Content\plugins\jquery.stickytableheaders.min.js" />
     <Content Include="Content\plugins\jstree\32px.png" />
     <Content Include="Content\plugins\jstree\40px.png" />
     <Content Include="Content\plugins\jstree\jstree.min.js" />

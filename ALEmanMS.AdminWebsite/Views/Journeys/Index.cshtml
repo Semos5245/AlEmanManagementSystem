@@ -66,7 +66,7 @@
 
                 <tr id="@rowId">
                     <td data-id="@item.JourneyId">
-                        <a href="@Url.Action("Profile", "Journeys", new { id = item.JourneyId})">@item.JourneyNumber</a>
+                        <a href="@Url.Action("JourneyProfile", "Journeys", new { id = item.JourneyId})">@item.JourneyNumber</a>
                     </td>
                     <td>
                         @item.JourneyDate.ToShortDateString()
@@ -162,10 +162,10 @@
         $(document).ready(function () {
 
             $('.groupsPage').dblclick(function () {
-                window.location.href = "http://localhost:49923/Groups";
+                window.location.href = "@Url.Action("Index","Groups")";
             })
             $('.groupingGroupsPage').dblclick(function () {
-                window.location.href = "http://localhost:49923/GroupingGroups";
+                window.location.href = "@Url.Action("Index","GroupingGroups")";
             })
             var table = $("#journeysTable").dataTable();
 

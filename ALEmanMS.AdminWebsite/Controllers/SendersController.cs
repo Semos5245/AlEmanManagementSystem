@@ -50,16 +50,11 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 var sender = db.People.OfType<Sender>().FirstOrDefault(s => (s.FirstName == model.FirstName && s.LastName == model.LastName) || s.NationalID == model.NationalId);
 
                 if (sender != null)
-                {
                     return View(model);
-                }
 
-                //var city = db.Cities.FirstOrDefault(c => c.Name == model.CityId);
-
-                //if (city == null)
-                //{
-                //    return HttpNotFound();
-                //}
+                var city = db.Cities.FirstOrDefault(c => c.Name == model.CityName);
+                if (city == null)
+                    return HttpNotFound();
 
                 var newSender = new Sender();
                 newSender.PersonId = Guid.NewGuid().ToString();
@@ -87,12 +82,13 @@ namespace ALEmanMS.AdminWebsite.Controllers
         //GET: Senders/Edit/fjsiday787ysd8afhsao
         public ActionResult Edit(string id)
         {
+            if(string.IsNullOrEmpty(id))
+                return new HttpStatusCodeResult(406);
+
             var sender = db.People.Find(id) as Sender;
 
             if (sender == null)
-            {
                 return HttpNotFound();
-            }
 
             var model = new SenderViewModel
             {
@@ -116,33 +112,32 @@ namespace ALEmanMS.AdminWebsite.Controllers
         [HttpPost]
         public ActionResult Edit(string id, SenderViewModel model)
         {
+            if(string.IsNullOrEmpty(id))
+                return new HttpStatusCodeResult(406);
+
             if (ModelState.IsValid)
             {
-                var oldSender = db.People.OfType<Sender>().FirstOrDefault(s => (s.FirstName == model.FirstName && s.LastName == model.LastName) || s.NationalID == model.NationalId);
+                var sender = db.People.Find(id) as Sender;
+
+                if (sender == null)
+                    return HttpNotFound();
+                
+                var oldSender = db.People.OfType<Sender>().FirstOrDefault(s => ((s.FirstName == model.FirstName && s.LastName == model.LastName) || s.NationalID == model.NationalId) && s.PersonId != id);
 
                 if (oldSender != null)
-                {
                     return View(model);
-                }
 
-                var newSender = db.People.Find(id) as Sender;
-
-                if (newSender == null)
-                    return HttpNotFound();
-
-                // TODO: Fix the problem of null excpetion 
-
-                newSender.FirstName = model.FirstName.Trim();
-                newSender.LastName = model.LastName.Trim();
-                newSender.MotherName = model.MotherName.Trim();
-                newSender.NationalID = model.NationalId.Trim();
-                newSender.Profession = model.Profession.Trim();
-                newSender.RegistrationNumber = model.RegisterationNumber.Trim();
-                newSender.State = model.State.Trim();
-                newSender.Company = model.Company.Trim();
-                newSender.Description = model.Description.Trim();
-                newSender.Birthdate = model.BirthDate;
-                newSender.CityName = model.CityName;
+                sender.FirstName = model.FirstName.Trim();
+                sender.LastName = model.LastName.Trim();
+                sender.MotherName = model.MotherName.Trim();
+                sender.NationalID = model.NationalId.Trim();
+                sender.Profession = model.Profession.Trim();
+                sender.RegistrationNumber = model.RegisterationNumber.Trim();
+                sender.State = model.State.Trim();
+                sender.Company = model.Company.Trim();
+                sender.Description = model.Description.Trim();
+                sender.Birthdate = model.BirthDate;
+                sender.CityName = model.CityName;
 
                 db.SaveChanges();
 
@@ -155,6 +150,10 @@ namespace ALEmanMS.AdminWebsite.Controllers
         //DELETE: Senders/Delete/juos7asg67iasg67isa
         public ActionResult Delete(string id)
         {
+
+            if (string.IsNullOrEmpty(id))
+                return new HttpStatusCodeResult(406);
+
             var sender = db.People.Find(id) as Sender;
 
             if (sender == null)

@@ -361,10 +361,13 @@
 
             // Double click to go to the page 
             $('.groupsPage').dblclick(function () {
-                window.location.href = "@Url.Action("I", "Groups")";
-            })
+                window.location.href = "@Url.Action("Index", "Groups")";
+            });
 
-
+            $('.groupingGroupsPage').dblclick(function () {
+                window.location.href = "@Url.Action("Index", "GroupingGroups")";
+            });
+            
         });
 
          // Insert a new City
