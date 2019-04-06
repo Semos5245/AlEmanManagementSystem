@@ -4,8 +4,6 @@
     ViewBag.Title = "الرحلات";
 }
 
-
-
 @section Css {
     <!-- Css libraries for this page goes here-->
     <!-- Modals Library-->
@@ -162,10 +160,10 @@
         $(document).ready(function () {
 
             $('.groupsPage').dblclick(function () {
-                window.location.href = "@Url.Action("Index","Groups")";
+                window.location.href = "http://localhost:49923/Groups";
             })
             $('.groupingGroupsPage').dblclick(function () {
-                window.location.href = "@Url.Action("Index","GroupingGroups")";
+                window.location.href = "http://localhost:49923/GroupingGroups";
             })
             var table = $("#journeysTable").dataTable();
 

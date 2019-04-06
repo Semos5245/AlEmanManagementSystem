@@ -35,10 +35,12 @@ namespace ALEmanMS.AdminWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                var oldDriver = db.People.OfType<Driver>().FirstOrDefault(d => d.FirstName == model.FirstName && d.LastName == model.LastName && d.VehicleNumber == model.VehicleNumber);
+                var oldDriver = db.People.OfType<Driver>().FirstOrDefault(d => d.VehicleNumber == model.VehicleNumber);
 
                 if (oldDriver != null)
+                {
                     return View(model);
+                }
 
                 var newDriver = new Driver
                 {
@@ -52,13 +54,16 @@ namespace ALEmanMS.AdminWebsite.Controllers
                     VehicleFrontHeight = model.VehicleFrontHeight,
                     VehicleLength = model.VehicleLength,
                     VehicleRearHight = model.VehicleRearHeight,
-                    VehicleSize = model.VehicleSize
+                    VehicleSize = model.VehicleSize,
+                    Phone1 = model.Phone1,
+                    Phone2 = model.Phone2, 
+                    Phone3 = model.Phone3
                 };
 
                 db.People.Add(newDriver);
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "Drivers");
+                return RedirectToAction("Index","Drivers");
             }
 
             return View(model);
@@ -68,12 +73,16 @@ namespace ALEmanMS.AdminWebsite.Controllers
         public ActionResult Edit(string id)
         {
             if (string.IsNullOrEmpty(id))
-                return new HttpStatusCodeResult(406);
+            {
+                return HttpNotFound();
+            }
 
             var oldDriver = db.People.OfType<Driver>().FirstOrDefault(d => d.PersonId == id);
 
             if (oldDriver == null)
+            {
                 return HttpNotFound();
+            }
 
             var driver = new DriverViewModel
             {
@@ -87,6 +96,9 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 VehicleNumber = oldDriver.VehicleNumber,
                 VehicleRearHeight = oldDriver.VehicleRearHight,
                 VehicleSize = oldDriver.VehicleSize,
+                Phone1 = oldDriver.Phone1,
+                Phone2 = oldDriver.Phone2,
+                Phone3 = oldDriver.Phone3
             };
 
             return View(driver);
@@ -97,28 +109,32 @@ namespace ALEmanMS.AdminWebsite.Controllers
         public ActionResult Edit(string id, DriverViewModel model)
         {
             if (string.IsNullOrEmpty(id))
-                return new HttpStatusCodeResult(406);
+            {
+                return HttpNotFound();
+            }
 
             if (ModelState.IsValid)
             {
-                var driver = db.People.OfType<Driver>().FirstOrDefault(d => d.PersonId == id);
-                if (driver == null)
+                var oldDriver = db.People.OfType<Driver>().FirstOrDefault(d => d.PersonId == id);
+
+                if (oldDriver == null)
+                {
                     return HttpNotFound();
+                }
 
-                var oldDriver = db.People.OfType<Driver>().SingleOrDefault(d => d.FirstName == model.FirstName && d.LastName == model.LastName && d.VehicleNumber == model.VehicleNumber && d.PersonId != id);
-                if (oldDriver != null)
-                    return View(model);
-
-                driver.FirstName = model.FirstName.Trim();
-                driver.LastName = model.LastName.Trim();
-                driver.CityName = model.CityName.Trim();
-                driver.Birthdate = model.BirthDate;
-                driver.Description = model.Description != null ? model.Description.Trim() : "";
-                driver.VehicleFrontHeight = model.VehicleFrontHeight;
-                driver.VehicleLength = model.VehicleLength;
-                driver.VehicleNumber = model.VehicleNumber.Trim();
-                driver.VehicleRearHight = model.VehicleRearHeight;
-                driver.VehicleSize = model.VehicleSize;
+                oldDriver.FirstName = model.FirstName.Trim();
+                oldDriver.LastName = model.LastName.Trim();
+                oldDriver.CityName = model.CityName.Trim();
+                oldDriver.Birthdate = model.BirthDate;
+                oldDriver.Description = model.Description != null ? model.Description.Trim() : "";
+                oldDriver.VehicleFrontHeight = model.VehicleFrontHeight;
+                oldDriver.VehicleLength = model.VehicleLength;
+                oldDriver.VehicleNumber = model.VehicleNumber.Trim();
+                oldDriver.VehicleRearHight = model.VehicleRearHeight;
+                oldDriver.VehicleSize = model.VehicleSize;
+                oldDriver.Phone1 = model.Phone1;
+                oldDriver.Phone2 = model.Phone2;
+                oldDriver.Phone3 = model.Phone3; 
 
                 db.SaveChanges();
 
@@ -133,12 +149,16 @@ namespace ALEmanMS.AdminWebsite.Controllers
         public ActionResult Delete(string id)
         {
             if (string.IsNullOrEmpty(id))
-                return new HttpStatusCodeResult(406);
+            {
+                return HttpNotFound();
+            }
 
             var driver = db.People.OfType<Driver>().FirstOrDefault(d => d.PersonId == id);
 
             if (driver == null)
+            {
                 return HttpNotFound();
+            }
 
             db.People.Remove(driver);
             db.SaveChanges();

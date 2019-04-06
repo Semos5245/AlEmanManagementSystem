@@ -1,7 +1,7 @@
 ﻿@model ALEmanMS.Models.Bill
 
 @{
-    ViewBag.Title = "بوليصية الشحن رقم " + Model.BillId;
+    ViewBag.Title = "بوليصة الشحن رقم " + Model.BillId;
 }
 
 @section Css {
@@ -21,7 +21,7 @@
         <div class="portlet">
             <div class="portlet-heading bg-warning">
                 <h3 class="portlet-title">
-                    معلومات البوليصية
+                    معلومات البوليصة
                 </h3>
                 <div class="portlet-widgets">
 
@@ -35,7 +35,7 @@
                 <div class="portlet-body">
                     <form action="@Url.Action("EditBillInfo", "CustomerBills", new { id = Model.BillId})" method="post">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-2">
                                 <div class="form-group">
                                     <label for="txtBillNumber" class="control-label">رقم البولصية</label>
                                     <input disabled type="text" value="@Model.BillId" id="txtBillNumber" class="form-control" />
@@ -45,84 +45,84 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="txtCustomer" class="control-label">المرسل إليه</label>
-                                    <input type="text" value="@Model.CustomerName" id="txtCustomer" class="form-control" />
+                                    <input type="text" name="CustomerName" value="@Model.CustomerName" id="txtCustomer" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="txtCity" class="control-label">المدينة</label>
-                                    <input type="text" value="@Model.City" id="txtCustomer" class="form-control" />
+                                    <input type="text" name="City" value="@Model.City" id="txtCustomer" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="txtJourneyNumber" class="control-label">رقم الرحلة</label>
-                                    <input type="text" value="@Model.JourneyNumber" id="txtJourneyNumber" class="form-control" />
+                                    <input type="text" name="JourneyNumber" value="@Model.JourneyNumber" id="txtJourneyNumber" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="txtJourneyDate" class="control-label">تاريخ الرحلة</label>
-                                    <input type="text" value="@Model.JourneyDate" id="txtJourneyDate" placeholder="mm/dd/yyyy" class="form-control" />
+                                    <input type="text" name="JourneyDate" value="@Model.JourneyDate" id="txtJourneyDate" placeholder="mm/dd/yyyy" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="txtDriverName" class="control-label">السائق</label>
-                                    <input type="text" value="@Model.DriverName" id="txtDriverName" class="form-control" />
+                                    <input type="text" name="DriverName" value="@Model.DriverName" id="txtDriverName" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="txtCarNumber" class="control-label">السيارة</label>
-                                    <input type="text" value="@Model.CarNumber" id="txtCarNumber" class="form-control" />
+                                    <input type="text" name="CarNumber" value="@Model.CarNumber" id="txtCarNumber" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-2">
                                 <div class="form-group">
                                     <label for="txtPackagesCount" class="control-label">الطرود</label>
-                                    <input type="number" value="@Model.PackageCount" id="txtPackagesCount" class="form-control" />
+                                    <input type="number" name="PackageCount" value="@Model.PackageCount" id="txtPackagesCount" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-2">
                                 <div class="form-group">
                                     <label for="txtWeight" class="control-label">القائم</label>
-                                    <input type="number" value="@Model.Weight" id="txtWeight" class="form-control" />
+                                    <input type="number" name="Weight" value="@Model.Weight" id="txtWeight" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-2">
                                 <div class="form-group">
                                     <label for="txtPlaneWeight" class="control-label">الوزن الحجمي</label>
-                                    <input type="number" value="@Model.PlaneWeight" id="txtPlaneWeight" class="form-control" />
+                                    <input type="number" name="PlaneWeight" value="@Model.PlaneWeight" id="txtPlaneWeight" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="txtPackagesType" class="control-label">نوع البضاعة</label>
-                                    <input type="text" value="@Model.Group" id="txtPackagesType" class="form-control" />
+                                    <input type="text" name="Group" value="@Model.Group" id="txtPackagesType" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-2">
                                 <div class="form-group">
                                     <label for="txtShippmentPrice" class="control-label">سعر الشحن</label>
-                                    <input type="number" value="@Model.ShipmentPrice" id="txtShippmentPrice" class="form-control" />
+                                    <input type="number" name="ShipmentPrice" value="@Model.ShipmentPrice" id="txtShippmentPrice" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-2">
                                 <div class="form-group">
                                     <label for="txtCasedPrice" class="control-label">طرود الخيش</label>
-                                    <input type="number" value="@Model.PackagingCount" id="txtCasedPrice" class="form-control" />
+                                    <input type="number" name="PackagingCount" value="@Model.PackagingCount" id="txtCasedPrice" class="form-control" />
                                 </div>
                             </div>
 
@@ -131,7 +131,7 @@
                         <div class="row">
                             <div class="col-2">
                                 <div class="form-group">
-                                    <label for="chPaidInDamas" class="control-label">دفع دمشق</label>
+                                    <label for="chPaidInDamas"  class="control-label">دفع دمشق</label>
                                     @Html.CheckBox("PaidInDamas", Model.PaidInDamas, new { id = "chPaidInDamas" })
                                 </div>
                             </div>
@@ -143,86 +143,152 @@
                             <div class="col-2">
                                 <div class="form-group">
                                     <label for="txtTotal" class="control-label">إجمالي الفاتورة</label>
-                                    <input type="number" value="@Model.Total" id="txtTotal" class="form-control" />
+                                    <input type="number" name="Total" value="@Model.Total" id="txtTotal" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-2">
                                 <div class="form-group">
                                     <label for="txtTotalInSR" class="control-label">بالريال</label>
-                                    <input type="number" value="@Model.TotalInSR" id="txtTotalInSR" class="form-control" />
+                                    <input type="number" name="TotalInSR" value="@Model.TotalInSR" id="txtTotalInSR" class="form-control" />
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-3">
-                                <a href="@Url.Action("CustomerEnvelope", "Reports", new { id = Model.Journey.JourneyId})" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-pie-chart"></i> الزبون</a>
+                                <a href="@Url.Action("CustomerEnvelope", "Reports", new { id = Model.BillId})" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-pie-chart"></i> الزبون</a>
                             </div>
+                            <div class="col-3">
+                                <a href="@Url.Action("CustomerBill", "Reports", new { id = Model.BillId})" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-table"></i> فاتورة العميل</a>
+                            </div>
+                            @{
+                                // get all packages
+                                var packages = Model.Journey.Packages;
+
+                                var destinations = packages.GroupBy(p => p.Customer.City.Destination);
+                            }
+
+                            @foreach (var item in destinations)
+                            {
+                                <div class="col-3">
+                                    <a href="@Url.Action("Manifest", "Reports", new { destinationId = item.Key.DestinationId, journeyId = Model.JourneyId})" class="btn btn-primary waves-effect btn-custom btn-block"><i class="fa fa-truck"></i> منفست @item.Key.Name</a>
+                                </div>
+                            }
                         </div>
 
-                        <div class="row">
+                        <div class="row" style="margin-top:20px">
                             <button type="submit" class="btn btn-success waves-green btn-custom btn-block">تعديل</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
-<div class="card-box">
+<div class="row">
+    <div class="col-6">
+        <div class="card-box">
+            <h1>الإيضاحات</h1>
 
-    <h1>الإيضاحات</h1>
-
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="m-b-30">
-                <button id="btnAddNewItem" data-toggle="modal" data-target="#con-close-modal" class="btn btn-success waves-effect waves-light"><i class="fa fa-plus"></i> إضافة إيضاح جديد</button>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="m-b-30">
+                        <button id="btnAddNewItem" data-toggle="modal" data-target="#con-close-modal" class="btn btn-success waves-effect waves-light"><i class="fa fa-plus"></i> إضافة إيضاح جديد</button>
+                    </div>
+                </div>
             </div>
+            <table class="table table-striped" id="billItemsTable">
+                <thead>
+                    <tr>
+                        <th>
+                            الوصف
+                        </th>
+                        <th>
+                            المبلغ
+                        </th>
+                        <th>إجراءات</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.BillItems)
+                    {
+
+                        string rowId = "billItemRow" + item.BillItemId;
+                        string trId = "billItemTr" + item.BillItemId;
+                        string amountId = "billItemAmount" + item.BillItemId;
+                        <tr id="@trId">
+                            <td>
+                                <span id="@rowId">@item.Description</span>
+                            </td>
+                            <td>
+                                <span id="@amountId">@item.Amount</span>
+                            </td>
+                            <td class="actions">
+                                <a href="#" class="on-default edit-row editBillItem" data-id="@item.BillItemId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                <a href="#" class="on-default remove-row removeBillItem" data-id="@item.BillItemId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
-    <table class="table table-striped" id="billItemsTable">
-        <thead>
-            <tr>
-                <th>
-                    الوصف
-                </th>
-                <th>
-                    المبلغ
-                </th>
-                <th>إجراءات</th>
-            </tr>
-        </thead>
 
-        <tbody>
-            @foreach (var item in Model.BillItems)
-            {
+    <div class="col-6">
+        <div class="card-box">
+            <h1>المرسلين</h1>
 
-                string rowId = "billItemRow" + item.BillItemId;
-                string trId = "billItemTr" + item.BillItemId;
-                string amountId = "billItemAmount" + item.BillItemId;
-                <tr id="@trId">
-                    <td>
-                        <span id="@rowId">@item.Description</span>
-                    </td>
-                    <td>
-                        <span id="@amountId">@item.Amount</span>
-                    </td>
-                    <td class="actions">
-                        <a href="#" class="on-default edit-row editBillItem" data-id="@item.BillItemId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                        <a href="#" class="on-default remove-row removeBillItem" data-id="@item.BillItemId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="m-b-30">
+                        <button id="btnAddNewSender" data-toggle="modal" data-target="#con-close-modal-senders" class="btn btn-success waves-effect waves-light"><i class="fa fa-plus"></i> إضافة مرسل جديد</button>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped" id="billSendersTable">
+                <thead>
+                    <tr>
+                        <th>
+                            الاسم
+                        </th>
+                        <th>
+                            عدد الطرود
+                        </th>
+                        <th>إجراءات</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.BillSenders)
+                    {
+
+                        string rowId = "billSenderRow" + item.BillSenderId;
+                        string trId = "billSenderTr" + item.BillSenderId;
+                        string packagesId = "billSenderPackages" + item.BillSenderId;
+                        <tr id="@trId">
+                            <td>
+                                <span id="@rowId">@item.Description</span>
+                            </td>
+                            <td>
+                                <span id="@packagesId">@item.TotalPackages</span>
+                            </td>
+                            <td class="actions">
+                                <a href="#" class="on-default edit-row editBillSender" data-id="@item.BillSenderId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                <a href="#" class="on-default remove-row removeBillSender" data-id="@item.BillSenderId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-
-
 @section Modals
 {
+    <!-- Bill Items Modals -->
     <!-- Insert Modal -->
     <div id="con-close-modal" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
@@ -315,6 +381,99 @@
             </div>
         </div>
     </div><!-- /.modal -->
+    <!-- Bill Senders Modals -->
+    <!-- Insert Modal -->
+    <div id="con-close-modal-senders" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">إضافة إيضاح جديد</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="insertForm-senders">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">الوصف</label>
+                                    <input type="text" class="form-control" required parsley-trigger="change" id="txtAddBillSenderDescription" placeholder="سامر">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">عدد الطرود</label>
+                                    <input type="number" class="form-control" required parsley-trigger="change" id="txtAddBillSenderPackages" placeholder="25">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                            <button type="submit" id="btnAddBillSender" class="btn btn-info waves-effect waves-light">إضافة</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+    <!-- Edit  Modal -->
+    <div id="con-close-modal-edit-senders" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">نعديل معلومات مرسل</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="editForm-senders">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">الوصف</label>
+                                    <input type="text" class="form-control" required parsley-trigger="change" id="txtEditBillSenderDescription" placeholder="سامر">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="field-1" class="control-label">عدد الطرود</label>
+                                    <input type="number" class="form-control" required parsley-trigger="change" id="txtEditBillSenderPackages" placeholder="25">
+                                </div>
+                            </div>
+                            <input type="hidden" id="billSenderId" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                            <button type="submit" id="btnEditBillSender" class="btn btn-info waves-effect waves-light">حفظ</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete  Modal -->
+    <div id="con-close-modal-delete-senders" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">رسالة تأكيد</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p>هل أنت متأكد من أنك تريد حذف هذا المرسل؟</p>
+                        </div>
+                        <input type="hidden" id="deleteBillSenderId" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                        <button type="submit" id="btnDeleteBillSender" class="btn btn-danger waves-effect waves-light">حذف</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
 }
 
 @section Scripts {
@@ -322,34 +481,35 @@
 
     Scripts related to this page goes here-- >
     @*< !--Required datatable js-- >*@
-        <script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="~/Content/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-<!-- Buttons examples 
-<script src="~/Content/plugins/datatables/dataTables.buttons.min.js"></script>
-<script src="~/Content/plugins/datatables/buttons.bootstrap4.min.js"></script>
-<script src="~/Content/plugins/datatables/jszip.min.js"></script>
-<script src="~/Content/plugins/datatables/pdfmake.min.js"></script>
-<script src="~/Content/plugins/datatables/vfs_fonts.js"></script>
-<script src="~/Content/plugins/datatables/buttons.html5.min.js"></script>
-<script src="~/Content/plugins/datatables/buttons.print.min.js"></script>
+    <script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples
+    <script src="~/Content/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/Content/plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/plugins/datatables/jszip.min.js"></script>
+    <script src="~/Content/plugins/datatables/pdfmake.min.js"></script>
+    <script src="~/Content/plugins/datatables/vfs_fonts.js"></script>
+    <script src="~/Content/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="~/Content/plugins/datatables/buttons.print.min.js"></script>
 
-<!-- Notification js -->
-<script src="~/Content/plugins/notifyjs/dist/notify.min.js"></script>
-<script src="~/Content/plugins/notifications/notify-metro.js"></script>
-<script src="~/Content/assets/js/notifications-asset.js"></script>
+    <!-- Notification js -->
+    <script src="~/Content/plugins/notifyjs/dist/notify.min.js"></script>
+    <script src="~/Content/plugins/notifications/notify-metro.js"></script>
+    <script src="~/Content/assets/js/notifications-asset.js"></script>
 
-<!-- Parsleyjs -->
-<script type="text/javascript" src="~/Content/plugins/parsleyjs/dist/parsley.min.js"></script>
+    <!-- Parsleyjs -->
+    <script type="text/javascript" src="~/Content/plugins/parsleyjs/dist/parsley.min.js"></script>
 
-<!-- Modals Effects -->
-<!-- Modal-Effect -->
-<script src="~/Content/plugins/custombox/dist/custombox.min.js"></script>
-<script src="~/Content/plugins/custombox/dist/legacy.min.js"></script>
+    <!-- Modals Effects -->
+    <!-- Modal-Effect -->
+    <script src="~/Content/plugins/custombox/dist/custombox.min.js"></script>
+    <script src="~/Content/plugins/custombox/dist/legacy.min.js"></script>
 
-<script>
+    <script>
         $(document).ready(function () {
             $("#billItemsTable").dataTable();
 
+            $("#billSendersTable").dataTable();
 
             $('form').parsley();
 
@@ -360,11 +520,27 @@
                 insertBillItem();
             });
 
+            // Senders
+            $("#insertForm-senders").submit(function (e) {
+                // Stop the form from being accepted
+                e.preventDefault();
+
+                insertBillSender();
+            });
+
             $(".editBillItem").click(function () {
                 // Get the id from the button
                 var id = $(this).data("id");
 
                 openEditModal(id);
+            });
+
+            // Senders
+            $(".editBillSender").click(function () {
+                // Get the id from the button
+                var id = $(this).data("id");
+
+                openEditSenderModal(id);
             });
 
             // Click edit destination button
@@ -381,6 +557,20 @@
                 editBillItem(id, newName, newAmount);
             });
 
+            // Sender
+            $("#editForm-senders").submit(function (e) {
+                // Don't submit
+                e.preventDefault();
+
+                // Get the id
+                var id = $("#billSenderId").val();
+                var newDescription = $("#txtEditBillSenderDescription").val();
+                var newPackages = $('#txtEditBillSenderPackages').val();
+                
+                // Send the reqeuest
+                editBillSender(id, newDescription, newPackages);
+            });
+
             // Click the remove destination button in the table
             $(".removeBillItem").click(function () {
                 // Get the id
@@ -389,14 +579,34 @@
                 openDeleteModal(id);
             });
 
+            // Sender
+            $(".removeBillSender").click(function () {
+                // Get the id
+                var id = $(this).data("id");
+                // Open Modal
+                openDeleteSenderModal(id);
+            });
+
+
             // Click the delete button in delete modal
             $("#btnDeleteBillItem").click(function () {
                 // Get the id
                 var id = $('#deleteItemId').val();
-
+              
                 // Delete
                 removeBillItem(id);
             });
+
+            // Sender
+            $("#btnDeleteBillSender").click(function () {
+                alert("Delete"); 
+                // Get the id
+                var id = $('#deleteBillSenderId').val();
+                alert(id);
+                // Delete
+                removeBillSender(id);
+            });
+
         });
 
 
@@ -449,6 +659,55 @@
     }
 
 
+        // Insert a new Bill Sender
+          // Insert a new destination
+        function insertBillSender() {
+            var table = $("#billSendersTable").DataTable();
+            var description = $("#txtAddBillSenderDescription").val();
+            var packages = $('#txtAddBillSenderPackages').val();
+
+            $("#txtAddBillSenderDescription").val("");
+            var url = "@Url.Action("InsertBillSender", "CustomerBills")";
+
+            $.ajax({
+                type: 'POST',
+                data: { id: @Model.BillId, description: description, packages: packages },
+                url: url,
+                success: function (data) {
+                    showSuccessNotification("تمت العملية بنجاح", data.message);
+                    // Close the modal
+                    $("#con-close-modal-senders").modal('toggle');
+
+                    // Add the destination to the table
+                    table.row.add(["<span id='billSenderRow" + data.billSenderId + "'>" + data.description + "</span>",
+                        "<span id='billSenderPackages" + data.billSenderId + "'>" + data.packages + "</span>",
+                        "<a href='#' class='on-default edit-row editBillSender' data-id='" + data.billSenderId + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit'><i class='fa fa-pencil'></i></a> <a href='#' class='on-default remove-row removeBillSender' data-id='" + data.billSenderId + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='fa fa-trash-o'></i></a>"]).draw(false);
+                    //$("#tableBody").append("<tr><td>" + data.name + "</td><td></td></tr>")
+
+                    //// Update the total values
+                    //$("#txtTotal").val(data.total);
+
+                    //var paidInDamas = $("#chPaidInDamas").prop("checked");
+                    //if (paidInDamas) {
+                    //    $("#txtTotalInSR").val('0');
+                    //}
+                    //else {
+                    //    $("#txtTotalInSR").val(data.total);
+                    //}
+
+                }
+            }).fail(function (e) {
+                //alert(e.status + " " + e.statusCode());
+                if (e.status === 406) {
+                    showErrorNotification("لم تتم العملية بنجاح", "يرجى ادخال  وصف عدد الطرود للمرسل");
+                }
+                else {
+                    showErrorNotification("لم تتم العملية بنجاح", "إن هذا المرسل موجود مسبقاً");
+                }
+
+            });
+    }
+
     // Funciton to open edit modal
         function openEditModal(id) {
             // Send a get request to get the data of the destination
@@ -462,7 +721,7 @@
                     // Set the text of the modal to name
                     $("#txtEditBillItemDescription").val(data.description);
                     $("#billItemId").val(id);
-                    $("#txtEditBillItemAmount").val(data.amount); 
+                    $("#txtEditBillItemAmount").val(data.amount);
 
                     // Open the modal
                     $("#con-close-modal-edit").modal("toggle");
@@ -470,16 +729,40 @@
             }).fail(function (e) {
                 showErrorNotification("فشل", "يوجد هنالك خطأ ما, يرجى إعادة المحاولة لاحقاً");
             });
-    }
+        }
 
-    // Function to edit a bill item 
+        // Open Edit Sender Modal
+        function openEditSenderModal(id) {
+            // Send a get request to get the data of the destination
+            var url = "@Url.Action("GetBillSenderDetails", "CustomerBills")/" + id;
+
+            // Send ajax request
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {
+                    // Set the text of the modal to name
+                    $("#txtEditBillSenderDescription").val(data.description);
+                    $("#billSenderId").val(id);
+                    $("#txtEditBillSenderPackages").val(data.packages);
+
+                    // Open the modal
+                    $("#con-close-modal-edit-senders").modal("toggle");
+                }
+            }).fail(function (e) {
+                showErrorNotification("فشل", "يوجد هنالك خطأ ما, يرجى إعادة المحاولة لاحقاً");
+            });
+        }
+
+
+    // Function to edit a bill item
        // Function to edit the destination
         function editBillItem(id,newDescription, newAmount) {
             // Send post request to edit the destiantion
             var url = "@Url.Action("EditBillItem", "CustomerBills")";
             var data = {
                 id: id,
-                newDescription: newDescription, 
+                newDescription: newDescription,
                 newAmount : newAmount
             };
 
@@ -494,7 +777,7 @@
 
                     // Update the value in the table
                     $("#billItemRow" + id).text(newDescription);
-                    $("#billItemAmount" + id).text(newAmount); 
+                    $("#billItemAmount" + id).text(newAmount);
 
                     // Update the total values
                     $("#txtTotal").val(data.total);
@@ -506,7 +789,7 @@
                     else {
                         $("#txtTotalInSR").val(data.total);
                     }
-                  
+
 
 
                     // Show notification
@@ -515,23 +798,76 @@
             }).fail(function (e) {
                 showErrorNotification('فشل', 'يوجد هنالك خطأ ما يرجى إعادة المحاولة لاحقاً');
             });
-    }
+        }
+
+        // Edit Bill Sender
+          function editBillSender(id,newDescription, newPackages) {
+            // Send post request to edit the destiantion
+            var url = "@Url.Action("EditBillSender", "CustomerBills")";
+            var data = {
+                id: id,
+                newDescription: newDescription,
+                newPackages : newPackages
+            };
+
+            // Ajax Request
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (data) {
+                    // Close the modal
+                    $("#con-close-modal-edit-senders").modal('toggle');
+
+                    // Update the value in the table
+                    $("#billSenderRow" + id).text(newDescription);
+                    $("#billSenderPackages" + id).text(newPackages);
+
+                    //// Update the total values
+                    //$("#txtTotal").val(data.total);
+
+                    //var paidInDamas = $("#chPaidInDamas").prop("checked");
+                    //if (paidInDamas) {
+                    //    $("#txtTotalInSR").val('0');
+                    //}
+                    //else {
+                    //    $("#txtTotalInSR").val(data.total);
+                    //}
+
+
+
+                    // Show notification
+                    showSuccessNotification('لقد تمت العملية بنجاح', 'لقد تم تعديل المرسل');
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'يوجد هنالك خطأ ما يرجى إعادة المحاولة لاحقاً');
+            });
+        }
 
 
     // Function to open delete modal
         function openDeleteModal(id) {
-            
+
             // Set the destination in the hidden filed
             $("#deleteBillItemId").val(id);
             // Open the modal
             $("#con-close-modal-delete").modal('toggle');
         }
 
+        // Open Delete Modal for bill sender
+        function openDeleteSenderModal(id) {
+
+            // Set the destination in the hidden filed
+            $("#deleteBillSenderId").val(id);
+            // Open the modal
+            $("#con-close-modal-delete-senders").modal('toggle');
+        }
+
         // Function to remove the Destination
-        function removeDestination(id) {
+        function removeBillItem(id) {
             // Get the table to manpulaite
             var table = $("#billItemsTable").DataTable();
-            
+
             // Prepare the url
             var url = "@Url.Action("DeleteBillItem", "CustomerBills")/" + id;
 
@@ -567,7 +903,48 @@
             });
         }
 
-</script>
+        // Delete Bill Sender
+        // Function to remove the Destination
+        function removeBillSender(id) {
+            // Get the table to manpulaite
+            var table = $("#billSendersTable").DataTable();
+            
+            // Prepare the url
+            var url = "@Url.Action("DeleteBillSender", "CustomerBills")/" + id;
+
+            // Send the post request to remove
+            $.ajax({
+                url: url,
+                type: "POST",
+                success: function (data) {
+                    // Remove from the table
+                    // Get the row
+                    $("#billSendertr" + id).remove();
+                    //table.rows(row).delete();
+
+                    // Close the modal
+                    $("#con-close-modal-delete").modal('toggle');
+
+                    // Show notification
+                    showSuccessNotification('تمت العملية بنجاح', 'لفد تم حذف المرسل ');
+
+                    //// Update the total values
+                    //$("#txtTotal").val(data.total);
+
+                    //var paidInDamas = $("#chPaidInDamas").prop("checked");
+                    //if (paidInDamas) {
+                    //    $("#txtTotalInSR").val('0');
+                    //}
+                    //else {
+                    //    $("#txtTotalInSR").val(data.total);
+                    //}
+                }
+            }).fail(function (e) {
+                showErrorNotification('فشل', 'لم تتم العملية بنجاح, يرجى إعادة المحاولة لاحقاً');
+            });
+        }
+
+    </script>
 
 
 }

@@ -37,6 +37,9 @@
                     رقم الآلية
                 </th>
                 <th>
+                    جوال
+                </th>
+                <th>
                     إجراءات
                 </th>
             </tr>
@@ -55,6 +58,9 @@
                     </td>
                     <td>
                         @item.VehicleNumber
+                    </td>
+                    <td>
+                        @item.Phone1
                     </td>
                     <td>
                         <a href="@Url.Action("Edit","Drivers",new { @id = item.PersonId})"><i class="fa fa-edit"></i></a>

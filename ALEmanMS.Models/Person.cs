@@ -31,8 +31,18 @@ namespace ALEmanMS.Models
 
         public string FullName { get => $"{FirstName} {LastName}"; }
 
+        // Contacts 
+        [StringLength(25)]
+        public string Phone1 { get; set; }
+
+        [StringLength(25)]
+        public string Phone2 { get; set; }
+
+        [StringLength(25)]
+        public string Phone3 { get; set; }
+
         // Relationships with other tables 
-        public virtual List<PersonContact> PersonContacts { get; set;  }
+        //public virtual List<PersonContact> PersonContacts { get; set;  }
 
     }
 }

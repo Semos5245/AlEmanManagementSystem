@@ -17,6 +17,6 @@ namespace ALEmanMS.Models
         public string Name { get; set; }
 
         // Reltionship with other tables 
-        public List<PersonContact> PersonContacts { get; set; }
+        //public List<PersonContact> PersonContacts { get; set; }
     }
 }

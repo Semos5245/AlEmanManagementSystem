@@ -423,9 +423,9 @@ namespace ALEmanMS.AdminWebsite.Controllers
         // Edit JourneyType 
         // POST: Journeys/EditDate 
         [HttpPost]
-        public ActionResult EditJourneyType(string id, string journeyTypeId)
+        public ActionResult EditJourneyType(int id, string journeyTypeId)
         {
-            if (string.IsNullOrEmpty(journeyTypeId) || string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(journeyTypeId))
                 new HttpStatusCodeResult(406);
 
             var journey = db.Journeys.Find(id);

@@ -56,6 +56,19 @@ namespace ALEmanMS.AdminWebsite.Models
         [Display(Name = "ملاحظات")]
         public string Description { get; set; }
 
+
+        [StringLength(25)]
+        [Display(Name = "جوال 1")]
+        public string Phone1 { get; set; }
+
+        [StringLength(25)]
+        [Display(Name = "جوال 2")]
+        public string Phone2 { get; set; }
+
+        [StringLength(25)]
+        [Display(Name = "الهاتف")]
+        public string Phone3 { get; set; }
+
         //[Required]
         //[StringLength(50)]
         //[Display(Name = "المدينة")]

@@ -20,23 +20,46 @@ namespace ALEmanMS.AdminWebsite.Controllers
         }
 
         // GET: CustomerBills
-        public ActionResult Index(string id)
+        public ActionResult Index(int? id)
         {
+            if (id == null)
+                return new HttpStatusCodeResult(406);
+
+            //var journey = db.Journeys.Find(id);
+
+            //if (journey == null)
+            //    return HttpNotFound();
+
+            //// Check if there is bills for this journey 
+            //var billsCount = journey.Bills.Count;
+            //if (billsCount == 0)
+            //    return HttpNotFound();
+
+            var bill = db.Bills.Find(id.Value); 
+            return View(bill);
+        }
+
+        // GET: CustomerBills/GoToBills
+        public ActionResult GoToBills(string id)
+        {
+            // Validate input 
             if (string.IsNullOrEmpty(id))
                 return new HttpStatusCodeResult(406);
 
+            // Get the journe y
             var journey = db.Journeys.Find(id);
-
             if (journey == null)
                 return HttpNotFound();
 
-            // Check if there is bills for this journey 
+            // Get the bills 
             var billsCount = journey.Bills.Count;
             if (billsCount == 0)
                 return HttpNotFound();
 
-            var bill = journey.Bills.FirstOrDefault(); 
-            return View(bill);
+            // get the first bill id 
+            int firstBillId = journey.Bills.FirstOrDefault().BillId;
+
+            return RedirectToAction("Index", new { id = firstBillId }); 
         }
 
         // GET: Calculate the bills 
@@ -55,7 +78,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 return HttpNotFound();
 
             if (journey.IsBillGenerated)
-                return RedirectToAction("Index", new { id });
+                return RedirectToAction("GoToBills", new { id });
 
             // Get the packages 
             var packages = journey.Packages.ToList();
@@ -70,7 +93,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 var dbCustomer = db.People.Find(customer.Key.PersonId) as Customer; 
 
                 // Get the number of packages 1- 
-                int packagesCount = (int)customer.Key.Packages.Sum(p => p.PackagesCount);
+                int packagesCount = (int)customer.Sum(p => p.PackagesCount);
                 // Get the total weight -2 
                 int totalWeight = (int)customer.Key.Packages.Sum(p => p.Weight.Value);
                 // Get the price of the customer 
@@ -140,7 +163,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                     JourneyDate = journey.JourneyDate, 
                     PackageCount = packagesCount, 
                     PaidInDamas = paidInDamas, 
-                    Weight = totalWeight, 
+                    Weight= totalWeight, 
                     PlaneWeight = 0, 
                     ShipmentPrice = (double)price, 
                     Total = totalCost, 
@@ -204,7 +227,7 @@ namespace ALEmanMS.AdminWebsite.Controllers
                         {
                             Bill = bill,
                             Amount = item.TransferPrice.Value,
-                            Description = "حوالة داخلية | " + item.Sender.FullName,
+                            Description = "قيمة البضاعة | " + item.Sender.FullName,
                             BillItemId = Guid.NewGuid().ToString()
                         };
                         bill.BillItems.Add(transferBillItem); 
@@ -237,9 +260,54 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 db.SaveChanges(); 
 
             }
-            return new HttpStatusCodeResult(200);
+            return RedirectToAction("GoToBills", new { id = journey.JourneyId });
         }
 
+        // Edit Bill Info 
+        // POST: CustomerBills/EditBillInfo/435
+        [HttpPost]
+        public ActionResult EditBillInfo(int? id, BillInfoViewModel model)
+        {
+            // Validate 
+            if (id == null)
+                return new HttpStatusCodeResult(406);
+
+            var bill = db.Bills.Find(id.Value);
+            if (bill == null)
+                return HttpNotFound();
+
+            // Validate the model 
+            if (ModelState.IsValid)
+            {
+                // Update the bill info 
+                bill.CarNumber = model.CarNumber.Trim();
+                bill.City = model.City.Trim();
+                bill.CustomerName = model.CustomerName.Trim();
+                bill.DriverName = model.DriverName.Trim();
+                bill.Group = model.Group;
+                bill.JourneyNumber = model.JourneNumber;
+                bill.JourneyDate = model.JourneyDate;
+                bill.Notes = model.Notes;
+                bill.Total = model.Total;
+                bill.TotalInSR = model.TotalInSR;
+                bill.Weight = model.Weight;
+                bill.PlaneWeight = model.PlaneWeight;
+                bill.PackageCount = model.PackagingCount;
+                bill.PackageCount = model.PackageCount;
+
+                db.SaveChanges();
+
+                updateBillPrice(id.Value);
+                
+                // TODO: Update the bill depends on the total adn weight not only bill Items
+                 
+
+                return RedirectToAction("Index", new { id = id.Value });
+            }
+
+            return RedirectToAction("Index", new { id = id.Value }); 
+        }
+        #region BillItems 
         // Inserting a new bill item 
         // POST: CustomerBills/InsertBillItem/54
         [HttpPost]
@@ -355,6 +423,113 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 total
             }, JsonRequestBehavior.AllowGet); 
         }
+
+        #endregion
+
+        // Deal with senders of the bill 
+        #region BillSenders 
+        // Insert a new bill sender 
+        // PSOT: CustomerBills/InsertBillSender/343
+        [HttpPost]
+        public ActionResult InsertBillSender(int? id, string description, int? packages)
+        {
+            // VAldiadte the input 
+            if (id == null || string.IsNullOrEmpty(description) || packages == null)
+                return new HttpStatusCodeResult(406);
+
+            // Get the bill id 
+            var bill = db.Bills.Find(id.Value);
+            if (bill == null)
+                return HttpNotFound();
+
+            // Create the sender object 
+            if (bill.BillSenders == null)
+                bill.BillSenders = new List<BillSender>();
+
+            BillSender sender = new BillSender
+            {
+                BillSenderId = Guid.NewGuid().ToString(),
+                Description = description.Trim(),
+                TotalPackages = packages.Value,
+                Bill = bill
+            };
+
+            db.BillSenders.Add(sender);
+            db.SaveChanges();
+
+            return Json(new
+            {
+                // Return the id 
+                billSenderId = sender.BillSenderId,
+                description, 
+                packages
+            }, JsonRequestBehavior.AllowGet); 
+        }
+
+        // Get the details of the bill sender 
+        // GET: CustomerBills/GetBillSenderDetails/34
+        public ActionResult GetBillSenderDetails(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return new HttpStatusCodeResult(406);
+
+            // get the bill sender 
+            var billSender = db.BillSenders.Find(id);
+            if (billSender == null)
+                return HttpNotFound();
+
+            return Json(new
+            {
+                billSenderId = billSender.BillSenderId,
+                description = billSender.Description,
+                packages = billSender.TotalPackages
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        // Edit the bill sender 
+        // POST: CustomerBills/EditBillSender/3432efeg
+        [HttpPost]
+        public ActionResult EditBillSender(string id, string newDescription, int? newPackages)
+        {
+            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(newDescription) || newPackages == null)
+                return new HttpStatusCodeResult(406);
+
+            var billSender = db.BillSenders.Find(id);
+            if (billSender == null)
+                return HttpNotFound();
+
+            billSender.Description = newDescription.Trim();
+            billSender.TotalPackages = newPackages.Value;
+
+            db.SaveChanges();
+
+            return Json(new
+            {
+                id, 
+                newDescription,
+                newPackages.Value
+            }, JsonRequestBehavior.AllowGet); 
+        }
+
+        // Delete bill sneder 
+        // POST: CustomerBills/DeletebillSender/34efgsd 
+        [HttpPost]
+        public ActionResult DeleteBillSender(string id)
+        {
+            // validate 
+            if (string.IsNullOrEmpty(id))
+                return new HttpStatusCodeResult(406);
+
+            var billSender = db.BillSenders.Find(id);
+            if (billSender == null)
+                return HttpNotFound();
+
+            db.BillSenders.Remove(billSender);
+            db.SaveChanges();
+
+            return new HttpStatusCodeResult(200); 
+        }
+        #endregion 
         #region HelperMethods
         // Method to update the total price of the bill after adding items  
         decimal updateBillPrice(int billId)

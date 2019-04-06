@@ -50,27 +50,20 @@ namespace ALEmanMS.AdminWebsite.Controllers
         [HttpPost]
         public ActionResult Create(CustomerViewModel model)
         {
-            //Initialize the cities in the viewModel
             model.Cities = GetCities();
 
-            //Check model 
             if (ModelState.IsValid)
             {
-                //Get customer with the same name or with the same commercial number
                 var customer = db.People.OfType<Customer>().FirstOrDefault(c => (c.FirstName == model.FirstName && c.LastName == model.LastName) || c.CommercialName == model.CommercialName);
 
-                //Check if the customer exists
                 if (customer != null)
                     return View(model);
 
-                //Get selected city
                 var city = db.Cities.Find(model.CityId);
 
-                //Check if the city exists
                 if (city == null)
-                    return HttpNotFound();
+                    return View(model);
 
-                //Instantiate a new customer
                 var newCustomer = new Customer
                 {
                     PersonId = Guid.NewGuid().ToString(),
@@ -85,33 +78,28 @@ namespace ALEmanMS.AdminWebsite.Controllers
                     TaxNumber = model.TaxtNumber != null ? model.TaxtNumber.Trim() : "",
                     City = city,
                     CityId = city.CityId,
-                    CityName = city.Name
+                    CityName = city.Name,
+                    Phone1 = model.Phone1,
+                    Phone2 = model.Phone2,
+                    Phone3 = model.Phone3
                 };
 
-                //Add to the database
                 db.People.Add(newCustomer);
                 db.SaveChanges();
 
                 return RedirectToAction("Index","Customers");
             }
-            //Model is invalid
             return View(model);
         }
 
         //Get: Customers/Edit/fjusadyf6asgfsadg6f7asfi
         public ActionResult Edit(string id)
         {
-            if (string.IsNullOrEmpty(id))
-                return new HttpStatusCodeResult(406);
-
-            //Get customer data with the specific id
             var customer = db.People.Find(id) as Customer;
 
-            //Check if the customer exists
             if (customer == null)
                 return HttpNotFound();
 
-            //Instantiate the viewModel
             var model = new CustomerViewModel
             {
                 FirstName = customer.FirstName,
@@ -124,10 +112,12 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 Cities = GetCities(),
                 SpecialFee = customer.SpecialFee,
                 CityName = customer.CityName,
+                Phone1 = customer.Phone1,
+                Phone2 = customer.Phone2,
+                Phone3 = customer.Phone3,
                 PaidInDamascus = customer.PaidInDamas == true ? "on" : "off"
             };
 
-            //Send the view model with the html page
             return View(model);
         }
 
@@ -135,25 +125,22 @@ namespace ALEmanMS.AdminWebsite.Controllers
         [HttpPost]
         public ActionResult Edit(string id, CustomerViewModel model)
         {
-            if (string.IsNullOrEmpty(id))
-                return new HttpStatusCodeResult(406);
-
-            //Get the cities
             model.Cities = GetCities();
 
-            //check the model
             if (ModelState.IsValid)
             {
-                var oldCustomer = db.People.OfType<Customer>().FirstOrDefault(c => ((c.FirstName == model.FirstName && c.LastName == model.LastName) || c.CommercialName == model.CommercialName) && c.PersonId != id);
+                //var oldCustomer = db.People.OfType<Customer>().FirstOrDefault(c => (c.FirstName == model.FirstName && c.LastName == model.LastName) || c.CommercialName == model.CommercialName);
 
-                if (oldCustomer != null)
-                    return View(model);
+                //if (oldCustomer == null)
+                    //return View(model);
 
                 var city = db.Cities.Find(model.CityId);
                 var newCustomer = db.People.Find(id) as Customer;
 
                 if (city == null || newCustomer == null)
+                {
                     return View(model);
+                }
 
                 newCustomer.FirstName = model.FirstName.Trim();
                 newCustomer.LastName = model.LastName.Trim();
@@ -166,6 +153,9 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 newCustomer.City = city;
                 newCustomer.CityId = city.CityId;
                 newCustomer.CityName = city.Name;
+                newCustomer.Phone1 = model.Phone1;
+                newCustomer.Phone2 = model.Phone2;
+                newCustomer.Phone3 = model.Phone3; 
 
                 db.SaveChanges();
 
@@ -178,9 +168,6 @@ namespace ALEmanMS.AdminWebsite.Controllers
         [HttpPost]
         public ActionResult Delete(string id)
         {
-            if(string.IsNullOrEmpty(id))
-                return new HttpStatusCodeResult(406);
-
             var customer = db.People.Find(id) as Customer;
 
             if (customer == null)

@@ -226,7 +226,7 @@
                 removeDestination(id);
             });
 
-            
+
         });
 
          // Insert a new destination
@@ -246,8 +246,7 @@
 
                         // Add the destination to the table
                         table.row.add([data.name,
-                            "<a href='#' class='on-default edit-row editDestination' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit'><i class='fa fa-pencil'></i></a> <a href='#' class='on-default remove-row removeDestination' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='fa fa-trash-o'></i></a>"]);
-                        table.draw(false);
+                        "<a href='#' class='on-default edit-row editDestination' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit'><i class='fa fa-pencil'></i></a> <a href='#' class='on-default remove-row removeDestination' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='fa fa-trash-o'></i></a>"]).draw(false);
                         //$("#tableBody").append("<tr><td>" + data.name + "</td><td></td></tr>")
 
                     }

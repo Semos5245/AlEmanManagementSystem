@@ -395,13 +395,17 @@
                         <a href="@Url.Action("Numbering", "Packages", new { id = Model.Journey.JourneyId})" id="btnUpdateNumbering" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-sort-numeric-asc"></i> ترقيم</a>
                     </div>
                     <div class="col-2">
-                        <a href="@Url.Action("Generate", "CustomerBills", new { id = Model.Journey.JourneyId})" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-pie-chart"></i> كشف حساب</a>
+                        <a href="@Url.Action("Generate", "CustomerBills", new { id = Model.Journey.JourneyNumber})" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-pie-chart"></i> كشف حساب</a>
                     </div>
                     <div class="col-2">
-                        <a href="@Url.Action("CalculationsTable", "Reports", new { id = Model.Journey.JourneyId})" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-pie-chart"></i> جدول الحسابات</a>
+                        <a href="@Url.Action("CalculationsTable", "Reports", new { id = Model.Journey.JourneyId})" class="btn btn-warning waves-effect btn-custom btn-block"><i class="fa fa-calculator"></i> جدول الحسابات</a>
                     </div>
                     <div class="col-2">
-                        <a href="@Url.Action("DetailedPackagesTable", "Reports", new { id = Model.Journey.JourneyId})" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-pie-chart"></i> التفصيلي</a>
+                        <a href="@Url.Action("DetailedPackagesTable", "Reports", new { id = Model.Journey.JourneyId})" class="btn btn-success waves-effect btn-custom btn-block"><i class="fa fa-table"></i> مفردات الطرود تفصيلي</a>
+                    </div>
+
+                    <div class="col-2">
+                        <a href="@Url.Action("PackagesTable", "Reports", new { id = Model.Journey.JourneyId})" class="btn btn-primary waves-effect btn-custom btn-block"><i class="fa fa-table"></i> مفردات الطرود </a>
                     </div>
                 </div>
 
