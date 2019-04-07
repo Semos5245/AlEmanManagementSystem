@@ -1,7 +1,7 @@
 ﻿@model ALEmanMS.Models.Bill
 
 @{
-    ViewBag.Title = "بوليصية الشحن رقم " + Model.BillId;
+    ViewBag.Title = "بوليصة الشحن رقم " + Model.BillId;
 }
 
 @section Css {
@@ -21,7 +21,7 @@
         <div class="portlet">
             <div class="portlet-heading bg-warning">
                 <h3 class="portlet-title">
-                    معلومات البوليصية
+                    معلومات البوليصة
                 </h3>
                 <div class="portlet-widgets">
 
@@ -159,7 +159,7 @@
                             <div class="col-3">
                                 <a href="@Url.Action("CustomerEnvelope", "Reports", new { id = Model.Journey.JourneyId})" class="btn btn-info waves-effect btn-custom btn-block"><i class="fa fa-pie-chart"></i> الزبون</a>
                             </div>
-                        </div>
+                        </div><br />
 
                         <div class="row">
                             <button type="submit" class="btn btn-success waves-green btn-custom btn-block">تعديل</button>
@@ -224,7 +224,7 @@
 @section Modals
 {
     <!-- Insert Modal -->
-    <div id="con-close-modal" class="modal fade" style="direction:rtl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div id="con-close-modal" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -235,21 +235,21 @@
                     <form action="#" id="insertForm">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">الوصف</label>
-                                    <input type="text" class="form-control" required parsley-trigger="change" id="txtAddBillItemDescription" placeholder="فواتير الشحن">
+                                    <input type="text" class="form-control" required parsley-trigger="change" style="margin-left:5px;" id="txtAddBillItemDescription" placeholder="فواتير الشحن">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">المبلغ</label>
                                     <input type="number" class="form-control" required parsley-trigger="change" id="txtAddBillItemAmount" placeholder="50000">
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                            <button type="button" class="btn btn-secondary waves-effect" style="margin-left:5px;" data-dismiss="modal">إغلاق</button>
                             <button type="submit" id="btnAddBillItem" class="btn btn-info waves-effect waves-light">إضافة</button>
                         </div>
                     </form>
@@ -269,14 +269,14 @@
                     <form action="#" id="editForm">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">الوصف</label>
-                                    <input type="text" class="form-control" required parsley-trigger="change" id="txtEditBillItemDescription" placeholder="فواتير الشحن">
+                                    <input type="text" class="form-control" required parsley-trigger="change" style="margin-left:5px;" id="txtEditBillItemDescription" placeholder="فواتير الشحن">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">المبلغ</label>
                                     <input type="number" class="form-control" required parsley-trigger="change" id="txtEditBillItemAmount" placeholder="50000">
                                 </div>
@@ -284,7 +284,7 @@
                             <input type="hidden" id="billItemId" />
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                            <button type="button" class="btn btn-secondary waves-effect" style="margin-left:5px;" data-dismiss="modal">إغلاق</button>
                             <button type="submit" id="btnEditBillItem" class="btn btn-info waves-effect waves-light">حفظ</button>
                         </div>
                     </form>
@@ -308,7 +308,7 @@
                         <input type="hidden" id="deleteBillId" />
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                        <button type="button" class="btn btn-secondary waves-effect" style="margin-left:5px;" data-dismiss="modal">إغلاق</button>
                         <button type="submit" id="btnDeleteGroup" class="btn btn-danger waves-effect waves-light">حذف</button>
                     </div>
                 </div>

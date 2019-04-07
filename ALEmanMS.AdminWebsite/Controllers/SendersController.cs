@@ -52,9 +52,9 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 if (sender != null)
                     return View(model);
 
-                var city = db.Cities.FirstOrDefault(c => c.Name == model.CityName);
-                if (city == null)
-                    return HttpNotFound();
+                //var city = db.Cities.FirstOrDefault(c => c.Name == model.CityName);
+                //if (city == null)
+                //    return HttpNotFound();
 
                 var newSender = new Sender();
                 newSender.PersonId = Guid.NewGuid().ToString();

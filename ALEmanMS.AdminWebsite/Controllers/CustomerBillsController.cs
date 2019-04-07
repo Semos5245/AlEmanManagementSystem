@@ -128,10 +128,11 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 // 4- Calculate transfer 
                 decimal transferCost = customer.Key.Packages.Sum(p => p.TransferPrice.Value);
 
-                decimal totalCost = totalShippingCost + casedCost + internalShippingCost + transferCost; 
+                decimal totalCost = totalShippingCost + casedCost + internalShippingCost + transferCost;
 
                 Bill bill = new Bill
                 {
+                    BillId = 1,
                     CarNumber = journey.Driver.VehicleNumber,
                     Customer = dbCustomer,
                     DriverName = journey.Driver.FullName,
