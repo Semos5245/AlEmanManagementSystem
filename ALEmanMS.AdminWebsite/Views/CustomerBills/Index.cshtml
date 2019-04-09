@@ -18,6 +18,29 @@
 
 <div class="card-box">
     <div class="col-12">
+        <div class="form-group row">
+            <label class="control-label col-3" for="cmbBills">رقم البوليصة</label>
+            
+            <select id="cmbBills" class="form-control col-2">
+                @foreach (var item in Model.Journey.Bills.OrderBy(b => b.BillId))
+                {
+                    if (Model.BillId == item.BillId)
+                    {
+                        <option value="@item.BillId" selected>@item.BillId</option>
+                    }
+                    else
+                    {
+                        <option value="@item.BillId">@item.BillId</option>
+                    }
+
+                }
+            </select>
+
+            <button id="btnGoToBill" class="btn btn-primary btn-custom waves-circle"><i class="fa fa-search"></i></button>
+        </div>
+    </div>
+
+    <div class="col-12">
         <div class="portlet">
             <div class="portlet-heading bg-warning">
                 <h3 class="portlet-title">
@@ -607,8 +630,19 @@
                 removeBillSender(id);
             });
 
+            // Go to bill button 
+            $('#cmbBills').change(function () {
+                goToBill(); 
+            });
         });
 
+           // Go to the selected bill 
+        function goToBill() {
+            // Get the selected bill 
+            var selectedBillId = $('#cmbBills').val(); 
+            window.location.assign('@Url.Action("Index", "CustomerBills")/' + selectedBillId); 
+             
+        }
 
         // Insert a new destination
         function insertBillItem() {

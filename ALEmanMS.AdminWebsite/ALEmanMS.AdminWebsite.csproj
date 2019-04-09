@@ -205,6 +205,7 @@
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\CustomerBillsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\CustomsController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\GroupingGroupsController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
@@ -663,6 +664,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Customs\" />
     <Folder Include="Views\Dashboard\" />
     <Folder Include="Views\Packages\" />
     <Folder Include="Views\Reports\" />

@@ -70,9 +70,13 @@
     <Compile Include="PersonContact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceiverCompany.cs" />
+    <Compile Include="SaudiCustomItem.cs" />
+    <Compile Include="SaudiJourneyCustom.cs" />
     <Compile Include="Sender.cs" />
     <Compile Include="SenderCompany.cs" />
     <Compile Include="Setting.cs" />
+    <Compile Include="SyrianCustomItem.cs" />
+    <Compile Include="SyrianJourneyCustom.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="UserActivity.cs" />
   </ItemGroup>

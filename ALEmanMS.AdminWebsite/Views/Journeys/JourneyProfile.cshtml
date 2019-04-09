@@ -407,6 +407,14 @@
                     <div class="col-2">
                         <a href="@Url.Action("PackagesTable", "Reports", new { id = Model.Journey.JourneyId})" class="btn btn-primary waves-effect btn-custom btn-block"><i class="fa fa-table"></i> مفردات الطرود </a>
                     </div>
+
+                    <div class="col-2">
+                        <a href="@Url.Action("GenerateSyrianCustoms", "Customs", new { id = Model.Journey.JourneyId})" class="btn btn-primary waves-effect btn-custom btn-block"><i class="fa fa-table"></i> توليد البيان الجمركي </a>
+                    </div>
+
+                    <div class="col-2">
+                        <a href="@Url.Action("SyrianCustoms", "Customs", new { id = Model.Journey.JourneyId})" class="btn btn-primary waves-effect btn-custom btn-block"><i class="fa fa-table"></i>  البيان الجمركي </a>
+                    </div>
                 </div>
 
             </div>
