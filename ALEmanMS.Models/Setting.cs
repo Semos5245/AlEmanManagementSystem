@@ -10,7 +10,6 @@ namespace ALEmanMS.Models
 {
     public class Setting
     {
-
         public decimal PackagingPrice { get; set; }
 
         public decimal LandShippingPerKiloPrice { get; set; }
@@ -19,6 +18,10 @@ namespace ALEmanMS.Models
 
         public decimal NauticalShippingPerKiloPrice { get; set; }
 
+        public decimal WeightToNetPortion { get; set; }
+
+        public int WeightToNetKilo { get; set; }
+        
         // Save the settings 
         public void SaveSettings(string path)
         {

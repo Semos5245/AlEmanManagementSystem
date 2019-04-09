@@ -46,8 +46,8 @@ namespace ALEmanMS.AdminWebsite.Controllers
 
             // Generate the tiems 
             var itemsByGroupingGroup = journey.Packages.GroupBy(p => p.Category.GroupingGroup);
-            
 
+            Setting setting = Setting.GetSettings("~/App_Data/Settings.json");
             int total = 0;
             int totalDozens = 0;
             int totalPrice = 0;
@@ -65,10 +65,10 @@ namespace ALEmanMS.AdminWebsite.Controllers
                 if (senderPackages.Count() == 1)
                     senderName = senderPackages.FirstOrDefault().Key.FullName;
 
-                // Get category price 
+                // Get groupingGroup price 
                 decimal categoryPrice = item.Key.Price;
 
-                // Get the cateogyr 
+                // Get the groupingGroup name 
                 string cateogryName = item.Key.Name;
 
                 // Get the count 
@@ -85,22 +85,38 @@ namespace ALEmanMS.AdminWebsite.Controllers
                         dozens += (int)category.Sum(p => p.Quantity + p.Kilograms + p.Dozens);
                 }
 
+                // get the packages count 
+                int packagesCount = (int)item.Sum(p => p.PackagesCount);
+
                 // Get the weight 
                 int weight = (int)item.Sum(p => p.Weight);
 
                 // Get the netweigt
-                // TODO : Get the net weight 
-                int netWeight = weight - 10;
+                /*
+                 * portion * weight bigger than packagesCount * setting.kilo => netWeight is weight - packagesCount * settings.kilo
+                 * else netWeight = (1 - portion) * weight;
+                 */
+                int netWeight = setting.WeightToNetPortion * weight > packagesCount * setting.WeightToNetKilo ? weight - (packagesCount * setting.WeightToNetKilo) : (int)(1 - setting.WeightToNetPortion) * weight;
 
-                // Get the price
-                int price = 14; // TODO: Get the price 
+                // Get the price 
+                /*
+                 * for normal cases:
+                 * price = netWeight * categoryPrice / dozens
+                 * 
+                 */
+                int price = (int)Math.Ceiling(netWeight * categoryPrice / dozens);
 
                 // Get the total 
-                int groupTotal = price * dozens;
-
-                // get the packages cont 
-                int packagesCount = (int)item.Sum(p => p.PackagesCount);
-
+                /*
+                 * for normal cases:
+                 * groupTotal = price * dozens
+                 *
+                 * if the category is عدد:
+                 * groupTotal = price * netWeight
+                 *
+                 */
+                int groupTotal = item.Key.Unit.Name.Contains("عدد") ? price * netWeight : price * dozens;
+                
                 SyrianCustomItem customItem = new SyrianCustomItem
                 {
                     ItemId = Guid.NewGuid().ToString(),
@@ -109,10 +125,16 @@ namespace ALEmanMS.AdminWebsite.Controllers
                     Count = count,
                     Dozen = dozens,
                     SyrianJourneyCustomId = custom.JourneyCustomID,
-                    SyrianJourneyCustom = custom
+                    SyrianJourneyCustom = custom,
+                    SenderName = senderName,
+                    NetWeight = netWeight,
+                    Weight = weight,
+                    PackagesCount = packagesCount,
+                    Price = price,
+                    Total = total
                 };
 
-                custom.SyrianCustomItems.Add(customItem); 
+                custom.SyrianCustomItems.Add(customItem);
             }
 
             return View(); 

@@ -2,42 +2,58 @@
 
 @{
     ViewBag.Title = "الإعدادات";
+    var rightSideLabels = "float:right;";
 }
 
 <div class="card-box">
+    <form action="@Url.Action("Edit","Settings")" method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="text-right">قيم الشحن و الخيش :</h3><br />
+                <div class="form-group col-12">
+                    <label for="txtPackagingPrice" class="label-control" style="@rightSideLabels">سعر الخيش</label>
 
-    <div class="col-md-6">
-        <form action="@Url.Action("Edit","Settings")" method="post">
+                    <input type="text" value="@Model.PackagingPrice" id="txtPackagingPrice" class="form-control" name="packagingPrice" />
+                </div>
 
-            <div class="form-group col-12">
-                <label for="txtPackagingPrice" class="label-control">سعر الخيش</label>
+                <div class="form-group col-12">
+                    <label for="txtLandShippingPrice" class="label-control" style="@rightSideLabels">سعر شحن الكيلو بري</label>
 
-                <input type="text" value="@Model.PackagingPrice" id="txtPackagingPrice" class="form-control" name="packagingPrice" />
+                    <input type="text" value="@Model.LandShippingPerKiloPrice" class="form-control" id="txtShippingPrice" name="landShippingPrice" />
+                </div>
+
+                <div class="form-group col-12">
+                    <label for="txtNauticalShippingPrice" class="label-control" style="@rightSideLabels">سعر شحن الكيلو بحري</label>
+
+                    <input type="text" value="@Model.NauticalShippingPerKiloPrice" class="form-control" id="txtShippingPrice" name="nauticalShippingPrice" />
+                </div>
+
+                <div class="form-group col-12">
+                    <label for="txtAirShippingPrice" class="label-control" style="@rightSideLabels">سعر شحن الكيلو جوي</label>
+
+                    <input type="text" value="@Model.AirShippingPerKiloPrice" class="form-control" id="txtShippingPrice" name="airShippingPrice" />
+                </div>
             </div>
+            <div class="col-6">
+                <h3 class="text-right">نسب التحويل من القائم الى الصافي :</h3><br />
 
-            <div class="form-group col-12">
-                <label for="txtLandShippingPrice" class="label-control">سعر شحن الكيلو بري</label>
+                <div class="form-group col-12">
+                    <label for="txtWeightToNetPortion" class="label-control" style="@rightSideLabels">النسبة</label>
 
-                <input type="text" value="@Model.LandShippingPerKiloPrice" class="form-control" id="txtShippingPrice" name="landShippingPrice" />
+                    <input type="text" value="@Model.WeightToNetPortion" class="form-control" id="txtWeightToNetPortion" name="weightToNetPortion" />
+                </div>
+
+                <div class="form-group col-12">
+                    <label for="txtWeightToNetKilo" class="label-control" style="@rightSideLabels">الكيلو</label>
+
+                    <input type="text" value="@Model.WeightToNetKilo" class="form-control" id="txtWeightToNetKilo" name="weightToNetKilo" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" style="@rightSideLabels" value="حفظ التغيرات" />
+                </div>
             </div>
-
-            <div class="form-group col-12">
-                <label for="txtNauticalShippingPrice" class="label-control">سعر شحن الكيلو بحري</label>
-
-                <input type="text" value="@Model.NauticalShippingPerKiloPrice" class="form-control" id="txtShippingPrice" name="nauticalShippingPrice" />
-            </div>
-
-            <div class="form-group col-12">
-                <label for="txtAirShippingPrice" class="label-control">سعر شحن الكيلو جوي</label>
-
-                <input type="text" value="@Model.AirShippingPerKiloPrice" class="form-control" id="txtShippingPrice" name="airShippingPrice" />
-            </div>
-
-            <div class="form-group">
-                <input type="submit" class="btn btn-success" value="حفظ التغيرات" />
-            </div>
-        </form>
-    </div>
-
+        </div>
+    </form>
 </div>
 

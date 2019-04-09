@@ -9,10 +9,10 @@
     <link href="~/Content/plugins/nvd3/build/nv.d3.min.css" rel="stylesheet" type="text/css" />
 }
 
-<div class="card-box">
+<div class="card-box text-center">
     <h2>إحصائيات الرحلة رقم 2</h2>
 
-    <div class="row">
+    <div class="row" dir="rtl">
         <div class="col-6">
             <h3>نسبة الأصناف</h3>
             <div id="chart1">
@@ -60,7 +60,7 @@
             return chart;
         });
 
-        // Function to get the data for categories 
+        // Function to get the data for categories
         function exampleData() {
             return [
                 @for (int i = 0; i < Model.StatsticItemsCategories.Count; i++)
@@ -112,7 +112,7 @@
             return chart;
         });
 
-        // Function to get the data for customers 
+        // Function to get the data for customers
         function exampleDataCustomers() {
             return [
                 @for (int i = 0; i < Model.StatsticItemsCustomers.Count; i++)
@@ -159,7 +159,7 @@
             return chart;
         });
 
-        // Function to get the data for customers 
+        // Function to get the data for customers
         function exampleDataSenders() {
             return [
                 @for (int i = 0; i < Model.StatsticItemsSenders.Count; i++)

@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    <table class="table table-striped" id="groupingGroupsTable">
+    <table class="table table-striped" id="groupingGroupsTable" dir="rtl">
         <thead>
             <tr>
                 <th>
@@ -52,7 +52,7 @@
                 string price = "price" + item.GroupingGroupId;
                 string trId = "tr" + item.GroupingGroupId;
                 <tr id="@trId">
-                   
+
                     <td id="@rowId">@item.Name</td>
                     <td id="@unit">@item.Unit.Name</td>
                     <td>
@@ -82,21 +82,21 @@
                     <form action="#" id="insertForm">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">اسم المجموعة</label>
-                                    <input type="text" class="form-control" required parsley-trigger="change" id="txtAddGroupingGroupName" placeholder="ألبسة داخلية">
+                                    <input type="text" class="form-control" required parsley-trigger="change" style="margin-left:5px;" id="txtAddGroupingGroupName" placeholder="ألبسة داخلية">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">السعر بالليرة</label>
                                     <input type="number" class="form-control" required parsley-trigger="change" id="txtAddGroupingGroupPrice" placeholder="0">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">الوحدة</label>
                                     <select id="cmbAddGroupingGroupUnit" class="form-control" required parsley-trigger="change">
                                         <option value="">اختر الوحدة</option>
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                            <button type="button" class="btn btn-secondary waves-effect" style="margin-left:5px;" data-dismiss="modal">إغلاق</button>
                             <button type="submit" id="btnAddGroupingGroup" class="btn btn-info waves-effect waves-light">إضافة</button>
                         </div>
                     </form>
@@ -129,21 +129,21 @@
                     <form action="#" id="editForm">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">اسم المجموعة</label>
-                                    <input type="text" class="form-control" required parsley-trigger="change" id="txtEditGroupingGroupName" placeholder="ألبسة داخلية">
+                                    <input type="text" class="form-control" required parsley-trigger="change" style="margin-left:5px;" id="txtEditGroupingGroupName" placeholder="ألبسة داخلية">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">السعر بالليرة</label>
                                     <input type="number" class="form-control" required parsley-trigger="change" id="txtEditGroupingGroupPrice" placeholder="0">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">الوحدة</label>
                                     <select id="cmbEditGroupingGroupUnit" class="form-control" required parsley-trigger="change">
                                         @foreach (var item in Model.Units)
@@ -156,7 +156,7 @@
                             <input type="hidden" id="editGroupingGroupId" />
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                            <button type="button" class="btn btn-secondary waves-effect" style="margin-left:5px;" data-dismiss="modal">إغلاق</button>
                             <button type="submit" id="btnEditGroupingGroup" class="btn btn-info waves-effect waves-light">حفظ التغيرات</button>
                         </div>
                     </form>
@@ -165,7 +165,7 @@
         </div>
     </div><!-- /.modal -->
     <!-- Delete  Modal -->
-    <div id="con-close-modal-delete" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="con-close-modal-delete" class="modal fade" display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -180,7 +180,7 @@
                         <input type="hidden" id="deleteGroupingGroupId" />
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                        <button type="button" class="btn btn-secondary waves-effect" style="margin-left:5px;" data-dismiss="modal">إغلاق</button>
                         <button type="submit" id="btnDeleteGroupingGroup" class="btn btn-danger waves-effect waves-light">حذف</button>
                     </div>
                 </div>
@@ -301,7 +301,7 @@
                         $("#con-close-modal").modal('toggle');
 
                         // Add the destination to the table
-                        table.row.add([data.name, data.unit, data.price, 
+                        table.row.add([data.name, data.unit, data.price,
                         "<a href='#' class='on-default edit-row editGroupingGroup' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit'><i class='fa fa-pencil'></i></a> <a href='#' class='on-default remove-row removeGroupingGroup' data-id='" + data.id + "' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='fa fa-trash-o'></i></a>"]).draw(false);
                         //$("#tableBody").append("<tr><td>" + data.name + "</td><td></td></tr>")
 
@@ -373,7 +373,7 @@
                     showErrorNotification('فشل', 'يرجى إدخال معلومات صحيحة');
                 }
                 else if (e.status == 409)
-                    showErrorNotification('فشل', 'يوجد هنالك مجموعة تجميع أخرى تحمل نفس الاسم'); 
+                    showErrorNotification('فشل', 'يوجد هنالك مجموعة تجميع أخرى تحمل نفس الاسم');
                 else {
                     showErrorNotification('فشل', 'يوجد هنالك خطأ ما, يرجى إعادة المحاولة لاحقاً');
                 }
@@ -394,7 +394,7 @@
             $("#con-close-modal-delete").modal('toggle');
         }
 
-        // Function to remove the Grouping Group 
+        // Function to remove the Grouping Group
         function removeGroupingGroup(id) {
             // Get the table to manpulaite
             var table = $("#groupingGroupsTable").dataTable();

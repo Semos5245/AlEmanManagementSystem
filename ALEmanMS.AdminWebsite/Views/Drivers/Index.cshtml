@@ -24,7 +24,7 @@
     </p>
 
     @Html.Hidden("item-to-delete", "", new { @id = "item-to-delete" })
-    <table class="table table-bordered table-hover" id="driversTable">
+    <table class="table table-bordered table-hover" id="driversTable" dir="rtl">
         <thead>
             <tr>
                 <th>
@@ -35,9 +35,6 @@
                 </th>
                 <th>
                     رقم الآلية
-                </th>
-                <th>
-                    جوال
                 </th>
                 <th>
                     إجراءات
@@ -58,9 +55,6 @@
                     </td>
                     <td>
                         @item.VehicleNumber
-                    </td>
-                    <td>
-                        @item.Phone1
                     </td>
                     <td>
                         <a href="@Url.Action("Edit","Drivers",new { @id = item.PersonId})"><i class="fa fa-edit"></i></a>
@@ -84,14 +78,13 @@
                     <p>هل أنت متأكد من حذف هذا السائق؟</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                    <button type="button" class="btn btn-secondary waves-effect" style="margin-left:5px;" data-dismiss="modal">إغلاق</button>
                     <button type="button" id="btnDelete" class="btn btn-danger waves-effect waves-light">حذف</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 </div>
-
 @section Scripts
 {
     <!-- Required datatable js -->

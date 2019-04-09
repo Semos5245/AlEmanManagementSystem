@@ -577,3 +577,16 @@ E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.AdminWebsite\bin\Cryst
 E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
 E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
 E:\AK combany\Projects 2019\AlEmanSystem\Project\ALEmanMS.AdminWebsite\bin\stdole.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+D:\Projects\OurCompany\AlEmanManagementSystem\ALEmanMS.AdminWebsite\bin\stdole.dll

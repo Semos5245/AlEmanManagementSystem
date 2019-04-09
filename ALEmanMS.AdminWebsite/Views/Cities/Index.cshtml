@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <table class="table table-striped" id="citiesTable">
+    <table class="table table-striped" id="citiesTable" dir="rtl">
         <thead>
             <tr>
                 <th>
@@ -49,21 +49,21 @@
                 string rowId = "row" + item.CityId;
                 string destinationId = "destination" + item.CityId;
                 string cityOrderId = "cityOrder" + item.CityId;
-                string trId = "tr" + item.CityId; 
-            <tr id="@trId">
-                @{
+                string trId = "tr" + item.CityId;
+                <tr id="@trId">
+                    @{
 
-                }
-                <td id="@destinationId">@item.Destination.Name</td>
-                <td id="@cityOrderId">@item.CityOrder</td>
-                <td>
-                    <span id="@rowId">@item.Name</span>
-                </td>
-                <td class="actions">
-                    <a href="#" class="on-default edit-row editCity" data-id="@item.CityId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                    <a href="#" class="on-default remove-row removeCity" data-id="@item.CityId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                </td>
-            </tr>
+                    }
+                    <td id="@destinationId">@item.Destination.Name</td>
+                    <td id="@cityOrderId">@item.CityOrder</td>
+                    <td>
+                        <span id="@rowId">@item.Name</span>
+                    </td>
+                    <td class="actions">
+                        <a href="#" class="on-default edit-row editCity" data-id="@item.CityId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                        <a href="#" class="on-default remove-row removeCity" data-id="@item.CityId" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -83,21 +83,21 @@
                     <form action="#" id="insertForm">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">اسم المدينة</label>
                                     <input type="text" class="form-control" required parsley-trigger="change" id="txtAddCity" placeholder="دبي">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">ترتيب المدينة</label>
-                                    <input type="number" class="form-control" required parsley-trigger="change" id="txtAddCityOrder" placeholder="0">
+                                    <input type="number" class="form-control" required parsley-trigger="change" style="margin-right:5px" id="txtAddCityOrder" placeholder="0">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">الوجهة</label>
                                     <select id="cmbAddCityDestination" class="form-control destinationsPage" required parsley-trigger="change">
                                         <option value="">اختر الوجهة</option>
@@ -110,7 +110,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                            <button type="button" class="btn btn-secondary waves-effect" style="margin-left:5px;" data-dismiss="modal">إغلاق</button>
                             <button type="submit" id="btnAddCity" class="btn btn-info waves-effect waves-light">إضافة</button>
                         </div>
                     </form>
@@ -130,24 +130,24 @@
                     <form action="#" id="editForm">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">اسم المدينة</label>
-                                    <input type="text" class="form-control" required parsley-trigger="change" id="txtEditCityName" placeholder="دبي">
+                                    <input type="text" class="form-control" required parsley-trigger="change" style="margin-left:5px;" id="txtEditCityName" placeholder="دبي">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" dir="rtl">
                                     <label for="field-1" class="control-label">ترتيب المدينة</label>
                                     <input type="number" class="form-control" required parsley-trigger="change" id="txtEditCityOrder" placeholder="0">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group row" style="rtl">
                                     <label for="field-1" class="control-label">الوجهة</label>
                                     <select id="cmbEditCityDestination" class="form-control destinationsPage" required parsley-trigger="change">
-                                     
+
                                         @foreach (var item in Model.Destinations)
                                         {
                                             <option value="@item.DestinationId">@item.Name</option>
@@ -155,7 +155,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <input type="hidden" id="editCityId"/>
+                            <input type="hidden" id="editCityId" />
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
@@ -166,7 +166,6 @@
             </div>
         </div>
     </div><!-- /.modal -->
-    
     <!-- Delete  Modal -->
     <div id="con-close-modal-delete" class="modal fade" style="direction:rtl; display: none;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -183,7 +182,7 @@
                         <input type="hidden" id="deleteCityId" />
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">إغلاق</button>
+                        <button type="button" class="btn btn-secondary waves-effect" style="margin-left:5px;" data-dismiss="modal">إغلاق</button>
                         <button type="submit" id="btnDeleteCity" class="btn btn-danger waves-effect waves-light">حذف</button>
                     </div>
                 </div>
@@ -246,7 +245,7 @@
             $(".editCity").click(function () {
                 // Get the id from the button
                 var id = $(this).data("id");
-                
+
                 openEditModal(id);
             });
 
@@ -258,8 +257,8 @@
                 // Get the id
                 var id = $("#editCityId").val();
                 var newName = $("#txtEditCityName").val();
-                var cityOrder = $("#txtEditCityOrder").val(); 
-                var destinationId = $("#cmbEditCityDestination").val(); 
+                var cityOrder = $("#txtEditCityOrder").val();
+                var destinationId = $("#cmbEditCityDestination").val();
 
                 // Send the reqeuest
                 editCity(id, newName, cityOrder, destinationId);
@@ -281,17 +280,17 @@
                 // Delete
                 removeCity(id);
             });
-            
+
         });
 
          // Insert a new City
             function insertCity() {
                 var table = $("#citiesTable").DataTable();
 
-                // Get the data 
+                // Get the data
                 var cityName = $("#txtAddCity").val();
-                var cityOrder = $("#txtAddCityOrder").val(); 
-                var destinationId = $("#cmbAddCityDestination").val(); 
+                var cityOrder = $("#txtAddCityOrder").val();
+                var destinationId = $("#cmbAddCityDestination").val();
 
                 var url = "@Url.Action("Create", "Cities")";
 
@@ -338,8 +337,8 @@
                     // Set the text of the modal to name
                     $("#txtEditCityName").val(data.Name);
                     $("#editCityId").val(data.CityId);
-                    $("#txtEditCityOrder").val(data.CityOrder); 
-                    $("#cmbEditCityDestination").val(data.DestinationId); 
+                    $("#txtEditCityOrder").val(data.CityOrder);
+                    $("#cmbEditCityDestination").val(data.DestinationId);
                     // Open the modal
                     $("#con-close-modal-edit").modal("toggle");
                 }
@@ -370,8 +369,8 @@
 
                     // Update the value in the table
                     $("#row" + id).text(newName);
-                    $("#destination" + id).text(data.Destination); 
-                    $("#cityOrder" + id).text(data.CityOrder); 
+                    $("#destination" + id).text(data.Destination);
+                    $("#cityOrder" + id).text(data.CityOrder);
                     // Show notification
                     showSuccessNotification('لقد تمت العملية بنجاح', 'لقد تم تعديل المدينة');
                 }
@@ -381,7 +380,7 @@
                     showErrorNotification('فشل', 'يرجى إدخال معلومات صحيحة');
                 }
                 else {
-                    showErrorNotification('فشل', 'يوجد هنالك خطأ ما, يرجى إعادة المحاولة لاحقاً'); 
+                    showErrorNotification('فشل', 'يوجد هنالك خطأ ما, يرجى إعادة المحاولة لاحقاً');
                 }
             });
         }
